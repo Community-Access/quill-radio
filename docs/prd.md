@@ -28,7 +28,7 @@ In scope (all reused from upstream):
 Out of scope, by decision (D-1, "basic level of functionality"):
 
 - QUILL's editor, AI assistants, transcription (whisper.cpp / Faster Whisper / Vosk), braille, neural TTS voice stacks (Kokoro/Piper), Pandoc conversions, Quillins. The installer excludes their payloads outright; the features QUILL fetches on demand are simply never requested by this app.
-- A custom update engine. Check for Updates opens the release page; installing is the user's click.
+- QUILL's update extras (signed manifest feed, portable zip swaps, version skipping). Check for Updates downloads the installer in-app and offers Install now; the rest stays in QUILL.
 
 ## 4. Accessibility requirements
 
@@ -47,7 +47,7 @@ Out of scope, by decision (D-1, "basic level of functionality"):
 
 ## 6. Update requirements
 
-- U-1. Help > Check for Updates queries this repository's GitHub releases (newest stable vs running version) and offers the download page. No background checks in 1.0.
+- U-1. Help > Check for Updates queries this repository's GitHub releases (newest stable vs running version), downloads the installer in-app with spoken 25/50/75 percent milestones, and offers Install now / Open folder. No background checks in 1.0.
 - U-2. Release artifacts are named `Quill-Radio-Setup-<version>.exe` and tagged `v<version>` so the check can compare.
 
 ## 7. Non-goals

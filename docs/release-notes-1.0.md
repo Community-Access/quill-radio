@@ -10,7 +10,7 @@ The radio, on its own. Quill Radio takes the internet radio QUILL users already 
 - **A tray citizen.** Close to the notification area and keep listening; play, pause, and switch stations from the tray menu.
 - **Spoken feedback everywhere.** Every action announces its outcome through your screen reader -- JAWS, NVDA, or Narrator -- without stealing focus.
 - **One data store.** Favorites, settings, and recordings are shared with QUILL and QUILL Cast. Favorite a station here, see it there.
-- **Check for Updates, built in.** The update check compares your version against this repository's releases and offers the download page.
+- **Check for Updates, built in.** The update check compares your version against this repository's releases, downloads the installer in-app with spoken progress, and offers Install now.
 
 ## What Quill Radio deliberately is not
 
@@ -22,4 +22,4 @@ Windows 10 or 11, x64 (or ARM64 under emulation). No Python installation require
 
 ## Known limitations
 
-- Check for Updates opens the release page rather than updating in place.
+- Global hotkeys for transport are configured from full QUILL (Tools > Global Hotkeys...), not from this app, in 1.0.

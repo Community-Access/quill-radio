@@ -17,7 +17,7 @@ Deliberately not included: QUILL's editor, AI, transcription, braille, and speec
 
 ## Install
 
-Download `Quill-Radio-Setup-<version>.exe` from this repository's Releases page and run it. No Python required; the installer bundles the runtime. It installs to its own directory and never touches an existing QUILL install.
+Download `Quill-Radio-Setup-<version>.exe` from this repository's Releases page and run it. Everything is bundled -- the app is a single PyInstaller executable, ffmpeg ships alongside it for recording, and the installer performs no downloads. It installs to its own directory and never touches an existing QUILL install.
 
 ## Run from source
 
@@ -26,17 +26,22 @@ pip install .
 quill-radio
 # or, with the quill package already installed:
 python -m quill.apps.radio
+# or, for quick dev testing against a local QUILL checkout:
+.\run-quill-radio.bat
 ```
 
-## Build the installer
+## Build
 
 ```powershell
-# Requires a QUILL checkout that has produced its Windows portable bundle,
-# and Inno Setup 6.3+ (ISCC.exe).
-.\scripts\build_installer.ps1 -QuillRepo S:\QUILL
+# One-file exe (needs an environment with the quill package + pyinstaller):
+.\scripts\build_exe.ps1
+
+# Installer (builds the exe first; needs Inno Setup 6.3+ and an ffmpeg.exe
+# to bundle -- everything ships in the installer, nothing is downloaded):
+.\scripts\build_installer.ps1 -FfmpegDir C:\path\to\ffmpeg\bin
 ```
 
-See `installer/quill-radio.iss` for exactly what ships; the payload excludes every on-demand and speech/braille component QUILL fetches at point of use.
+The PyInstaller spec pulls the entire `quill` package -- code and data -- into the exe, and excludes only the stacks Radio never touches (transcription and neural TTS engines).
 
 ## Documentation
 

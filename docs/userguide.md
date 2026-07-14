@@ -45,7 +45,7 @@ Tab order: the now-playing line, the favorites list, then four buttons.
 
 - **Open in Quill** -- launch the full QUILL editor.
 - **Redeem Unlock Code...** -- enter a signed unlock code for a pre-release capability. Verified entirely on your machine; nothing is transmitted. A code redeemed here is redeemed for QUILL and QUILL Cast too -- all three share one unlock store.
-- **Check for Updates...** -- compares your version with the newest release of Quill Radio and offers to open the download page.
+- **Check for Updates...** -- compares your version with the newest release of Quill Radio, downloads the installer in-app with spoken progress, then offers Install now (closes the app and runs the installer) or Open folder.
 - **About Quill Radio** -- version, sync statement, and the project address.
 
 ## The system tray
