@@ -2,6 +2,11 @@
 
 The radio, on its own -- and finished. Quill Radio takes the internet radio QUILL users already know, gives it a window, a menu bar, a tray icon, and its own icon, and then goes further than the embedded radio ever has. Everything below also landed in QUILL itself: the two share one codebase and one data store, so features arrive everywhere at once.
 
+## What's new in 1.0.2
+
+- **Automatic Check for Updates.** Quill Radio quietly checks for a newer version once a day when it launches -- silent unless a real update is found, at which point you get the same "download it now?" prompt Help > Check for Updates always gave you. Throttled so it never hits the network on every single launch.
+- **Preferences...** (Ctrl+,) is a new, small dialog gathering the app's startup behavior in one place: Resume Last Station on Launch and the new automatic update check, each its own checkbox. Turning either off takes effect immediately.
+
 ## Highlights
 
 - **Your folders, on the front page.** The main window is your favorites tree -- the same nested folders you build in the manager, with a full context menu (Play/Stop, Rename, Move to Folder, Remove, New Folder) one Shift+F10 away. Create folders exactly where you want them with **New Folder** (Ctrl+Shift+E); they exist immediately, stations or not. An **Add to Favorites** button keeps whatever is playing, and flips to Remove when it's already saved.

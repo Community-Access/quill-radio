@@ -45,6 +45,7 @@ Tab order: the now-playing line, the favorites tree, then four buttons.
 - **Favorite Stations** (submenu) -- every favorite, nested by your folders, playable inline.
 - **ACB Media** (submenu) -- ACB's whole stream directory, playable inline.
 - **Resume Last Station on Launch** (check item) -- the appliance switch.
+- **Preferences...** (Ctrl+,) -- Resume Last Station on Launch and automatic Check for Updates, both in one small dialog. Either checkbox takes effect the moment you save.
 - **Send to Tray** (Ctrl+W) -- hide the window; playback continues from the notification area.
 - **Exit** -- quit Quill Radio.
 
@@ -70,7 +71,7 @@ Tab order: the now-playing line, the favorites tree, then four buttons.
 
 - **Command Palette...** (Ctrl+Shift+P) -- every Quill Radio command in one searchable list.
 - **Redeem Unlock Code...** -- enter a signed code for a pre-release capability. Verified entirely on your machine; nothing is transmitted; one code counts for QUILL, Quill Radio, and QUILL Cast together.
-- **Check for Updates...** -- compares your version with the newest release, downloads the right artifact for your flavor directly (the installer for an installed copy, the portable zip for a portable one) with spoken progress, then offers Install now or Open folder.
+- **Check for Updates...** -- compares your version with the newest release, downloads the right artifact for your flavor directly (the installer for an installed copy, the portable zip for a portable one) with spoken progress, then offers Install now or Open folder. Quill Radio also runs this check quietly once a day when it launches -- silent unless it actually finds something, and Station > Preferences (Ctrl+,) turns it off if you'd rather check manually only.
 - **Get FFmpeg...** -- a safety net: FFmpeg ships inside Quill Radio, but if it ever goes missing this downloads the official build so recording works again.
 - **Report a Bug...** -- files an issue directly from the app (no GitHub account needed), stamped "Quill Radio" with this app's own version so we know exactly what you were running; falls back to the online support form if anything goes wrong.
 - **About Quill Radio** -- version, sync statement, project address.
@@ -124,6 +125,7 @@ Quill Radio reads and writes the same data store as QUILL and QUILL Cast (`%APPD
 | Volume up / down | Ctrl+Up / Ctrl+Down |
 | What's Playing? | Ctrl+T |
 | Send to tray | Ctrl+W |
+| Preferences | Ctrl+, |
 | New Folder | Ctrl+Shift+E |
 | Command Palette | Ctrl+Shift+P |
 | Play selected favorite | Enter (in the list) |

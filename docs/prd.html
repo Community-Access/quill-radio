@@ -287,13 +287,15 @@ tray menu; Delete/F2/Enter conventions consistent across lists.</li>
 </ul>
 <h2 id="5-packaging-requirements">5. Packaging requirements</h2>
 <ul>
-<li>P-1. PyInstaller one-file exe with the app's own icon; Inno Setup
+<li>P-1. PyInstaller onedir build with the app's own icon; Inno Setup
 installer with its own AppId installing to {autopf}\Quill Radio,
 per-user by default.</li>
 <li>P-2. Everything bundled, nothing downloaded at install or runtime:
-the exe carries the whole quill package and data; ffmpeg (essentials
-build) installs to {app}\tools\ffmpeg, found via the wrapper exporting
-QUILL_APP_ROOT.</li>
+the onedir build carries the whole quill package and data; ffmpeg
+installs to {app}\tools\ffmpeg, found via the wrapper exporting
+QUILL_APP_ROOT. A portable zip ships the same onedir build plus a
+<code>data\</code> folder that switches storage to travel with the
+app.</li>
 <li>P-3. Uninstall never deletes <code>%APPDATA%\Quill</code> -- QUILL
 or QUILL Cast may still use it.</li>
 <li>P-4. Release artifacts:

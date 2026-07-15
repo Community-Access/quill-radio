@@ -52,8 +52,8 @@ Out of scope by decision: QUILL's editor, AI, speech transcription, braille, and
 
 ## 5. Packaging requirements
 
-- P-1. PyInstaller one-file exe with the app's own icon; Inno Setup installer with its own AppId installing to {autopf}\Quill Radio, per-user by default.
-- P-2. Everything bundled, nothing downloaded at install or runtime: the exe carries the whole quill package and data; ffmpeg (essentials build) installs to {app}\tools\ffmpeg, found via the wrapper exporting QUILL_APP_ROOT.
+- P-1. PyInstaller onedir build with the app's own icon; Inno Setup installer with its own AppId installing to {autopf}\Quill Radio, per-user by default.
+- P-2. Everything bundled, nothing downloaded at install or runtime: the onedir build carries the whole quill package and data; ffmpeg installs to {app}\tools\ffmpeg, found via the wrapper exporting QUILL_APP_ROOT. A portable zip ships the same onedir build plus a `data\` folder that switches storage to travel with the app.
 - P-3. Uninstall never deletes `%APPDATA%\Quill` -- QUILL or QUILL Cast may still use it.
 - P-4. Release artifacts: `Quill-Radio-Setup-<version>.exe`, tagged `v<version>`, which Help > Check for Updates compares against and downloads.
 
