@@ -1,27 +1,34 @@
 # Quill Radio 1.0 -- Release Notes
 
-The radio, on its own. Quill Radio takes the internet radio QUILL users already know and gives it a window, a menu bar, and a tray icon of its own -- for the days you want the music without the manuscript.
+The radio, on its own -- and finished. Quill Radio takes the internet radio QUILL users already know, gives it a window, a menu bar, a tray icon, and its own icon, and then goes further than the embedded radio ever has. Everything below also landed in QUILL itself: the two share one codebase and one data store, so features arrive everywhere at once.
 
 ## Highlights
 
-- **Favorites first.** The app opens with your favorite stations focused; Enter plays. One transport button and one transport menu item -- Play becomes Stop while playing. No ribbon, no dashboard, no hunting.
-- **The full station browser.** Search by name, genre, country, or language across the same live directory QUILL uses; add custom stream URLs; point the stream finder at a website and let it dig the audio out (with a Test button that toggles to Stop while it plays).
-- **ACB Media, one menu away.** The whole ACB stream directory sits on the Station menu, playable inline.
-- **Transport hotkeys.** Play/Stop Ctrl+P, Mute Ctrl+M, volume Ctrl+Up/Ctrl+Down, Send to Tray Ctrl+W -- all in the app's own menus, kept separate from QUILL's keymap.
-- **Recording, live and scheduled.** Record what is playing right now, or schedule a show for later -- the same recorder and scheduler QUILL ships.
-- **A tray citizen.** Close to the notification area and keep listening; play, pause, and switch stations from the tray menu.
-- **Spoken feedback everywhere.** Every action announces its outcome through your screen reader -- JAWS, NVDA, or Narrator -- without stealing focus.
-- **One data store.** Favorites, settings, and recordings are shared with QUILL and QUILL Cast. Favorite a station here, see it there.
-- **Check for Updates, built in.** The update check compares your version against this repository's releases, downloads the installer in-app with spoken progress, and offers Install now.
+- **Favorites first, radio as an appliance.** The app opens with your favorites focused; Enter plays. **Play Last Station** (Ctrl+L) resumes whatever you had on, and **Resume Last Station on Launch** makes launching the app all you ever do. A **Recently Played** menu keeps your last fifteen stations one keystroke deep.
+- **A real Favorites Manager.** Folders of any depth (News/Morning style), live search across names, countries, tags, and folders, Move Up/Down, and Mark-and-Move for long hops. Rename any station to what *you* call it; rename folders with F2; deleting a folder walks its stations safely back to the top level -- never out of your collection.
+- **What's Playing.** Ctrl+T speaks the current track or show title straight from the stream's metadata; an optional check item announces titles as they change.
+- **Recording, grown up.** Record what you're hearing, record a *different* station while you listen to something else, or schedule shows once, daily, or weekly. The new **Recordings** list shows everything -- recording now (size growing live), recorded, and scheduled -- with Play, Stop, Open in Folder, and Remove. And recordings now **survive dropped connections**: ffmpeg rides out short gaps, and a true drop resumes into a numbered part file, with attempts and spacing yours to tune.
+- **Wake up with the radio.** The sleep timer got its twin: pick a favorite, a time, once or every day. (The app must be running -- the tray counts.)
+- **Never double-plays.** Starting any stream silences whatever else was playing, radio or podcast, in every app.
+- **Per-station volume memory.** Every favorite remembers the volume you gave it.
+- **Hardware media keys** control the app system-wide, even from the tray.
+- **The Command Palette** (Ctrl+Shift+P), scoped to exactly this app's commands.
+- **One data store.** Favorites (folders, names, volumes), history, recordings, timers, settings -- shared with QUILL and QUILL Cast. Set it up once, have it everywhere.
+- **Everything bundled.** One installer, ffmpeg included, its own app icon, no downloads ever. In-app **Check for Updates** downloads the next version with spoken progress and offers Install now.
+- **Spoken feedback everywhere**, through JAWS, NVDA, or Narrator, without stealing focus.
 
 ## What Quill Radio deliberately is not
 
-It is not QUILL minus some menus -- it is the radio, period.
+It is not QUILL minus some menus -- it is the radio, period. The editor, AI, transcription, braille, and speech-synthesis stacks are not installed at all.
+
+## Not a fork -- a guarantee
+
+Quill Radio runs the exact same radio feature code as QUILL, from the same upstream package. Fixes land once and reach QUILL, Quill Radio, and QUILL Cast together. This repository carries only the wrapper, the installer, the icon, and these docs.
+
+## Dependencies
+
+Playback uses Windows' built-in media engine; recording uses the bundled ffmpeg; station search uses the community RadioBrowser directory; the ACB Media directory is bundled. Every network call the app can make is inventoried in QUILL's public network-egress audit.
 
 ## Requirements
 
 Windows 10 or 11, x64 (or ARM64 under emulation). No Python installation required.
-
-## Known limitations
-
-- Global hotkeys for transport are configured from full QUILL (Tools > Global Hotkeys...), not from this app, in 1.0.
