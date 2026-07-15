@@ -30,6 +30,7 @@ Tab order: the now-playing line, the favorites list, then three buttons.
 - **Add Custom Station...** -- paste any stream URL and name it yourself.
 - **Find Streams from a Website...** -- give it a website address; it scans that one page for stream links, with a Test button that toggles to Stop Test while a candidate plays.
 - **Manage Favorites...** -- the favorites, made organizable. See "The Favorites Manager" below.
+- **New Folder...** (Ctrl+Shift+E) -- create a folder right where you want it: pick the location (top level or inside any existing folder), then name it. The folder exists immediately, ready for Move to Folder.
 - **Play Last Station** (Ctrl+L) -- resume whatever you last had on, one keystroke, no navigation.
 - **Recently Played** (submenu) -- your last fifteen stations, newest first, playable inline.
 - **Favorite Stations** (submenu) -- every favorite, nested by your folders, playable inline.
@@ -60,7 +61,8 @@ Tab order: the now-playing line, the favorites list, then three buttons.
 
 - **Command Palette...** (Ctrl+Shift+P) -- every Quill Radio command in one searchable list.
 - **Redeem Unlock Code...** -- enter a signed code for a pre-release capability. Verified entirely on your machine; nothing is transmitted; one code counts for QUILL, Quill Radio, and QUILL Cast together.
-- **Check for Updates...** -- compares your version with the newest release, downloads the installer in-app with spoken progress, then offers Install now or Open folder.
+- **Check for Updates...** -- compares your version with the newest release, downloads the right artifact for your flavor directly (the installer for an installed copy, the portable zip for a portable one) with spoken progress, then offers Install now or Open folder.
+- **Get FFmpeg...** -- a safety net: FFmpeg ships inside Quill Radio, but if it ever goes missing this downloads the official build so recording works again.
 - **About Quill Radio** -- version, sync statement, project address.
 
 ## The Favorites Manager
@@ -112,6 +114,7 @@ Quill Radio reads and writes the same data store as QUILL and QUILL Cast (`%APPD
 | Volume up / down | Ctrl+Up / Ctrl+Down |
 | What's Playing? | Ctrl+T |
 | Send to tray | Ctrl+W |
+| New Folder | Ctrl+Shift+E |
 | Command Palette | Ctrl+Shift+P |
 | Play selected favorite | Enter (in the list) |
 | Rename (manager) | F2 |

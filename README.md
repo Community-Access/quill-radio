@@ -17,7 +17,12 @@ Deliberately not included: QUILL's editor, AI, transcription, braille, and speec
 
 ## Install
 
-Download `Quill-Radio-Setup-<version>.exe` from this repository's Releases page and run it. Everything is bundled -- the app is a single PyInstaller executable, ffmpeg ships alongside it for recording, and the installer performs no downloads. It installs to its own directory and never touches an existing QUILL install.
+Two flavors, both on this repository's Releases page, both fully bundled (ffmpeg included, no downloads ever):
+
+- **`Quill-Radio-Setup-<version>.exe`** -- the system install: its own directory, Start Menu entry, uninstaller. Uses the shared Quill data in your Windows profile.
+- **`Quill-Radio-Portable-<version>.zip`** -- extract anywhere (a USB stick included) and run `QuillRadio\QuillRadio.exe`. The bundled `data` folder keeps your favorites, history, and settings inside the app folder, so the whole thing travels -- exactly like QUILL portable.
+
+Help > Check for Updates knows which flavor you run and downloads the matching artifact directly.
 
 ## Run from source
 
@@ -30,18 +35,17 @@ python -m quill.apps.radio
 .\run-quill-radio.bat
 ```
 
-## Build
+## Build a release
 
 ```powershell
-# One-file exe (needs an environment with the quill package + pyinstaller):
-.\scripts\build_exe.ps1
-
-# Installer (builds the exe first; needs Inno Setup 6.3+ and an ffmpeg.exe
-# to bundle -- everything ships in the installer, nothing is downloaded):
-.\scripts\build_installer.ps1 -FfmpegDir C:\path\to\ffmpeg\bin
+# One command, three artifacts (staged onedir folder, portable zip, installer).
+# Needs: the quill package + pyinstaller in the Python env, Inno Setup 6.3+,
+# an ffmpeg.exe to bundle, and the issues-only feedback token file (the build
+# FAILS without it rather than shipping a broken Report a Bug).
+.\scripts\build_release.ps1 -TokenFile S:\token.txt -FfmpegDir C:\path\to\ffmpeg\bin
 ```
 
-The PyInstaller spec pulls the entire `quill` package -- code and data -- into the exe, and excludes only the stacks Radio never touches (transcription and neural TTS engines).
+The PyInstaller spec is onedir on purpose: instant startup (no per-launch temp extraction), and one built folder feeds both the portable zip and the installer. It pulls the entire `quill` package -- code and data -- and excludes only the stacks Radio never touches (transcription and neural TTS engines).
 
 ## Documentation
 

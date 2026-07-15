@@ -1,9 +1,14 @@
-# PyInstaller spec for the one-file Quill Radio build.
-# Build with: pyinstaller quill-radio.spec  (see scripts/build_exe.ps1)
+# PyInstaller spec for the Quill Radio onedir build.
+# Build with: scripts/build_release.ps1 (stages ffmpeg/docs/data, zips the
+# portable, compiles the installer) or pyinstaller quill-radio.spec directly.
 #
-# collect_all("quill") brings the entire quill package -- code and package
-# data (schemas, sounds, bundled quillins, assets) -- so nothing the shared
-# feature code needs is missing from the frozen build. One file, windowed.
+# Onedir, not onefile, on purpose: one built folder feeds BOTH products --
+# zip it for the portable, point Inno Setup at it for the system install --
+# and the app starts instantly instead of re-extracting ~175 MB to a temp
+# folder on every launch. collect_all("quill") brings the entire quill
+# package -- code and package data (schemas, sounds, bundled quillins,
+# assets, and the build-time _feedback_token module) -- so nothing the
+# shared feature code needs is missing.
 
 from PyInstaller.utils.hooks import collect_all
 
@@ -35,11 +40,18 @@ pyz = PYZ(a.pure)
 exe = EXE(
     pyz,
     a.scripts,
-    a.binaries,
-    a.datas,
+    exclude_binaries=True,
     name="QuillRadio",
     icon="assets/quill-radio.ico",
     console=False,
     upx=False,
     disable_windowed_traceback=False,
+)
+
+coll = COLLECT(
+    exe,
+    a.binaries,
+    a.datas,
+    name="QuillRadio",
+    upx=False,
 )

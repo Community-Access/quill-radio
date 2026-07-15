@@ -1,10 +1,11 @@
-; Quill Radio installer -- ships the PyInstaller one-file build.
-; Compile with:  ISCC quill-radio.iss [/DFfmpegDir=<dir with ffmpeg.exe>]
-; Prerequisite:  ..\dist\QuillRadio.exe  (scripts\build_exe.ps1)
+; Quill Radio installer -- ships the staged onedir build.
+; Compile via scripts\build_release.ps1 (which stages ffmpeg/docs into
+; ..\dist\QuillRadio first), or directly:  ISCC quill-radio.iss
 ;
-; Everything the app needs is bundled -- no on-demand component downloads.
-; FfmpegDir supplies ffmpeg.exe/ffprobe.exe (recording, loudness/trim); they
-; install to {app}\tools\ffmpeg, which the app finds via QUILL_APP_ROOT.
+; Everything the app needs is bundled -- no downloads at install or runtime.
+; The staged folder deliberately contains NO data\ subfolder here: that
+; folder is the portable-mode switch (see the portable zip), and an
+; installed copy must keep using the shared %APPDATA%\Quill store.
 
 #define AppName "Quill Radio"
 #define AppVersion "1.0.0"
@@ -48,15 +49,14 @@ SetupLogging=yes
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
+[InstallDelete]
+; Upgrade hygiene: the onedir layout's _internal tree is wholly ours; wipe it
+; before [Files] re-lays it so renamed/removed modules never linger and cause
+; version-skew import errors on upgrade.
+Type: filesandordirs; Name: "{app}\_internal"
+
 [Files]
-Source: "..\dist\{#AppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-#ifdef FfmpegDir
-Source: "{#FfmpegDir}\ffmpeg.exe"; DestDir: "{app}\tools\ffmpeg"; Flags: ignoreversion
-Source: "{#FfmpegDir}\ffprobe.exe"; DestDir: "{app}\tools\ffmpeg"; Flags: ignoreversion skipifsourcedoesntexist
-#endif
-Source: "..\docs\userguide.md"; DestDir: "{app}\docs"; Flags: ignoreversion
-Source: "..\docs\release-notes-1.0.md"; DestDir: "{app}\docs"; Flags: ignoreversion
-Source: "..\README.md"; DestDir: "{app}"; DestName: "README-Quill-Radio.md"; Flags: ignoreversion
+Source: "..\dist\QuillRadio\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Excludes: "data\*"
 
 [Icons]
 Name: "{group}\{#AppName}"; Filename: "{app}\{#AppExeName}"; WorkingDir: "{app}"
@@ -69,6 +69,9 @@ Name: "desktopicon"; Description: "Create a &desktop icon"; GroupDescription: "A
 
 [Run]
 Filename: "{app}\{#AppExeName}"; Description: "Launch {#AppName}"; Flags: postinstall nowait skipifsilent unchecked
+
+[UninstallDelete]
+Type: filesandordirs; Name: "{app}\_internal"
 
 ; Deliberately NO data-wipe prompt on uninstall: Quill Radio shares its
 ; settings, favorites, and recordings store (%APPDATA%\Quill) with QUILL

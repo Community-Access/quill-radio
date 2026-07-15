@@ -13,19 +13,31 @@ from pathlib import Path
 
 
 def _export_app_root() -> None:
-    """Point QUILL_APP_ROOT at the install directory of the frozen build.
+    """Anchor the frozen build's environment before quill imports run.
 
-    ``quill.core.speech.ffmpeg.ffmpeg_search_dirs`` checks
-    ``{QUILL_APP_ROOT}/tools/ffmpeg`` first, which is exactly where the
-    installer places the bundled ffmpeg/ffprobe. Never overrides an
-    explicitly set environment.
+    Two jobs, mirroring QUILL's own launcher:
+
+    - Portable mode: the portable zip ships a ``data`` folder next to
+      QuillRadio.exe. When it's there, export QUILL_APP_ROOT and
+      QUILL_PORTABLE so the whole shared data store (favorites, history,
+      recordings settings, timers) lives on the stick, exactly like QUILL
+      portable. The installed copy ships no ``data`` folder, so it keeps
+      using %APPDATA%\\Quill.
+    - ffmpeg: ``quill.core.speech.ffmpeg.ffmpeg_search_dirs`` checks
+      ``{QUILL_APP_ROOT}/tools/ffmpeg`` first, which is exactly where both
+      the installer and the portable zip place the bundled ffmpeg/ffprobe.
+
+    Never overrides an explicitly set environment.
     """
-    if os.environ.get("QUILL_APP_ROOT"):
+    if os.environ.get("QUILL_APP_ROOT") or os.environ.get("QUILL_PORTABLE"):
         return
     if not getattr(sys, "frozen", False):
         return
     anchor = Path(sys.executable).resolve().parent
-    if (anchor / "tools" / "ffmpeg").is_dir():
+    if (anchor / "data").is_dir():
+        os.environ["QUILL_APP_ROOT"] = str(anchor)
+        os.environ["QUILL_PORTABLE"] = "1"
+    elif (anchor / "tools" / "ffmpeg").is_dir():
         os.environ["QUILL_APP_ROOT"] = str(anchor)
 
 

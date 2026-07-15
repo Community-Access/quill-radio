@@ -1,0 +1,102 @@
+# Builds every Quill Radio release artifact from one onedir build:
+#
+#   dist\QuillRadio\                        the staged app folder
+#   dist\Quill-Radio-Portable-<ver>.zip     portable (with its data\ folder)
+#   dist\Quill-Radio-Setup-<ver>.exe        system installer
+#
+# Usage:
+#   .\scripts\build_release.ps1 [-Python <python.exe>] [-FfmpegDir <dir>]
+#                               [-TokenFile S:\token.txt] [-Iscc <path>]
+#
+# Everything is bundled; the installer and zip perform no downloads. The
+# bundled feedback token (Report a Bug for users with no GitHub setup) is
+# generated into the quill package before PyInstaller runs -- a release
+# build FAILS if the token file is missing rather than shipping a build
+# with a silently broken bug reporter.
+
+param(
+    [string]$Python = "S:\QUILL\.venv\Scripts\python.exe",
+    [string]$FfmpegDir = "",
+    [string]$TokenFile = "S:\token.txt",
+    [string]$Iscc = "$env:LOCALAPPDATA\Programs\Inno Setup 6\ISCC.exe",
+    [string]$QuillRepo = "S:\QUILL"
+)
+
+$ErrorActionPreference = "Stop"
+$repoRoot = Split-Path -Parent $PSScriptRoot
+$version = "1.0.0"
+
+# -- bundled feedback token (hard requirement for a release build) -----------
+if (-not (Test-Path $TokenFile)) {
+    throw "Token file not found: $TokenFile -- a release build must embed the issues-only token."
+}
+$env:QUILL_FEEDBACK_TOKEN_FILE = $TokenFile
+& $Python (Join-Path $QuillRepo "tools\generate_feedback_token.py") --require-token
+if ($LASTEXITCODE -ne 0) { throw "Bundled feedback token generation failed." }
+
+# -- ffmpeg to bundle ---------------------------------------------------------
+if (-not $FfmpegDir) {
+    $ffmpeg = Get-Command ffmpeg -ErrorAction SilentlyContinue
+    if ($ffmpeg) { $FfmpegDir = Split-Path -Parent $ffmpeg.Source }
+}
+if (-not $FfmpegDir -or -not (Test-Path (Join-Path $FfmpegDir "ffmpeg.exe"))) {
+    throw "ffmpeg.exe not found. Pass -FfmpegDir; recording must ship bundled."
+}
+if (-not (Test-Path $Iscc)) {
+    $fallback = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+    if (Test-Path $fallback) { $Iscc = $fallback } else { throw "ISCC.exe not found: $Iscc" }
+}
+
+# -- onedir build -------------------------------------------------------------
+Push-Location $repoRoot
+try {
+    & $Python -m PyInstaller quill-radio.spec --noconfirm --distpath dist --workpath build
+    if ($LASTEXITCODE -ne 0) { throw "PyInstaller failed" }
+} finally {
+    Pop-Location
+}
+$appDir = Join-Path $repoRoot "dist\QuillRadio"
+if (-not (Test-Path (Join-Path $appDir "QuillRadio.exe"))) {
+    throw "Onedir build did not produce QuillRadio.exe"
+}
+
+# -- stage the shared payload (both artifacts ship this) ----------------------
+$toolsDir = Join-Path $appDir "tools\ffmpeg"
+New-Item -ItemType Directory -Force $toolsDir | Out-Null
+Copy-Item (Join-Path $FfmpegDir "ffmpeg.exe") $toolsDir -Force
+if (Test-Path (Join-Path $FfmpegDir "ffprobe.exe")) {
+    Copy-Item (Join-Path $FfmpegDir "ffprobe.exe") $toolsDir -Force
+}
+$ffLicense = Join-Path (Split-Path -Parent $FfmpegDir) "LICENSE"
+if (Test-Path $ffLicense) { Copy-Item $ffLicense (Join-Path $toolsDir "FFMPEG-LICENSE.txt") -Force }
+$docsDir = Join-Path $appDir "docs"
+New-Item -ItemType Directory -Force $docsDir | Out-Null
+Copy-Item (Join-Path $repoRoot "docs\userguide.md") $docsDir -Force
+Copy-Item (Join-Path $repoRoot "docs\release-notes-1.0.md") $docsDir -Force
+Copy-Item (Join-Path $repoRoot "README.md") (Join-Path $appDir "README-Quill-Radio.md") -Force
+
+# -- portable zip (adds the data\ folder = portable-mode evidence) ------------
+$dataDir = Join-Path $appDir "data"
+New-Item -ItemType Directory -Force $dataDir | Out-Null
+Set-Content (Join-Path $dataDir "README.txt") @"
+This folder makes Quill Radio portable: your favorites, history, and
+settings live here, right next to the app, so the whole thing travels
+on a stick. Delete this folder and the app uses the shared Quill data
+in your Windows profile instead.
+"@
+$zipPath = Join-Path $repoRoot "dist\Quill-Radio-Portable-$version.zip"
+if (Test-Path $zipPath) { Remove-Item $zipPath -Force }
+Compress-Archive -Path $appDir -DestinationPath $zipPath
+# The installed flavor must NOT carry the data folder (it would flip the
+# installed copy into portable mode), so remove it before the installer runs.
+Remove-Item $dataDir -Recurse -Force
+
+# -- installer ----------------------------------------------------------------
+& $Iscc (Join-Path $repoRoot "installer\quill-radio.iss") "/O$(Join-Path $repoRoot 'dist')"
+if ($LASTEXITCODE -ne 0) { throw "ISCC failed with exit code $LASTEXITCODE" }
+
+Write-Host ""
+Write-Host "Release artifacts in $(Join-Path $repoRoot 'dist'):"
+Get-ChildItem (Join-Path $repoRoot "dist") -File | ForEach-Object {
+    Write-Host ("  {0}  {1:N1} MB" -f $_.Name, ($_.Length / 1MB))
+}
