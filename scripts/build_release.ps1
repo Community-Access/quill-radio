@@ -84,6 +84,10 @@ settings live here, right next to the app, so the whole thing travels
 on a stick. Delete this folder and the app uses the shared Quill data
 in your Windows profile instead.
 "@
+# The storage-mode marker is what actually routes data here (the folder
+# alone is only the portable-bundle evidence); QUILL portable ships the
+# same marker.
+Set-Content (Join-Path $dataDir "storage-mode.json") '{"mode": "portable"}'
 $zipPath = Join-Path $repoRoot "dist\Quill-Radio-Portable-$version.zip"
 if (Test-Path $zipPath) { Remove-Item $zipPath -Force }
 Compress-Archive -Path $appDir -DestinationPath $zipPath
