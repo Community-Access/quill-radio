@@ -4,8 +4,10 @@ The radio, on its own. Quill Radio takes the internet radio QUILL users already 
 
 ## Highlights
 
-- **Favorites first.** The app opens with your favorite stations focused; Enter plays. No ribbon, no dashboard, no hunting.
-- **The full station browser.** Search by name, genre, country, or language across the same live directory QUILL uses; add custom stream URLs; point the stream finder at a website and let it dig the audio out.
+- **Favorites first.** The app opens with your favorite stations focused; Enter plays. One transport button and one transport menu item -- Play becomes Stop while playing. No ribbon, no dashboard, no hunting.
+- **The full station browser.** Search by name, genre, country, or language across the same live directory QUILL uses; add custom stream URLs; point the stream finder at a website and let it dig the audio out (with a Test button that toggles to Stop while it plays).
+- **ACB Media, one menu away.** The whole ACB stream directory sits on the Station menu, playable inline.
+- **Transport hotkeys.** Play/Stop Ctrl+P, Mute Ctrl+M, volume Ctrl+Up/Ctrl+Down, Send to Tray Ctrl+W -- all in the app's own menus, kept separate from QUILL's keymap.
 - **Recording, live and scheduled.** Record what is playing right now, or schedule a show for later -- the same recorder and scheduler QUILL ships.
 - **A tray citizen.** Close to the notification area and keep listening; play, pause, and switch stations from the tray menu.
 - **Spoken feedback everywhere.** Every action announces its outcome through your screen reader -- JAWS, NVDA, or Narrator -- without stealing focus.

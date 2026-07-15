@@ -19,7 +19,7 @@ Tab order: the now-playing line, the favorites list, then four buttons.
 
 - **Now playing** (read-only text): what is playing right now; also mirrored in the status bar and the Playback menu.
 - **Favorite stations** (list): Enter or double-click plays the selected station.
-- Buttons: **Play/Pause**, **Stop**, **Record**, **Browse Stations...**
+- Buttons: **Play** (becomes **Stop** while playing), **Record**, **Browse Stations...**
 
 ## Menus
 
@@ -28,12 +28,16 @@ Tab order: the now-playing line, the favorites list, then four buttons.
 - **Browse Stations...** -- the full station browser: search, filter, listen, favorite.
 - **Add Custom Station...** -- paste any stream URL and name it yourself.
 - **Find Streams from a Website...** -- give it a website address; it finds the audio streams on that page.
-- **Favorites** (submenu) -- your stations inline, playable straight from the menu.
+- **Favorites** (submenu) -- your stations inline, playable straight from the menu. Shared with QUILL, so a station favorited there is here too.
+- **ACB Media** (submenu) -- ACB's whole stream directory, playable inline, no dialog hunt.
+- **Send to Tray** (Ctrl+W) -- hide the window; playback continues from the notification area.
+- **Exit** -- quit Quill Radio.
 
 ### Playback (Alt+P)
 
 - A live (disabled) now-playing line at the top, so the menu itself tells you what is on.
-- **Play/Pause** (Ctrl+P), **Stop**, **Mute/Unmute**, **Volume Up**, **Volume Down**.
+- **Play** (Ctrl+P) -- one transport item: it reads Play when idle and Stop while connecting or playing, exactly like the panel button.
+- **Mute/Unmute** (Ctrl+M), **Volume Up** (Ctrl+Up), **Volume Down** (Ctrl+Down).
 
 ### Record (Alt+R)
 
@@ -43,7 +47,6 @@ Tab order: the now-playing line, the favorites list, then four buttons.
 
 ### Help (Alt+H)
 
-- **Open in Quill** -- launch the full QUILL editor.
 - **Redeem Unlock Code...** -- enter a signed unlock code for a pre-release capability. Verified entirely on your machine; nothing is transmitted. A code redeemed here is redeemed for QUILL and QUILL Cast too -- all three share one unlock store.
 - **Check for Updates...** -- compares your version with the newest release of Quill Radio, downloads the installer in-app with spoken progress, then offers Install now (closes the app and runs the installer) or Open folder.
 - **About Quill Radio** -- version, sync statement, and the project address.
@@ -64,12 +67,17 @@ Quill Radio reads and writes the same data store as QUILL and QUILL Cast (`%APPD
 
 | Action | Key |
 | --- | --- |
-| Play/Pause | Ctrl+P |
+| Play / Stop | Ctrl+P |
+| Mute / Unmute | Ctrl+M |
+| Volume up / down | Ctrl+Up / Ctrl+Down |
+| Send to tray | Ctrl+W |
 | Play selected favorite | Enter (in the list) |
 | Station menu | Alt+S |
 | Playback menu | Alt+P |
 | Record menu | Alt+R |
 | Help menu | Alt+H |
+
+These keys belong to Quill Radio's own menus and are kept separate from QUILL's keymap, so nothing here collides with editor shortcuts.
 
 ## Troubleshooting
 

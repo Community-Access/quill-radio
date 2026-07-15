@@ -13,7 +13,7 @@ Quill Radio is not a fork. The whole application lives in the [quill](https://gi
 - Share settings, favorites, and recordings with QUILL and QUILL Cast (one data store in `%APPDATA%\Quill`).
 - Check for its own updates from Help > Check for Updates.
 
-Deliberately not included: QUILL's editor, AI, transcription, braille, and speech-synthesis stacks. This is the radio, and just the radio. Help > Open in Quill launches the full editor when you want it.
+Deliberately not included: QUILL's editor, AI, transcription, braille, and speech-synthesis stacks. This is the radio, and just the radio.
 
 ## Install
 
