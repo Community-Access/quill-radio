@@ -9,6 +9,7 @@ Quill Radio is not a fork. The whole application lives in the [quill](https://gi
 - Browse thousands of internet radio stations, keyboard-first, with a screen reader in mind at every step.
 - Keep favorite stations one Enter press away; the favorites list has focus the moment the app opens.
 - Record what you are hearing, or schedule a recording for later.
+- Optional Sound Enhancements: an equalizer preset and a compressor, applied live (needs FFmpeg).
 - Live in the system tray: close to tray, control playback from the tray menu.
 - Share settings, favorites, and recordings with QUILL and QUILL Cast (one data store in `%APPDATA%\Quill`).
 - Check for its own updates from Help > Check for Updates.

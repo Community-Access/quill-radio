@@ -59,9 +59,16 @@ Out of scope by decision: QUILL's editor, AI, speech transcription, braille, and
 
 ## 6. Network requirements
 
-- N-1. Exactly four outbound surfaces, each inventoried in QUILL's network-egress audit: RadioBrowser (search/tags/countries/click-votes/byuuid fallback), the user-typed page for Find Streams, the playing stream itself for ICY titles, and this repository's GitHub releases for the update check. No telemetry of any kind.
+- N-1. Every outbound surface is inventoried in QUILL's network-egress audit: RadioBrowser and SomaFM (search/tags/countries/click-votes/byuuid fallback), the user-typed page for Find Streams, the playing stream itself for ICY titles, and this repository's GitHub releases for the update check. No telemetry of any kind. (Sound Enhancements' local relay, §8, is loopback-only and never reaches the network itself -- it filters the same stream this section already covers.)
 - N-2. Safe Mode disables the radio's network surfaces along with the feature.
 
 ## 7. Non-goals
 
-macOS/Linux standalone builds (upstream QUILL covers macOS; the tray pattern does not exist there), auto-updating in place, telemetry.
+macOS/Linux standalone builds (upstream QUILL covers macOS; the tray pattern does not exist there), auto-updating in place, telemetry. A full DSP effects rack (reverb, tempo/pitch, spatial audio) -- Sound Enhancements (§8) is a small, purpose-built EQ preset and compressor, not a general effects rack.
+
+## 8. Since 1.0
+
+- **Sound Enhancements** (Playback > Sound Enhancements...): an equalizer preset and a compressor, applied live via an ffmpeg filter graph relayed to the playback engine over a loopback-only local HTTP server. Off by default. Recording Settings' "Apply Sound Enhancements to recordings" (off by default) optionally records the filtered audio too.
+- **SomaFM**, a second free, keyless station directory, blended into Browse Stations search alongside RadioBrowser.
+
+See `CHANGELOG.md` for the full, versioned history.

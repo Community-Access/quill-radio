@@ -2,6 +2,11 @@
 
 The radio, on its own -- and finished. Quill Radio takes the internet radio QUILL users already know, gives it a window, a menu bar, a tray icon, and its own icon, and then goes further than the embedded radio ever has. Everything below also landed in QUILL itself: the two share one codebase and one data store, so features arrive everywhere at once.
 
+## What's new (unreleased)
+
+- **Sound Enhancements.** Playback > Sound Enhancements... adds an equalizer preset (Flat, Bass Boost, Voice Clarity, Podcast) and a compressor ("Even Out Volume", boosts quiet passages and tames loud ones) to whatever station is playing, applied live through the ffmpeg Quill Radio already uses for recording. Off by default, and turning either one on reconnects instantly -- live radio has no position to lose. **Recording Settings...** gained a matching "Apply Sound Enhancements to recordings" checkbox (off by default) if you'd rather your recordings capture the filtered audio too.
+- **A second station directory.** Browse Stations search now also checks SomaFM, a free, curated internet-radio directory, blended right into the same results as RadioBrowser -- more stations to find, no extra step.
+
 ## What's new in 1.0.2
 
 - **Automatic Check for Updates.** Quill Radio quietly checks for a newer version once a day when it launches -- silent unless a real update is found, at which point you get the same "download it now?" prompt Help > Check for Updates always gave you. Throttled so it never hits the network on every single launch.
@@ -38,7 +43,7 @@ Quill Radio runs the exact same radio feature code as QUILL, from the same upstr
 
 ## Dependencies
 
-Playback uses Windows' built-in media engine; recording uses the bundled ffmpeg; station search uses the community RadioBrowser directory; the ACB Media directory is bundled. Every network call the app can make is inventoried in QUILL's public network-egress audit.
+Playback uses Windows' built-in media engine; recording and Sound Enhancements use the bundled ffmpeg; station search uses the community RadioBrowser and SomaFM directories; the ACB Media directory is bundled. Every network call the app can make is inventoried in QUILL's public network-egress audit.
 
 ## Requirements
 

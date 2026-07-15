@@ -58,6 +58,7 @@ Tab order: the now-playing line, the favorites tree, then four buttons.
 - **Announce Track Titles** (check item) -- when on, title changes are announced as they happen. Off by default.
 - **Sleep Timer...** -- fade out and stop after a set time, restoring your volume.
 - **Wake-Up Timer...** -- the sleep timer's twin: pick a favorite, a time, once or every day, and the station starts playing by itself. Quill Radio must be running (the tray counts).
+- **Sound Enhancements...** -- an equalizer preset (Flat, Bass Boost, Voice Clarity, Podcast) and a compressor ("Even Out Volume", boosts quiet passages and tames loud ones). Off by default; turning either one on filters the currently playing station live through FFmpeg (needs Help > Get FFmpeg...) and reconnects -- there is no playback position to lose on a live stream, so that reconnect is instant. If FFmpeg is missing, playback continues unfiltered and Quill Radio tells you why.
 
 ### Record (Alt+R)
 
@@ -65,7 +66,7 @@ Tab order: the now-playing line, the favorites tree, then four buttons.
 - **Record Station...** -- record a *different* station for a set number of minutes while you listen to something else (or to nothing). The recorder is its own process; it never needed the player.
 - **Schedule Recording...** -- record a show later, once, daily, or weekly, even from the tray. Pick a favorite from the list and its name and stream fill in for you (both stay editable for one-off streams); the Remove button names the schedule it will delete and dims when none is selected, and the Delete key and a context menu work on the list.
 - **Recordings...** -- everything you have recorded, live. See "The Recordings list" below.
-- **Recording Settings...** -- format (MP3, OGG, FLAC, WAV), bitrate, destination folder, filename pattern, a maximum-length safety cap, and the **If the connection drops** section: reconnect on/off, how many attempts, and how many seconds between them.
+- **Recording Settings...** -- format (MP3, OGG, FLAC, WAV), bitrate, destination folder, filename pattern, a maximum-length safety cap, the **If the connection drops** section (reconnect on/off, how many attempts, and how many seconds between them), and **Apply Sound Enhancements to recordings** -- off by default, so recordings stay an unfiltered archival copy even with Sound Enhancements on for live listening; turn it on to record the filtered (EQ/compressor) audio instead, for every recording method (Record Now, Record Station, and scheduled recordings alike).
 
 ### Help (Alt+H)
 
@@ -111,8 +112,8 @@ Quill Radio reads and writes the same data store as QUILL and QUILL Cast (`%APPD
 ## Dependencies, honestly stated
 
 - **Playback** uses the Windows Media Player engine built into Windows -- nothing to install.
-- **Recording** (and the auto-trim/normalize passes) use **ffmpeg**, which the installer bundles at `tools\ffmpeg` inside the install folder. Nothing downloads at runtime.
-- **Station search** talks to the community **RadioBrowser** directory; **Find Streams** fetches only the one page you type; **What's Playing** reads metadata from the stream you are already playing. No other network calls exist, and every one of them is inventoried in QUILL's network-egress audit.
+- **Recording**, **Sound Enhancements**, and (when "Apply Sound Enhancements to recordings" is on) recording's own filtering all use **ffmpeg**, which the installer bundles at `tools\ffmpeg` inside the install folder. Nothing downloads at runtime. Sound Enhancements plays through a small local relay (ffmpeg filters the stream, a loopback-only web server on your own machine hands the filtered audio to the player) -- nothing about it is reachable off your computer.
+- **Station search** talks to the community **RadioBrowser** directory and the free, keyless **SomaFM** directory, blended into one results list; **Find Streams** fetches only the one page you type; **What's Playing** reads metadata from the stream you are already playing. No other network calls exist, and every one of them is inventoried in QUILL's network-egress audit.
 - The **ACB Media** directory is bundled -- no network needed to browse it.
 
 ## Keyboard reference
