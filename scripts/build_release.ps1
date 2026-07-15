@@ -24,7 +24,7 @@ param(
 
 $ErrorActionPreference = "Stop"
 $repoRoot = Split-Path -Parent $PSScriptRoot
-$version = "1.0.0"
+$version = "1.0.1"
 
 # -- bundled feedback token (hard requirement for a release build) -----------
 if (-not (Test-Path $TokenFile)) {
