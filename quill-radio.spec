@@ -38,6 +38,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     name="QuillRadio",
+    icon="assets/quill-radio.ico",
     console=False,
     upx=False,
     disable_windowed_traceback=False,

@@ -41,6 +41,7 @@ CloseApplications=force
 RestartApplications=no
 UninstallDisplayName={#AppName} {#AppVersion}
 UninstallDisplayIcon={app}\{#AppExeName}
+SetupIconFile=..\assets\quill-radio.ico
 LicenseFile=..\LICENSE
 SetupLogging=yes
 
