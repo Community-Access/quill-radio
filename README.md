@@ -24,6 +24,10 @@ Two flavors, both on this repository's Releases page, both fully bundled (ffmpeg
 
 Help > Check for Updates knows which flavor you run and downloads the matching artifact directly.
 
+### A note on the SmartScreen warning (unsigned builds)
+
+These releases are not yet code-signed, so Windows SmartScreen may warn the first time you run the installer or the portable exe. Choose **More info**, then **Run anyway**. The builds are produced directly from this repository's source by the maintainers; code signing is planned, and the warning will disappear once releases are signed.
+
 ## Run from source
 
 ```powershell

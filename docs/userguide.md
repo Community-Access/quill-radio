@@ -2,11 +2,20 @@
 
 Version 1.0
 
-Quill Radio is internet radio the way a screen reader user would design it: a small window whose favorites list has focus the instant it opens, menus that say everything they do, spoken feedback for every action, and a tray icon so the music keeps playing while you work. It runs the exact same radio code as QUILL itself and shares its data, so nothing you set up here is ever stranded.
+Quill Radio is internet radio the way a screen reader user would design it: a small window whose favorites tree has focus the instant it opens, menus that say everything they do, spoken feedback for every action, and a tray icon so the music keeps playing while you work. It runs the exact same radio code as QUILL itself and shares its data, so nothing you set up here is ever stranded.
+
+## Installing
+
+Two flavors, both fully bundled (ffmpeg included, nothing ever downloads):
+
+- **The installer** (`Quill-Radio-Setup-1.0.0.exe`) -- its own folder, Start Menu entry, uninstaller. Your data lives in the shared Quill store in your Windows profile.
+- **The portable zip** (`Quill-Radio-Portable-1.0.0.zip`) -- extract anywhere, even a USB stick, and run `QuillRadio\QuillRadio.exe`. Its `data` folder keeps your favorites, history, and settings inside the app folder, so the whole radio travels with you.
+
+Windows SmartScreen may warn on first run because this release is not code-signed; choose "More info" then "Run anyway". The build is exactly what this repository's source produces.
 
 ## Getting started
 
-Launch Quill Radio from the Start Menu (or `quill-radio` from a terminal if you installed from source). The window opens with keyboard focus on your **Favorite stations** list.
+Launch Quill Radio from the Start Menu (or the portable folder's `QuillRadio.exe`). The window opens with keyboard focus on your **Favorite stations** tree.
 
 - No favorites yet? Press Alt+S for the Station menu, then **Browse Stations...** to search thousands of stations by name, genre, country, or language, listen before you commit, and add the keepers to your favorites. The **ACB Media** submenu is also right there -- the whole ACB stream directory, playable without any setup.
 - With favorites: arrow to a station and press **Enter**. That is the whole loop.
@@ -16,11 +25,11 @@ Everything Quill Radio announces goes through the same announcement engine QUILL
 
 ## The main window
 
-Tab order: the now-playing line, the favorites list, then three buttons.
+Tab order: the now-playing line, the favorites tree, then four buttons.
 
 - **Now playing** (read-only text): what is on right now; also mirrored in the status bar and the Playback menu.
-- **Favorite stations** (list): Enter or double-click plays the selected station. Stations you have filed into folders speak their folder inline; your own custom names are used everywhere.
-- Buttons: **Play** (it becomes **Stop** while connecting or playing -- one transport control, never a dead button), **Record**, **Browse Stations...**
+- **Favorite stations** (tree): the same nested folder structure you build in the Favorites Manager, right on the main page. Enter plays a station, Delete removes it (with confirmation), F2 renames a station or folder, and Shift+F10 opens the full context menu -- Play/Stop, Rename, Move to Folder, Remove, New Folder, and Manage Favorites. Your custom names are used everywhere.
+- Buttons: **Play** (it becomes **Stop** while connecting or playing -- one transport control, never a dead button), **Add to Favorites** (it becomes **Remove from Favorites** when the playing station is already saved -- perfect for keeping something you found in ACB Media or Recently Played), **Record**, **Browse Stations...**
 
 ## Menus
 
@@ -53,7 +62,7 @@ Tab order: the now-playing line, the favorites list, then three buttons.
 
 - **Record Now / Stop Recording** -- capture the station you are listening to.
 - **Record Station...** -- record a *different* station for a set number of minutes while you listen to something else (or to nothing). The recorder is its own process; it never needed the player.
-- **Schedule Recording...** -- record a show later, once, daily, or weekly, even from the tray.
+- **Schedule Recording...** -- record a show later, once, daily, or weekly, even from the tray. Pick a favorite from the list and its name and stream fill in for you (both stay editable for one-off streams); the Remove button names the schedule it will delete and dims when none is selected, and the Delete key and a context menu work on the list.
 - **Recordings...** -- everything you have recorded, live. See "The Recordings list" below.
 - **Recording Settings...** -- format (MP3, OGG, FLAC, WAV), bitrate, destination folder, filename pattern, a maximum-length safety cap, and the **If the connection drops** section: reconnect on/off, how many attempts, and how many seconds between them.
 
@@ -63,6 +72,7 @@ Tab order: the now-playing line, the favorites list, then three buttons.
 - **Redeem Unlock Code...** -- enter a signed code for a pre-release capability. Verified entirely on your machine; nothing is transmitted; one code counts for QUILL, Quill Radio, and QUILL Cast together.
 - **Check for Updates...** -- compares your version with the newest release, downloads the right artifact for your flavor directly (the installer for an installed copy, the portable zip for a portable one) with spoken progress, then offers Install now or Open folder.
 - **Get FFmpeg...** -- a safety net: FFmpeg ships inside Quill Radio, but if it ever goes missing this downloads the official build so recording works again.
+- **Report a Bug...** -- files an issue directly from the app (no GitHub account needed), stamped "Quill Radio" with this app's own version so we know exactly what you were running; falls back to the online support form if anything goes wrong.
 - **About Quill Radio** -- version, sync statement, project address.
 
 ## The Favorites Manager
@@ -70,10 +80,10 @@ Tab order: the now-playing line, the favorites list, then three buttons.
 Station > Manage Favorites... is a full organizer, keyboard-first:
 
 - **Search favorites** filters live across names (including your custom names), countries, languages, tags, and folder names; results flatten into one arrow-key list with each station's folder spoken in its label.
-- **Folders of any depth.** File a station under "News/Morning" and the folders exist; folders live as long as they hold stations. Rename a folder (F2) and its subfolders come along; delete one and its stations simply step out to the top level -- nothing is ever deleted with a folder.
+- **Folders of any depth.** Create one with **New Folder...** (Ctrl+Shift+E) -- pick its location, name it, and it exists immediately, even before a station lives in it. Or just file a station under "News/Morning" and the path springs into being. Rename a folder (F2) and its subfolders come along; delete one and its stations simply step out to the top level -- nothing is ever deleted with a folder.
 - **Reordering.** Move Up / Move Down within a folder; for long hops, **Mark for Move**, select the destination, then **Move Above** or **Move Below** -- the moved station joins the destination's folder.
 - **Rename** (F2 on a station) gives it your own display name everywhere; blank restores the directory's name.
-- Enter plays, Delete removes (with confirmation), Shift+F10 opens every action on the selected item.
+- Enter plays (the Play button reads Stop while that station is on), Delete removes (with confirmation), Shift+F10 opens every action on the selected item. The main-page tree offers the same actions, so the Manager is for the heavy lifting, not a required stop.
 
 ## The Recordings list
 
@@ -83,7 +93,7 @@ Record > Recordings... shows the whole recording life cycle in one place, refres
 - Every finished file, newest first -- status **Recorded**, with size and date.
 - Upcoming scheduled recordings -- status **Scheduled**, with their times.
 
-Actions: **Play** (through the app's own player), **Stop Recording**, **Open in Folder**, **Remove** (Delete key, with confirmation), **Refresh**. If the internet hiccups during a recording, ffmpeg first rides it out; if the connection truly dies, Quill Radio waits and resumes into a numbered part file, announcing each attempt -- tune or disable this in Recording Settings.
+Actions: **Play** (through the app's own player; it reads **Stop** while that recording is playing), **Stop Recording**, **Open in Folder**, **Remove** (Delete key, with confirmation), **Refresh**. If the internet hiccups during a recording, ffmpeg first rides it out; if the connection truly dies, Quill Radio waits and resumes into a numbered part file, announcing each attempt -- tune or disable this in Recording Settings.
 
 ## Hardware media keys
 
@@ -91,7 +101,7 @@ If your keyboard has media keys, Play/Pause and Stop control Quill Radio system-
 
 ## The system tray
 
-Closing the window keeps Quill Radio available in the notification area with its own icon. Right-click (or Shift+F10 on) the tray icon for Show, the full radio controls including favorites and recently played, and Exit. Double-click brings the window back.
+Closing the window keeps Quill Radio available in the notification area with its own icon, announced by name. Right-click (or keyboard-invoke) the tray icon for: Show, the live now-playing line, a single **Play/Stop** item whose label is always current, Mute/Unmute, your **Favorite Stations** (nested by folder) and **Recently Played** submenus, Record Now/Stop Recording, Schedule Recording, Recording Settings, Browse Stations, and Exit. Double-click brings the window back.
 
 ## Sharing data with QUILL
 
