@@ -55,6 +55,7 @@ The PyInstaller spec is onedir on purpose: instant startup (no per-launch temp e
 
 - [User Guide](docs/userguide.md)
 - [Release Notes](docs/release-notes-1.0.md)
+- [Changelog](CHANGELOG.md)
 - [Product Requirements](docs/prd.md)
 
 ## License
