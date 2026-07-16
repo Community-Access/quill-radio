@@ -5,7 +5,6 @@ All notable changes to Quill Radio are documented here. See `docs/release-notes-
 ## 1.0.2
 
 - Fixed: Ctrl+Up/Ctrl+Down (Volume Up/Down) did nothing from the Favorites tree, which has focus by default on launch -- the tree's own arrow-key handling was silently swallowing the shortcut before it ever reached the Playback menu.
-- Fixed: closing the window (Alt+F4, the titlebar X, or Exit) could leave the app completely unresponsive if a second close attempt landed while the confirmation dialog was still opening. Closing now also skips the confirmation prompt entirely when nothing is playing or recording -- it just closes.
 - Fixed: Sound Enhancements' EQ sliders now announce a real accessible name to screen readers.
 - Sound Enhancements gained a "Reset to Default" button, clearing a station's own EQ/compressor override so it goes back to following the shared default. Preferences (Ctrl+,) gained "Reset All Stations' Sound Enhancements..." to clear every station's override at once.
 - Sound Enhancements is now a real three-band equalizer: Bass, Mid, and Treble sliders (-12 to +12 dB), each freely adjustable. The old presets (Flat/Bass Boost/Voice Clarity/Podcast) still work as a "Quick preset" shortcut that sets all three sliders at once.
