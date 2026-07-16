@@ -325,8 +325,13 @@ Enhancements...): a three-band equalizer (Bass/Mid/Treble sliders, -12
 to +12 dB) and a compressor, applied live via an ffmpeg filter graph
 relayed to the playback engine over a loopback-only local HTTP server.
 Off by default. A "Quick preset" shortcut sets all three sliders at
-once. Recording Settings' "Apply Sound Enhancements to recordings" (off
-by default) optionally records the filtered audio too.</li>
+once. Remembered per favorite station (a whole-record override on
+<code>FavoriteStation</code>, mirroring QUILL Cast's per-podcast
+override) as well as a shared default in <code>RadioHistory</code>;
+<code>RadioPlayerController</code> resolves which applies via an
+injected callback at the top of every <code>play_station</code>.
+Recording Settings' "Apply Sound Enhancements to recordings" (off by
+default) optionally records the filtered audio too.</li>
 <li><strong>SomaFM</strong>, a second free, keyless station directory,
 blended into Browse Stations search alongside RadioBrowser.</li>
 <li><strong>Exit/Minimize to Tray confirmation</strong>: closing the

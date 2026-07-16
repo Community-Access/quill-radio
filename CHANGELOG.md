@@ -5,6 +5,7 @@ All notable changes to Quill Radio are documented here. See `docs/release-notes-
 ## 1.0.4
 
 - Sound Enhancements is now a real three-band equalizer: Bass, Mid, and Treble sliders (-12 to +12 dB), each freely adjustable. The old presets (Flat/Bass Boost/Voice Clarity/Podcast) still work as a "Quick preset" shortcut that sets all three sliders at once.
+- Sound Enhancements can now be remembered **per station**: open it while a favorite station is playing to give that station its own EQ and compressor, distinct from the shared default. Adjust it with nothing playing (or a non-favorite station on) to change the shared default that every other station follows.
 - Closing the window (the titlebar X, Alt+F4, or Station > Exit) now asks what to do: Exit, Minimize to Tray, or Cancel, with a "Don't ask me again" checkbox -- previously it always exited immediately, silently stopping an in-progress recording. Preferences (Ctrl+,) gained a matching "When closing the window" setting to change your answer later.
 - Check for Updates (Help menu) now shows a real dialog when you're already up to date, instead of only a spoken announcement that was easy to miss.
 - Preferences (Ctrl+,) gained "Announce dialog transitions" (off by default) to reduce alert noise -- previously every dialog always spoke "Entered/Exited" cues with no way to turn it off.
