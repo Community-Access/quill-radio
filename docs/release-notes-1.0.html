@@ -190,6 +190,12 @@ once.</p>
 from the Favorites tree, which has focus by default when the app
 launches -- the tree's own arrow-key handling was silently swallowing
 the shortcut before it ever reached Volume Up/Down. Fixed.</li>
+<li><strong>Volume that actually stays put.</strong> Starting a stream
+-- or just pausing and resuming one -- could silently reset the volume
+to 100, even overwriting a favorite station's own remembered volume in
+the process. A favorite now reliably comes back at the volume you left
+it, and if you set a volume before playing something with no memory of
+its own yet, it stays exactly where you put it.</li>
 <li><strong>Sound Enhancements' EQ sliders now announce a real
 accessible name to screen readers.</strong></li>
 <li><strong>Reset Sound Enhancements back to default.</strong> A "Reset
@@ -248,6 +254,9 @@ it never hits the network on every single launch.</li>
 gathering the app's startup behavior in one place: Resume Last Station
 on Launch and the new automatic update check, each its own checkbox.
 Turning either off takes effect immediately.</li>
+<li><strong>Dialog buttons that match Windows convention.</strong>
+Recording Settings, the Wake-Up Timer, and Add Station now say "OK"
+instead of "Save," like a standard Windows dialog.</li>
 </ul>
 <h2 id="highlights">Highlights</h2>
 <ul>

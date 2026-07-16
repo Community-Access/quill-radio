@@ -5,6 +5,7 @@ The radio, on its own -- and finished. Quill Radio takes the internet radio QUIL
 ## What's new in 1.0.2
 
 - **Volume keys, fixed.** Ctrl+Up/Ctrl+Down did nothing from the Favorites tree, which has focus by default when the app launches -- the tree's own arrow-key handling was silently swallowing the shortcut before it ever reached Volume Up/Down. Fixed.
+- **Volume that actually stays put.** Starting a stream -- or just pausing and resuming one -- could silently reset the volume to 100, even overwriting a favorite station's own remembered volume in the process. A favorite now reliably comes back at the volume you left it, and if you set a volume before playing something with no memory of its own yet, it stays exactly where you put it.
 - **Sound Enhancements' EQ sliders now announce a real accessible name to screen readers.**
 - **Reset Sound Enhancements back to default.** A "Reset to Default" button in Sound Enhancements clears a station's own EQ/compressor override, so it goes back to following the shared default. Preferences (Ctrl+,) gained "Reset All Stations' Sound Enhancements..." to clear every station's override at once, with a confirmation first.
 - **A real three-band equalizer.** Sound Enhancements' single preset choice became Bass, Mid, and Treble sliders (-12 to +12 dB each), freely adjustable. The old presets (Flat, Bass Boost, Voice Clarity, Podcast) are still there as a "Quick preset" shortcut -- pick one to set all three sliders at once, then keep tuning from there.
@@ -17,6 +18,7 @@ The radio, on its own -- and finished. Quill Radio takes the internet radio QUIL
 - **A second station directory.** Browse Stations search now also checks SomaFM, a free, curated internet-radio directory, blended right into the same results as RadioBrowser -- more stations to find, no extra step.
 - **Automatic Check for Updates.** Quill Radio quietly checks for a newer version once a day when it launches -- silent unless a real update is found, at which point you get the same "download it now?" prompt Help > Check for Updates always gave you. Throttled so it never hits the network on every single launch.
 - **Preferences...** (Ctrl+,) is a new, small dialog gathering the app's startup behavior in one place: Resume Last Station on Launch and the new automatic update check, each its own checkbox. Turning either off takes effect immediately.
+- **Dialog buttons that match Windows convention.** Recording Settings, the Wake-Up Timer, and Add Station now say "OK" instead of "Save," like a standard Windows dialog.
 
 ## Highlights
 

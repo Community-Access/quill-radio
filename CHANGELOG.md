@@ -5,7 +5,9 @@ All notable changes to Quill Radio are documented here. See `docs/release-notes-
 ## 1.0.2
 
 - Fixed: Ctrl+Up/Ctrl+Down (Volume Up/Down) did nothing from the Favorites tree, which has focus by default on launch -- the tree's own arrow-key handling was silently swallowing the shortcut before it ever reached the Playback menu.
+- Fixed: starting a stream (or pausing and resuming one) could reset the volume to 100, discarding a level you'd just set and, for a favorite station, silently overwriting its own remembered volume. A favorite now reliably comes back at its own remembered volume; a level you set with nothing memorized yet stays put.
 - Fixed: Sound Enhancements' EQ sliders now announce a real accessible name to screen readers.
+- The Recording Settings, Wake-Up Timer, and Add Station dialogs' affirmative button is now labeled "OK" instead of "Save," matching standard Windows dialog convention.
 - Sound Enhancements gained a "Reset to Default" button, clearing a station's own EQ/compressor override so it goes back to following the shared default. Preferences (Ctrl+,) gained "Reset All Stations' Sound Enhancements..." to clear every station's override at once.
 - Sound Enhancements is now a real three-band equalizer: Bass, Mid, and Treble sliders (-12 to +12 dB), each freely adjustable. The old presets (Flat/Bass Boost/Voice Clarity/Podcast) still work as a "Quick preset" shortcut that sets all three sliders at once.
 - Sound Enhancements can now be remembered **per station**: open it while a favorite station is playing to give that station its own EQ and compressor, distinct from the shared default. Adjust it with nothing playing (or a non-favorite station on) to change the shared default that every other station follows.
