@@ -2,7 +2,7 @@
 
 The radio, on its own -- and finished. Quill Radio takes the internet radio QUILL users already know, gives it a window, a menu bar, a tray icon, and its own icon, and then goes further than the embedded radio ever has. Everything below also landed in QUILL itself: the two share one codebase and one data store, so features arrive everywhere at once.
 
-## What's new (unreleased)
+## What's new in 1.0.3
 
 - **Sound Enhancements.** Playback > Sound Enhancements... adds an equalizer preset (Flat, Bass Boost, Voice Clarity, Podcast) and a compressor ("Even Out Volume", boosts quiet passages and tames loud ones) to whatever station is playing, applied live through the ffmpeg Quill Radio already uses for recording. Off by default, and turning either one on reconnects instantly -- live radio has no position to lose. **Recording Settings...** gained a matching "Apply Sound Enhancements to recordings" checkbox (off by default) if you'd rather your recordings capture the filtered audio too.
 - **A second station directory.** Browse Stations search now also checks SomaFM, a free, curated internet-radio directory, blended right into the same results as RadioBrowser -- more stations to find, no extra step.

@@ -2,7 +2,7 @@
 
 All notable changes to Quill Radio are documented here. See `docs/release-notes-1.0.md` for the fuller narrative version.
 
-## Unreleased
+## 1.0.3
 
 - Sound Enhancements (Playback > Sound Enhancements...): an equalizer preset (Flat/Bass Boost/Voice Clarity/Podcast) plus a compressor ("Even Out Volume"), applied live via ffmpeg -- no new audio engine, no new install step. Off by default; needs FFmpeg (Help > Get FFmpeg...) the same way recording already does.
 - Recording Settings gained "Apply Sound Enhancements to recordings" -- off by default (an unfiltered archival copy, unchanged behavior), turning it on records the filtered audio instead for every recording method (Record Now, Record Station, and scheduled recordings).
