@@ -176,17 +176,17 @@
   </style>
 </head>
 <body>
-<h1 id="quill-radio-product-requirements">Quill Radio – Product
+<h1 id="quill-radio----product-requirements">Quill Radio -- Product
 Requirements</h1>
 <p>Version 1.0</p>
-<h2 id="product-statement">1. Product statement</h2>
-<p>Quill Radio is QUILL’s internet radio, shipped as its own small
+<h2 id="1-product-statement">1. Product statement</h2>
+<p>Quill Radio is QUILL's internet radio, shipped as its own small
 Windows app for people who want the radio on without loading a full
 writing environment. It is screen-reader-first, keyboard-complete, and
-deliberately small – and by 1.0 it is a complete radio product:
+deliberately small -- and by 1.0 it is a complete radio product:
 organization, recording resilience, timers, and appliance-grade
 startup.</p>
-<h2 id="architecture-requirement-not-a-fork">2. Architecture
+<h2 id="2-architecture-requirement-not-a-fork">2. Architecture
 requirement: not a fork</h2>
 <ul>
 <li>R-1. All feature code lives in the upstream <code>quill</code>
@@ -203,52 +203,71 @@ for content that exists because QUILL is not in the picture.</li>
 per-station volumes), recently-played history, recordings, schedules,
 the wake-up timer, and settings live in the same
 <code>%APPDATA%\Quill</code> store QUILL uses.</li>
-<li>R-4. Keystrokes are the app’s own (menu accelerators), kept separate
-from QUILL’s keymap so nothing collides with editor shortcuts.</li>
+<li>R-4. Keystrokes are the app's own (menu accelerators), kept separate
+from QUILL's keymap so nothing collides with editor shortcuts.</li>
 </ul>
-<h2 id="scope-all-reused-from-upstream-all-shipped-in-1.0">3. Scope (all
-reused from upstream; all shipped in 1.0)</h2>
-<p><strong>Listening</strong> - Station browser over the RadioBrowser
-directory (search, tag/country filters, test-play, favorite); bundled
-ACB Media directory; custom stream URLs; website stream finder with a
-Test/Stop Test toggle. - One transport control (Play becomes Stop),
-mute, volume with per-station memory, single-player rule (starting any
-stream silences sibling media, radio or podcast, in every app). -
-Recently Played (capped, de-duplicated), Play Last Station, optional
-resume-on-launch. - What’s Playing: ICY track titles on demand and
-optional announce-on-change (off by default). - Stream fallback: a
-directory station whose stream errors is re-fetched by uuid and retried
-once, self-healing the saved favorite.</p>
-<p><strong>Organization</strong> - Favorites Manager: nested path-based
-folders, live rich search, Move Up/Down, Mark-and-Move (Move Above/Below
-adopting the destination folder), station rename (custom display names
-used everywhere), folder rename carrying descendants, folder delete that
-returns stations to the top level.</p>
-<p><strong>Recording</strong> - Record now; Record Station (a different
-station than the one playing, for N minutes); scheduled recordings
-(once/daily/weekly). - Recordings list: live status (Recording with
-growing size / Recorded / Scheduled), Play, Stop Recording, Open in
-Folder, Remove, 2-second auto-refresh. - Auto-reconnect: ffmpeg HTTP
-reconnect flags plus process-level retry into numbered part files;
-enabled/attempts/spacing configurable; user stops and duration-cap
-finishes never retry. - Settings: format (mp3/ogg/flac/wav), bitrate,
-destination, filename pattern with tokens, max-duration safety cap.</p>
-<p><strong>Timers</strong> - Sleep timer (shared radio/podcasts
-fade-and-restore). - Wake-up timer: once or daily at HH:MM; fires only
-within a 5-minute window (never retro-fires); “once” disables itself;
-requires the app running (tray counts); honest about that in the UI.</p>
-<p><strong>Shell</strong> - System tray with full controls and the app’s
-own icon; Send to Tray (Ctrl+W) and Exit; hardware media keys
-(play/pause, stop) system-wide while running, never stolen from an app
-that already owns them, released on exit. - Command Palette scoped to
-the app’s registry; Redeem Unlock Code (shared store); in-app update
-check that downloads the installer with spoken progress and offers
-Install now; About. - Unlock-gated Audio Description Project menu when
-<code>future.adp_assistant</code> is unlocked.</p>
-<p>Out of scope by decision: QUILL’s editor, AI, speech transcription,
+<h2 id="3-scope-all-reused-from-upstream-all-shipped-in-10">3. Scope
+(all reused from upstream; all shipped in 1.0)</h2>
+<p><strong>Listening</strong></p>
+<ul>
+<li>Station browser over the RadioBrowser directory (search, tag/country
+filters, test-play, favorite); bundled ACB Media directory; custom
+stream URLs; website stream finder with a Test/Stop Test toggle.</li>
+<li>One transport control (Play becomes Stop), mute, volume with
+per-station memory, single-player rule (starting any stream silences
+sibling media, radio or podcast, in every app).</li>
+<li>Recently Played (capped, de-duplicated), Play Last Station, optional
+resume-on-launch.</li>
+<li>What's Playing: ICY track titles on demand and optional
+announce-on-change (off by default).</li>
+<li>Stream fallback: a directory station whose stream errors is
+re-fetched by uuid and retried once, self-healing the saved
+favorite.</li>
+</ul>
+<p><strong>Organization</strong></p>
+<ul>
+<li>Favorites Manager: nested path-based folders, live rich search, Move
+Up/Down, Mark-and-Move (Move Above/Below adopting the destination
+folder), station rename (custom display names used everywhere), folder
+rename carrying descendants, folder delete that returns stations to the
+top level.</li>
+</ul>
+<p><strong>Recording</strong></p>
+<ul>
+<li>Record now; Record Station (a different station than the one
+playing, for N minutes); scheduled recordings (once/daily/weekly).</li>
+<li>Recordings list: live status (Recording with growing size / Recorded
+/ Scheduled), Play, Stop Recording, Open in Folder, Remove, 2-second
+auto-refresh.</li>
+<li>Auto-reconnect: ffmpeg HTTP reconnect flags plus process-level retry
+into numbered part files; enabled/attempts/spacing configurable; user
+stops and duration-cap finishes never retry.</li>
+<li>Settings: format (mp3/ogg/flac/wav), bitrate, destination, filename
+pattern with tokens, max-duration safety cap.</li>
+</ul>
+<p><strong>Timers</strong></p>
+<ul>
+<li>Sleep timer (shared radio/podcasts fade-and-restore).</li>
+<li>Wake-up timer: once or daily at HH:MM; fires only within a 5-minute
+window (never retro-fires); "once" disables itself; requires the app
+running (tray counts); honest about that in the UI.</li>
+</ul>
+<p><strong>Shell</strong></p>
+<ul>
+<li>System tray with full controls and the app's own icon; Send to Tray
+(Ctrl+W) and Exit; hardware media keys (play/pause, stop) system-wide
+while running, never stolen from an app that already owns them, released
+on exit.</li>
+<li>Command Palette scoped to the app's registry; Redeem Unlock Code
+(shared store); in-app update check that downloads the installer with
+spoken progress and offers Install now; About.</li>
+<li>Unlock-gated Audio Description Project menu when
+<code>future.adp_assistant</code> is unlocked.</li>
+</ul>
+<p>Out of scope by decision: QUILL's editor, AI, speech transcription,
 braille, and TTS stacks (not installed); a custom update engine beyond
 download-and-run.</p>
-<h2 id="accessibility-requirements">4. Accessibility requirements</h2>
+<h2 id="4-accessibility-requirements">4. Accessibility requirements</h2>
 <ul>
 <li>A-1. Every interactive element has an accessible name; upstream
 inventory gates audit the shared surfaces.</li>
@@ -263,51 +282,64 @@ surprises anyone.</li>
 <li>A-5. Full keyboard operation including manager reordering and the
 tray menu; Delete/F2/Enter conventions consistent across lists.</li>
 </ul>
-<h2 id="packaging-requirements">5. Packaging requirements</h2>
+<h2 id="5-packaging-requirements">5. Packaging requirements</h2>
 <ul>
-<li>P-1. PyInstaller onedir build with the app’s own icon; Inno Setup
-installer with its own AppId installing to {autopf}Radio, per-user by
-default.</li>
+<li>P-1. PyInstaller onedir build with the app's own icon; Inno Setup
+installer with its own AppId installing to {autopf}\Quill Radio,
+per-user by default.</li>
 <li>P-2. Everything bundled, nothing downloaded at install or runtime:
 the onedir build carries the whole quill package and data; ffmpeg
-installs to {app}, found via the wrapper exporting QUILL_APP_ROOT. A
-portable zip ships the same onedir build plus a <code>data\</code>
-folder that switches storage to travel with the app.</li>
-<li>P-3. Uninstall never deletes <code>%APPDATA%\Quill</code> – QUILL or
-QUILL Cast may still use it.</li>
+installs to {app}\tools\ffmpeg, found via the wrapper exporting
+QUILL_APP_ROOT. A portable zip ships the same onedir build plus a
+<code>data\</code> folder that switches storage to travel with the
+app.</li>
+<li>P-3. Uninstall never deletes <code>%APPDATA%\Quill</code> -- QUILL
+or QUILL Cast may still use it.</li>
 <li>P-4. Release artifacts:
 <code>Quill-Radio-Setup-&lt;version&gt;.exe</code>, tagged
 <code>v&lt;version&gt;</code>, which Help &gt; Check for Updates
 compares against and downloads.</li>
 </ul>
-<h2 id="network-requirements">6. Network requirements</h2>
+<h2 id="6-network-requirements">6. Network requirements</h2>
 <ul>
-<li>N-1. Every outbound surface is inventoried in QUILL’s network-egress
+<li>N-1. Every outbound surface is inventoried in QUILL's network-egress
 audit: RadioBrowser and SomaFM (search/tags/countries/click-votes/byuuid
 fallback), the user-typed page for Find Streams, the playing stream
-itself for ICY titles, and this repository’s GitHub releases for the
-update check. No telemetry of any kind. (Sound Enhancements’ local
-relay, §8, is loopback-only and never reaches the network itself – it
+itself for ICY titles, and this repository's GitHub releases for the
+update check. No telemetry of any kind. (Sound Enhancements' local
+relay, §8, is loopback-only and never reaches the network itself -- it
 filters the same stream this section already covers.)</li>
-<li>N-2. Safe Mode disables the radio’s network surfaces along with the
+<li>N-2. Safe Mode disables the radio's network surfaces along with the
 feature.</li>
 </ul>
-<h2 id="non-goals">7. Non-goals</h2>
+<h2 id="7-non-goals">7. Non-goals</h2>
 <p>macOS/Linux standalone builds (upstream QUILL covers macOS; the tray
 pattern does not exist there), auto-updating in place, telemetry. A full
-DSP effects rack (reverb, tempo/pitch, spatial audio) – Sound
-Enhancements (§8) is a small, purpose-built EQ preset and compressor,
-not a general effects rack.</p>
-<h2 id="since-1.0">8. Since 1.0</h2>
+DSP effects rack (reverb, tempo/pitch, spatial audio) -- Sound
+Enhancements (§8) is a small, purpose-built three-band EQ and
+compressor, not a general effects rack.</p>
+<h2 id="8-since-10">8. Since 1.0</h2>
 <ul>
 <li><strong>Sound Enhancements</strong> (Playback &gt; Sound
-Enhancements…): an equalizer preset and a compressor, applied live via
-an ffmpeg filter graph relayed to the playback engine over a
-loopback-only local HTTP server. Off by default. Recording Settings’
-“Apply Sound Enhancements to recordings” (off by default) optionally
-records the filtered audio too.</li>
+Enhancements...): a three-band equalizer (Bass/Mid/Treble sliders, -12
+to +12 dB) and a compressor, applied live via an ffmpeg filter graph
+relayed to the playback engine over a loopback-only local HTTP server.
+Off by default. A "Quick preset" shortcut sets all three sliders at
+once. Recording Settings' "Apply Sound Enhancements to recordings" (off
+by default) optionally records the filtered audio too.</li>
 <li><strong>SomaFM</strong>, a second free, keyless station directory,
 blended into Browse Stations search alongside RadioBrowser.</li>
+<li><strong>Exit/Minimize to Tray confirmation</strong>: closing the
+window asks Exit, Minimize to Tray, or Cancel (with a one-time "Don't
+ask me again"), instead of always exiting immediately and silently
+stopping an in-progress recording. Adjustable in Preferences.</li>
+<li><strong>Quieter dialogs and a real "up to date" answer</strong>:
+dialog-transition announcements are now off by default (Preferences),
+and a manual Check for Updates that finds nothing newer shows a dialog
+instead of only announcing it.</li>
+<li><strong>In-app documentation</strong>: Help &gt; User Guide /
+Release Notes / Product Requirements open the bundled docs in your
+browser.</li>
 </ul>
 <p>See <code>CHANGELOG.md</code> for the full, versioned history.</p>
 </body>

@@ -64,11 +64,14 @@ Out of scope by decision: QUILL's editor, AI, speech transcription, braille, and
 
 ## 7. Non-goals
 
-macOS/Linux standalone builds (upstream QUILL covers macOS; the tray pattern does not exist there), auto-updating in place, telemetry. A full DSP effects rack (reverb, tempo/pitch, spatial audio) -- Sound Enhancements (§8) is a small, purpose-built EQ preset and compressor, not a general effects rack.
+macOS/Linux standalone builds (upstream QUILL covers macOS; the tray pattern does not exist there), auto-updating in place, telemetry. A full DSP effects rack (reverb, tempo/pitch, spatial audio) -- Sound Enhancements (§8) is a small, purpose-built three-band EQ and compressor, not a general effects rack.
 
 ## 8. Since 1.0
 
-- **Sound Enhancements** (Playback > Sound Enhancements...): an equalizer preset and a compressor, applied live via an ffmpeg filter graph relayed to the playback engine over a loopback-only local HTTP server. Off by default. Recording Settings' "Apply Sound Enhancements to recordings" (off by default) optionally records the filtered audio too.
+- **Sound Enhancements** (Playback > Sound Enhancements...): a three-band equalizer (Bass/Mid/Treble sliders, -12 to +12 dB) and a compressor, applied live via an ffmpeg filter graph relayed to the playback engine over a loopback-only local HTTP server. Off by default. A "Quick preset" shortcut sets all three sliders at once. Recording Settings' "Apply Sound Enhancements to recordings" (off by default) optionally records the filtered audio too.
 - **SomaFM**, a second free, keyless station directory, blended into Browse Stations search alongside RadioBrowser.
+- **Exit/Minimize to Tray confirmation**: closing the window asks Exit, Minimize to Tray, or Cancel (with a one-time "Don't ask me again"), instead of always exiting immediately and silently stopping an in-progress recording. Adjustable in Preferences.
+- **Quieter dialogs and a real "up to date" answer**: dialog-transition announcements are now off by default (Preferences), and a manual Check for Updates that finds nothing newer shows a dialog instead of only announcing it.
+- **In-app documentation**: Help > User Guide / Release Notes / Product Requirements open the bundled docs in your browser.
 
 See `CHANGELOG.md` for the full, versioned history.

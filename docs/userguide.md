@@ -45,9 +45,9 @@ Tab order: the now-playing line, the favorites tree, then four buttons.
 - **Favorite Stations** (submenu) -- every favorite, nested by your folders, playable inline.
 - **ACB Media** (submenu) -- ACB's whole stream directory, playable inline.
 - **Resume Last Station on Launch** (check item) -- the appliance switch.
-- **Preferences...** (Ctrl+,) -- Resume Last Station on Launch and automatic Check for Updates, both in one small dialog. Either checkbox takes effect the moment you save.
+- **Preferences...** (Ctrl+,) -- Resume Last Station on Launch, automatic Check for Updates, Announce dialog transitions (off by default -- turn on for more spoken detail around every dialog), and When closing the window (Ask every time / Exit / Minimize to Tray), all in one small dialog. Every setting takes effect the moment you save.
 - **Send to Tray** (Ctrl+W) -- hide the window; playback continues from the notification area.
-- **Exit** -- quit Quill Radio.
+- **Exit** -- quit Quill Radio. Closing the window this way, from the titlebar X, or with Alt+F4 all ask first (unless you've told it not to, or set a fixed answer in Preferences): Exit, Minimize to Tray, or Cancel, with a "Don't ask me again" checkbox. Recording in progress is called out in the message, since exiting stops it.
 
 ### Playback (Alt+P)
 
@@ -58,7 +58,7 @@ Tab order: the now-playing line, the favorites tree, then four buttons.
 - **Announce Track Titles** (check item) -- when on, title changes are announced as they happen. Off by default.
 - **Sleep Timer...** -- fade out and stop after a set time, restoring your volume.
 - **Wake-Up Timer...** -- the sleep timer's twin: pick a favorite, a time, once or every day, and the station starts playing by itself. Quill Radio must be running (the tray counts).
-- **Sound Enhancements...** -- an equalizer preset (Flat, Bass Boost, Voice Clarity, Podcast) and a compressor ("Even Out Volume", boosts quiet passages and tames loud ones). Off by default; turning either one on filters the currently playing station live through FFmpeg (needs Help > Get FFmpeg...) and reconnects -- there is no playback position to lose on a live stream, so that reconnect is instant. If FFmpeg is missing, playback continues unfiltered and Quill Radio tells you why.
+- **Sound Enhancements...** -- a three-band equalizer (Bass, Mid, Treble sliders, -12 to +12 dB each, freely adjustable) plus a compressor ("Even Out Volume", boosts quiet passages and tames loud ones). A "Quick preset" combo box (Flat, Bass Boost, Voice Clarity, Podcast) sets all three sliders at once as a starting point -- move any slider afterward and it becomes Custom. Off by default; turning anything on filters the currently playing station live through FFmpeg (needs Help > Get FFmpeg...) and reconnects on Apply -- there is no playback position to lose on a live stream, so that reconnect is instant. If FFmpeg is missing, playback continues unfiltered and Quill Radio tells you why.
 
 ### Record (Alt+R)
 
@@ -72,8 +72,9 @@ Tab order: the now-playing line, the favorites tree, then four buttons.
 
 - **Command Palette...** (Ctrl+Shift+P) -- every Quill Radio command in one searchable list.
 - **Redeem Unlock Code...** -- enter a signed code for a pre-release capability. Verified entirely on your machine; nothing is transmitted; one code counts for QUILL, Quill Radio, and QUILL Cast together.
-- **Check for Updates...** -- compares your version with the newest release, downloads the right artifact for your flavor directly (the installer for an installed copy, the portable zip for a portable one) with spoken progress, then offers Install now or Open folder. Quill Radio also runs this check quietly once a day when it launches -- silent unless it actually finds something, and Station > Preferences (Ctrl+,) turns it off if you'd rather check manually only.
+- **Check for Updates...** -- compares your version with the newest release, downloads the right artifact for your flavor directly (the installer for an installed copy, the portable zip for a portable one) with spoken progress, then offers Install now or Open folder. Already up to date shows a dialog too, not just a spoken announcement. Quill Radio also runs this check quietly once a day when it launches -- silent unless it actually finds something, and Station > Preferences (Ctrl+,) turns it off if you'd rather check manually only.
 - **Get FFmpeg...** -- a safety net: FFmpeg ships inside Quill Radio, but if it ever goes missing this downloads the official build so recording works again.
+- **User Guide** / **Release Notes** / **Product Requirements...** -- this guide, the version history, and the product requirements document, each opened right in your browser.
 - **Report a Bug...** -- files an issue directly from the app (no GitHub account needed), stamped "Quill Radio" with this app's own version so we know exactly what you were running; falls back to the online support form if anything goes wrong.
 - **About Quill Radio** -- version, sync statement, project address.
 

@@ -24,7 +24,10 @@ param(
 
 $ErrorActionPreference = "Stop"
 $repoRoot = Split-Path -Parent $PSScriptRoot
-$version = "1.0.2"
+$version = "1.0.4"
+
+# -- render docs (html + epub from the markdown source) -----------------------
+& (Join-Path $PSScriptRoot "render_docs.ps1")
 
 # -- bundled feedback token (hard requirement for a release build) -----------
 if (-not (Test-Path $TokenFile)) {
@@ -71,8 +74,15 @@ $ffLicense = Join-Path (Split-Path -Parent $FfmpegDir) "LICENSE"
 if (Test-Path $ffLicense) { Copy-Item $ffLicense (Join-Path $toolsDir "FFMPEG-LICENSE.txt") -Force }
 $docsDir = Join-Path $appDir "docs"
 New-Item -ItemType Directory -Force $docsDir | Out-Null
+# .md + .html for every doc (Help > User Guide / Release Notes / Product
+# Requirements... prefers the pre-rendered .html; .md is the fallback source
+# if a build ever ships without render_docs.ps1 having run).
 Copy-Item (Join-Path $repoRoot "docs\userguide.md") $docsDir -Force
+Copy-Item (Join-Path $repoRoot "docs\userguide.html") $docsDir -Force
 Copy-Item (Join-Path $repoRoot "docs\release-notes-1.0.md") $docsDir -Force
+Copy-Item (Join-Path $repoRoot "docs\release-notes-1.0.html") $docsDir -Force
+Copy-Item (Join-Path $repoRoot "docs\prd.md") $docsDir -Force
+Copy-Item (Join-Path $repoRoot "docs\prd.html") $docsDir -Force
 Copy-Item (Join-Path $repoRoot "README.md") (Join-Path $appDir "README-Quill-Radio.md") -Force
 
 # -- portable zip (adds the data\ folder = portable-mode evidence) ------------

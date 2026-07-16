@@ -2,6 +2,14 @@
 
 The radio, on its own -- and finished. Quill Radio takes the internet radio QUILL users already know, gives it a window, a menu bar, a tray icon, and its own icon, and then goes further than the embedded radio ever has. Everything below also landed in QUILL itself: the two share one codebase and one data store, so features arrive everywhere at once.
 
+## What's new in 1.0.4
+
+- **A real three-band equalizer.** Sound Enhancements' single preset choice became Bass, Mid, and Treble sliders (-12 to +12 dB each), freely adjustable. The old presets (Flat, Bass Boost, Voice Clarity, Podcast) are still there as a "Quick preset" shortcut -- pick one to set all three sliders at once, then keep tuning from there.
+- **Exit or Minimize to Tray -- your choice.** Closing the window used to always exit immediately, which could silently cut off a recording in progress. Now it asks: Exit, Minimize to Tray, or Cancel, with a "Don't ask me again" checkbox that remembers your answer. Preferences (Ctrl+,) gained a matching "When closing the window" setting so you can always change your mind later.
+- **A real dialog when you're already up to date.** Help > Check for Updates used to only announce "up to date" -- easy to miss. It now shows a proper dialog, the same as a genuine update does.
+- **Quieter by default.** Preferences (Ctrl+,) gained "Announce dialog transitions" (off by default) -- previously every dialog spoke "Entered/Exited" cues with no way to turn it off.
+- **Documentation, right in the Help menu.** User Guide, Release Notes, and Product Requirements now open directly from Help, rendered in your browser.
+
 ## What's new in 1.0.3
 
 - **Sound Enhancements.** Playback > Sound Enhancements... adds an equalizer preset (Flat, Bass Boost, Voice Clarity, Podcast) and a compressor ("Even Out Volume", boosts quiet passages and tames loud ones) to whatever station is playing, applied live through the ffmpeg Quill Radio already uses for recording. Off by default, and turning either one on reconnects instantly -- live radio has no position to lose. **Recording Settings...** gained a matching "Apply Sound Enhancements to recordings" checkbox (off by default) if you'd rather your recordings capture the filtered audio too.
