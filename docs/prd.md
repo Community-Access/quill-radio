@@ -33,7 +33,8 @@ Quill Radio is QUILL's internet radio, shipped as its own small Windows app for 
 - Record now; Record Station (a different station than the one playing, for N minutes); scheduled recordings (once/daily/weekly).
 - Recordings list: live status (Recording with growing size / Recorded / Scheduled), Play, Stop Recording, Open in Folder, Remove, 2-second auto-refresh.
 - Auto-reconnect: ffmpeg HTTP reconnect flags plus process-level retry into numbered part files; enabled/attempts/spacing configurable; user stops and duration-cap finishes never retry.
-- Settings: format (mp3/ogg/flac/wav), bitrate, destination, filename pattern with tokens, max-duration safety cap.
+- Settings: format (mp3/ogg/flac/wav, plus a raw stream-copy mode), bitrate, destination, filename pattern with tokens, max-duration safety cap.
+- Raw/lossless capture (upstream `core/radio/recording.py`, listener request): a "Raw stream -- exactly as sent, no re-encoding (lossless)" format (`format="copy"`) stream-copies the server's audio packets with ffmpeg's `-c:a copy` -- no decode, no re-encode -- so the saved file is bit-for-bit the original broadcast, the most faithful capture for a listener who wants to do their own lossless editing/conversion. Bitrate and Sound Enhancements are meaningless with no re-encode and are dropped. The output container follows the stream's own codec, chosen from a one-time bounded `ffprobe` of the first audio stream (mp3->`.mp3`, aac->`.aac`, vorbis->`.ogg`, opus->`.opus`, flac->`.flac`, ...), falling back to Matroska audio (`.mka`) for anything unrecognized -- a universal lossless copy container; a missing/failed probe degrades to `.mka` rather than blocking the recording, and the resolved extension is reused across auto-reconnect continuation files.
 
 **Timers**
 - Sleep timer (shared radio/podcasts fade-and-restore).

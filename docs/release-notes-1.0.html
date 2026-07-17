@@ -184,6 +184,105 @@ icon, and its own icon, and then goes further than the embedded radio
 ever has. Everything below also landed in QUILL itself: the two share
 one codebase and one data store, so features arrive everywhere at
 once.</p>
+<h2 id="unreleased">Unreleased</h2>
+<ul>
+<li><strong>Record the raw stream, exactly as sent.</strong> Recording
+Settings' Format list gained <strong>Raw stream -- exactly as sent, no
+re-encoding (lossless)</strong> next to MP3, OGG, FLAC, and WAV. Those
+four decode the incoming audio and re-encode it to the format you
+picked; the raw option does neither -- it copies the station's own audio
+packets straight to disk, so the file that lands is bit-for-bit what the
+server broadcast. It's the cleanest possible starting point if you want
+to do your own editing or convert it yourself, with nothing lost to a
+second pass through an encoder. Quill Radio names the file from the
+stream's own format for you -- an MP3 stream becomes a
+<code>.mp3</code>, AAC a <code>.aac</code>, Ogg Vorbis a
+<code>.ogg</code>, Opus a <code>.opus</code>, FLAC a <code>.flac</code>;
+anything out of the ordinary is tucked into a Matroska <code>.mka</code>
+file, which holds any audio losslessly and opens in players like VLC.
+Bitrate and Sound Enhancements don't touch a raw recording -- there's
+nothing being re-encoded for them to shape -- so they're quietly
+skipped, and if a recording rides out a dropped connection into a "(part
+2)" file, that part keeps the same file type. Straight from a listener
+request: a recording mode that saves the raw stream as captured, as
+losslessly as possible.</li>
+<li><strong>Stations that used to fail now heal themselves.</strong>
+Here's the one that started it: Magic 104.1 (KMGL) in Oklahoma City
+turns up in the directory, you press play, and... nothing. The real
+stream lives behind a JavaScript player on the station's site, so the
+listed address is a dead end, and the only way through was to open the
+website, find the "Listen Live" link, follow it, and dig the actual
+stream out of the player by hand. Quill Radio now does that digging for
+you. When a stream won't play it works down a ladder: re-resolve the
+address if it's a StreamTheWorld player that just moved servers, refresh
+the address from the directory, and -- if you leave it on -- scan the
+station's own website, following its "Listen Live"/"Play"/"Tune In" link
+into the player page and reading a Triton player straight off it. Find
+one clear stream and it just plays it (and remembers it for that
+favorite); find several and it tells you and sends you to Find Streams
+to pick. The website step is one checkbox in Preferences (on by default,
+off in Safe Mode); the quick re-resolves always run. It tries once per
+station per session, so a truly dead station never spins. A dead station
+is no longer a dead end.</li>
+<li><strong>What's Playing, the way you'd actually say it.</strong> Some
+stations don't send a clean "Artist - Title" -- their broadcast systems
+cram a pile of catalog codes into the track name, and What's Playing
+(Ctrl+T) read the whole thing aloud:
+<code>title="YOUR SONG",artist="Elton John",url="song_spot="F" MediaBaseId="0"...</code>.
+Now Quill Radio finds the title and the artist in that noise and just
+says "Now playing: YOUR SONG by Elton John." Better still, you decide
+the wording: Preferences (Ctrl+,) has a "What's Playing announcement"
+box where you write a short template with <code>{title}</code> and
+<code>{artist}</code> -- wrap optional words in
+<code>[square brackets]</code> so they disappear when there's nothing to
+fill them (the default <code>{title}[ by {artist}]</code> quietly drops
+the " by" when a stream sends no artist). Prefer "Elton John: YOUR
+SONG"? Type <code>{artist}: {title}</code>. Want the raw feed for a
+station you're curious about? <code>{raw}</code> gives you everything.
+Blank restores the default.</li>
+<li><strong>The whole dial, not just the first 50.</strong> Browse
+Stations used to stop at 50 results -- so a search for "news," with
+hundreds of stations out there, looked like it only had 50 in the world.
+Now you get up to 200 at once, most-listened first, and when there are
+still more a <strong>More Stations</strong> button loads the next page
+and drops your cursor right on the first new arrival. The summary even
+tells you when there's more to reach for, and nudges you to add a tag or
+country when you'd rather narrow than page. Under the hood this pages
+the RadioBrowser directory properly, so the long tail is finally within
+reach.</li>
+<li><strong>Volume keys, fixed again -- this time in Browse
+Stations.</strong> Search for a station, press Enter to play it, then
+reach for Ctrl+Down to bring the volume down... and nothing happened.
+Browse Stations is its own window, so the Playback menu's volume
+shortcut never reached it, and the station results list had already
+claimed the plain arrow keys for moving between rows. Now Ctrl+Up and
+Ctrl+Down work from anywhere in that window -- the results list, the
+volume slider, a button -- turning the same radio volume you'd change
+anywhere else, sliding the window's own volume control to match, and
+speaking the new level. Plain arrow keys still move you between
+stations, untouched. (Version 1.0.2 fixed exactly this on the main
+window's Favorites list; this reaches the Browse Stations window that
+fix didn't.)</li>
+<li><strong>Find Streams now reaches the stations that hid behind a Play
+button.</strong> A whole class of broadcast stations -- thousands of
+them, and the entire <code>player.listenlive.co</code> network -- put
+their "Listen Live" on a modern JavaScript player (Triton Digital /
+StreamTheWorld). Those players build the stream address in code the
+moment you press Play, so it is written nowhere on the page for a
+scanner to read. Point the old Find Streams at one and it came back
+empty, even with a Play button sitting right there on the screen. No
+longer: Quill Radio now recognizes the player, reads the station's call
+letters straight off the page, and looks up the real, playable stream
+through the station provider's own public address service -- no embedded
+browser, no guessing at URLs. When a station offers both an MP3 and an
+AAC feed, you get both to choose from. It only ever does this for pages
+that really are these players and only for call letters the service
+confirms, so it never hands you a wrong stream; ordinary pages behave
+exactly as before, and the lookup happens as part of the same Scan you
+already press (and stays off in Safe Mode). One real report --
+<code>player.listenlive.co/34461</code>, "Magic 104.1" -- turned into a
+fix that quietly covers thousands of stations at once.</li>
+</ul>
 <h2 id="whats-new-in-102">What's new in 1.0.2</h2>
 <ul>
 <li><strong>Volume keys, fixed.</strong> Ctrl+Up/Ctrl+Down did nothing
