@@ -1,6 +1,6 @@
 # Quill Radio -- Product Requirements
 
-Version 1.0
+Version 1.1
 
 ## 1. Product statement
 

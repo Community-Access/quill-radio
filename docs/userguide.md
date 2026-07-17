@@ -1,6 +1,6 @@
 # Quill Radio User Guide
 
-Version 1.0
+Version 1.1
 
 Quill Radio is internet radio the way a screen reader user would design it: a small window whose favorites tree has focus the instant it opens, menus that say everything they do, spoken feedback for every action, and a tray icon so the music keeps playing while you work. It runs the exact same radio code as QUILL itself and shares its data, so nothing you set up here is ever stranded.
 
