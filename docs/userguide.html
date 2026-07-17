@@ -302,27 +302,33 @@ appliance switch.</li>
 <li><strong>Preferences...</strong> (Ctrl+,) -- Resume Last Station on
 Launch, automatic Check for Updates, Announce dialog transitions (off by
 default -- turn on for more spoken detail around every dialog), When
-closing the window (Ask every time / Exit / Minimize to Tray -- this
-governs Alt+F4 and the titlebar X too, so Minimize to Tray means Alt+F4
-sends the radio to the tray, still playing), <strong>Playback
-engine</strong> (Automatic -- recommended -- uses the bundled mpv
-engine, which powers the output device choice, pausing and rewinding
-live radio, Volume Boost, and stations in more formats; "Windows Media
-(classic)" is exactly the pre-1.1 behavior if you ever want it back),
-and <strong>Radio output device</strong> (route just the radio to a
-second sound card or USB headset -- your screen reader and Quill Radio's
-own sounds stay on the system default device; an unplugged device is
-remembered, not reset, and if it can't be used the radio plays through
-the default and says so). Every setting takes effect the moment you save
--- switching engine or device mid-song reconnects the station right
-where it matters: on the new engine or device.</li>
+closing the window (Ask every time / Exit / Minimize to Tray -- governs
+the titlebar X, Station &gt; Exit, and by default Alt+F4 too),
+<strong>Alt+F4 minimizes to the system tray</strong> (off by default:
+turn it on and Alt+F4 alone tucks the radio into the tray, still
+playing, while X and Exit keep the setting above -- the reflexive close
+stops meaning quit), <strong>Playback engine</strong> (Automatic --
+recommended -- uses the bundled mpv engine, which powers the output
+device choice, pausing and rewinding live radio, Volume Boost, and
+stations in more formats; "Windows Media (classic)" is exactly the
+pre-1.1 behavior if you ever want it back), and <strong>Radio output
+device</strong> (route just the radio to a second sound card or USB
+headset -- your screen reader and Quill Radio's own sounds stay on the
+system default device; an unplugged device is remembered, not reset, and
+if it can't be used the radio plays through the default and says so).
+Every setting takes effect the moment you save -- switching engine or
+device mid-song reconnects the station right where it matters: on the
+new engine or device.</li>
 <li><strong>Send to Tray</strong> (Ctrl+W) -- hide the window; playback
 continues from the notification area.</li>
 <li><strong>Exit</strong> -- quit Quill Radio. Closing the window this
 way, from the titlebar X, or with Alt+F4 all ask first (unless you've
 told it not to, or set a fixed answer in Preferences): Exit, Minimize to
 Tray, or Cancel, with a "Don't ask me again" checkbox. Recording in
-progress is called out in the message, since exiting stops it.</li>
+progress is called out in the message, since exiting stops it. And if
+"Alt+F4 minimizes to the system tray" is on in Preferences, Alt+F4 skips
+all of this and simply tucks the radio into the tray, still
+playing.</li>
 </ul>
 <h3 id="playback-altp">Playback (Alt+P)</h3>
 <ul>
