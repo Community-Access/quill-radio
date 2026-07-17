@@ -351,10 +351,11 @@ installer with its own AppId installing to {autopf}\Quill Radio,
 per-user by default.</li>
 <li>P-2. Everything bundled, nothing downloaded at install or runtime:
 the onedir build carries the whole quill package and data; ffmpeg
-installs to {app}\tools\ffmpeg, found via the wrapper exporting
-QUILL_APP_ROOT. A portable zip ships the same onedir build plus a
-<code>data\</code> folder that switches storage to travel with the
-app.</li>
+installs to {app}\tools\ffmpeg and libmpv (the mpv playback engine, with
+its GPL license texts and source-offer note) to {app}\tools\mpv, both
+found via the wrapper exporting QUILL_APP_ROOT. A portable zip ships the
+same onedir build plus a <code>data\</code> folder that switches storage
+to travel with the app.</li>
 <li>P-3. Uninstall never deletes <code>%APPDATA%\Quill</code> -- QUILL
 or QUILL Cast may still use it.</li>
 <li>P-4. Release artifacts:
@@ -384,18 +385,48 @@ Enhancements (§8) is a small, purpose-built three-band EQ and
 compressor, not a general effects rack.</p>
 <h2 id="8-since-10">8. Since 1.0</h2>
 <ul>
+<li><strong>The mpv playback engine (1.1.0, upstream
+<code>quill/ui/radio/mpv_radio_engine.py</code> +
+<code>player_controller.py</code>, #1076).</strong> A second, preferred
+audio backend: libmpv, live-stream-aware (readiness from
+<code>core-idle</code>, not the duration a live stream never reports),
+bundled at <code>{app}\tools\mpv</code>.
+<code>RadioHistory.playback_engine</code> = auto (mpv when present) / wx
+("Windows Media (classic)", the byte-for-byte pre-1.1 escape hatch) /
+mpv; one silent cross-engine rescue per play attempt in either
+direction, which is also what makes Ogg Vorbis/Opus/HLS stations
+(undecodable by WMP) play. The engine delivers: <strong>Radio output
+device</strong> (Preferences; <code>RadioHistory.output_device</code>;
+screen reader and app sounds stay on the system default; unplugged
+devices remembered, spoken fallback when unusable); <strong>live
+DVR</strong> (a seekable ~45-minute demuxer cache: pause/resume live
+radio, Rewind/Forward 30 Seconds, Back to Live, each announcing how far
+behind live); <strong>Volume Boost</strong> (up to 150% for quiet
+stations; the 0-100 scale, per-station volumes, and mute untouched);
+<strong>engine-native What's Playing fallback</strong> (mpv
+<code>media-title</code> when the ICY side-tap gets nothing or the
+stream is HLS); and <strong>"Buffering..." announcements</strong> on
+mid-stream stalls.</li>
 <li><strong>Sound Enhancements</strong> (Playback &gt; Sound
 Enhancements...): a three-band equalizer (Bass/Mid/Treble sliders, -12
 to +12 dB) and a compressor, applied live via an ffmpeg filter graph
-relayed to the playback engine over a loopback-only local HTTP server.
-Off by default. A "Quick preset" shortcut sets all three sliders at
-once. Remembered per favorite station (a whole-record override on
-<code>FavoriteStation</code>, mirroring QUILL Cast's per-podcast
-override) as well as a shared default in <code>RadioHistory</code>;
-<code>RadioPlayerController</code> resolves which applies via an
-injected callback at the top of every <code>play_station</code>.
-Recording Settings' "Apply Sound Enhancements to recordings" (off by
-default) optionally records the filtered audio too.</li>
+relayed to the playback engine over a loopback-only local HTTP server --
+or, on the mpv engine (1.1.0), natively inside the player with no relay
+and with changes heard live, no reconnect. Off by default. 1.1.0 adds
+two listener-level (deliberately global, not per-station) options riding
+the same shared graph everywhere including recordings: <strong>mono
+downmix</strong> (single-sided hearing / one earbud -- hard-panned
+content never disappears) and <strong>night mode</strong> (real-time
+loudness normalization lifting quiet passages), plus the Small Speakers
+and Late Night quick presets. A "Quick preset" shortcut sets all three
+sliders at once. Remembered per favorite station (a whole-record
+override on <code>FavoriteStation</code>, mirroring QUILL Cast's
+per-podcast override) as well as a shared default in
+<code>RadioHistory</code>; <code>RadioPlayerController</code> resolves
+which applies via an injected callback at the top of every
+<code>play_station</code>. Recording Settings' "Apply Sound Enhancements
+to recordings" (off by default) optionally records the filtered audio
+too.</li>
 <li><strong>SomaFM</strong>, a second free, keyless station directory,
 blended into Browse Stations search alongside RadioBrowser.</li>
 <li><strong>Exit/Minimize to Tray confirmation</strong>: closing the

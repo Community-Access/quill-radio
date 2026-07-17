@@ -301,9 +301,19 @@ directory, playable inline.</li>
 appliance switch.</li>
 <li><strong>Preferences...</strong> (Ctrl+,) -- Resume Last Station on
 Launch, automatic Check for Updates, Announce dialog transitions (off by
-default -- turn on for more spoken detail around every dialog), and When
-closing the window (Ask every time / Exit / Minimize to Tray), all in
-one small dialog. Every setting takes effect the moment you save.</li>
+default -- turn on for more spoken detail around every dialog), When
+closing the window (Ask every time / Exit / Minimize to Tray),
+<strong>Playback engine</strong> (Automatic -- recommended -- uses the
+bundled mpv engine, which powers the output device choice, pausing and
+rewinding live radio, Volume Boost, and stations in more formats;
+"Windows Media (classic)" is exactly the pre-1.1 behavior if you ever
+want it back), and <strong>Radio output device</strong> (route just the
+radio to a second sound card or USB headset -- your screen reader and
+Quill Radio's own sounds stay on the system default device; an unplugged
+device is remembered, not reset, and if it can't be used the radio plays
+through the default and says so). Every setting takes effect the moment
+you save -- switching engine or device mid-song reconnects the station
+right where it matters: on the new engine or device.</li>
 <li><strong>Send to Tray</strong> (Ctrl+W) -- hide the window; playback
 continues from the notification area.</li>
 <li><strong>Exit</strong> -- quit Quill Radio. Closing the window this
@@ -324,6 +334,19 @@ the panel button.</li>
 remembers the volume you set while it plays and gets it back the next
 time it starts -- stations are mastered wildly differently, and you
 should only have to fix that once per station.</li>
+<li><strong>Volume Boost</strong> (Ctrl+Shift+B, check item) --
+amplifies up to 50% past full volume for stations that just broadcast
+quiet. Your 0-100 volume scale, per-station volume memories, and mute
+all behave exactly as before; the boost is applied on top. Needs the mpv
+playback engine (the default -- see Preferences below).</li>
+<li><strong>Rewind 30 Seconds</strong> (Ctrl+Shift+Left),
+<strong>Forward 30 Seconds</strong> (Ctrl+Shift+Right), <strong>Back to
+Live</strong> (Ctrl+Shift+L) -- live radio you can move around in. Quill
+Radio keeps a rolling buffer of the stream (roughly 45 minutes at
+typical bitrates): pause with Play/Stop and resume where you left off,
+jump back to catch a missed sentence, then work your way forward or leap
+straight back to live. Every move announces how far behind live you are.
+Needs the mpv playback engine.</li>
 <li><strong>What's Playing?</strong> (Ctrl+T) -- speaks the current
 track or show title straight from the stream's own metadata. When a
 station sends messy broadcast metadata (a string of catalog codes rather
@@ -343,19 +366,27 @@ time, restoring your volume.</li>
 favorite, a time, once or every day, and the station starts playing by
 itself. Quill Radio must be running (the tray counts).</li>
 <li><strong>Sound Enhancements...</strong> -- a three-band equalizer
-(Bass, Mid, Treble sliders, -12 to +12 dB each, freely adjustable) plus
-a compressor ("Even Out Volume", boosts quiet passages and tames loud
-ones). A "Quick preset" combo box (Flat, Bass Boost, Voice Clarity,
-Podcast) sets all three sliders at once as a starting point -- move any
-slider afterward and it becomes Custom. Off by default; turning anything
-on filters the currently playing station live through FFmpeg (needs Help
-&gt; Get FFmpeg...) and reconnects on Apply -- there is no playback
-position to lose on a live stream, so that reconnect is instant. If
-FFmpeg is missing, playback continues unfiltered and Quill Radio tells
-you why. <strong>Remembered per station</strong>: open it while a
-favorite is playing to set that station's own sound; with nothing
-playing (or a non-favorite on), you're setting the shared default every
-other station follows.</li>
+(Bass, Mid, Treble sliders, -12 to +12 dB each, freely adjustable), a
+compressor ("Even Out Volume", boosts quiet passages and tames loud
+ones), and two listener options: <strong>Combine channels into
+mono</strong> (both stereo channels blended into one -- with
+single-sided hearing or a single earbud, a station that hard-pans a
+voice to the other channel simply loses it; mono means nothing
+disappears) and <strong>Night mode</strong> (evens loudness in real time
+by lifting quiet passages -- the complement to Even Out Volume taming
+loud ones; ideal for low-volume late-night listening). A "Quick preset"
+combo box (Flat, Bass Boost, Voice Clarity, Podcast, Small Speakers,
+Late Night) sets all three sliders at once as a starting point -- move
+any slider afterward and it becomes Custom. Off by default. On the mpv
+playback engine (the default), changes apply <strong>live, with no
+interruption at all</strong>; on the Windows Media engine they filter
+through FFmpeg (needs Help &gt; Get FFmpeg...) and reconnect on Apply --
+instant, since a live stream has no position to lose. The EQ and
+compressor are <strong>remembered per station</strong>: open the dialog
+while a favorite is playing to set that station's own sound; with
+nothing playing (or a non-favorite on), you're setting the shared
+default every other station follows. Mono and Night mode are always
+shared -- they describe your ears and your evening, not a station.</li>
 </ul>
 <h3 id="record-altr">Record (Alt+R)</h3>
 <ul>
@@ -502,16 +533,22 @@ QUILL's radio; the wake-up timer you set in QUILL fires here.
 Uninstalling Quill Radio never deletes that shared data.</p>
 <h2 id="dependencies-honestly-stated">Dependencies, honestly stated</h2>
 <ul>
-<li><strong>Playback</strong> uses the Windows Media Player engine built
-into Windows -- nothing to install.</li>
-<li><strong>Recording</strong>, <strong>Sound Enhancements</strong>, and
-(when "Apply Sound Enhancements to recordings" is on) recording's own
-filtering all use <strong>ffmpeg</strong>, which the installer bundles
-at <code>tools\ffmpeg</code> inside the install folder. Nothing
-downloads at runtime. Sound Enhancements plays through a small local
-relay (ffmpeg filters the stream, a loopback-only web server on your own
-machine hands the filtered audio to the player) -- nothing about it is
-reachable off your computer.</li>
+<li><strong>Playback</strong> uses the bundled <strong>mpv</strong>
+engine (<code>tools\mpv</code> inside the install folder -- license
+texts and source note ship right next to it) with the Windows Media
+Player engine built into Windows as automatic fallback and as the
+"classic" choice in Preferences. Nothing to install, nothing downloads
+at runtime.</li>
+<li><strong>Recording</strong>, <strong>Sound Enhancements</strong> on
+the classic engine, and (when "Apply Sound Enhancements to recordings"
+is on) recording's own filtering all use <strong>ffmpeg</strong>, which
+the installer bundles at <code>tools\ffmpeg</code> inside the install
+folder. Nothing downloads at runtime. On the classic engine, Sound
+Enhancements plays through a small local relay (ffmpeg filters the
+stream, a loopback-only web server on your own machine hands the
+filtered audio to the player) -- nothing about it is reachable off your
+computer; on the mpv engine the same filters run inside the player
+itself, no relay at all.</li>
 <li><strong>Station search</strong> talks to the community
 <strong>RadioBrowser</strong> directory and the free, keyless
 <strong>SomaFM</strong> directory, blended into one results list;
@@ -551,6 +588,18 @@ needed to browse it.</li>
 <tr>
 <td>Volume up / down</td>
 <td>Ctrl+Up / Ctrl+Down</td>
+</tr>
+<tr>
+<td>Volume Boost</td>
+<td>Ctrl+Shift+B</td>
+</tr>
+<tr>
+<td>Rewind / Forward 30 seconds</td>
+<td>Ctrl+Shift+Left / Ctrl+Shift+Right</td>
+</tr>
+<tr>
+<td>Back to Live</td>
+<td>Ctrl+Shift+L</td>
 </tr>
 <tr>
 <td>What's Playing?</td>
@@ -624,6 +673,15 @@ time stays silent until the next occurrence.</li>
 <li><strong>The tray icon is gone.</strong> Check the taskbar overflow
 area, or set Quill Radio to "always show" in Windows taskbar
 settings.</li>
+<li><strong>Rewind, Volume Boost, or the output device "needs the mpv
+playback engine."</strong> Preferences (Ctrl+,) &gt; Playback engine is
+set to Windows Media (classic), or the bundled engine is missing. Set it
+back to Automatic; these features live in the mpv engine.</li>
+<li><strong>Playback sounds different since 1.1.0.</strong> It shouldn't
+-- but if anything about the new engine bothers you, Preferences
+(Ctrl+,) &gt; Playback engine &gt; "Windows Media (classic)" is exactly
+the old behavior. Please report what you heard either way (Help &gt;
+Report a Bug...).</li>
 </ul>
 </body>
 </html>

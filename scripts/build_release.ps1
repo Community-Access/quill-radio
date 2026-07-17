@@ -17,6 +17,7 @@
 param(
     [string]$Python = "S:\QUILL\.venv\Scripts\python.exe",
     [string]$FfmpegDir = "",
+    [string]$LibmpvDir = "",
     [string]$TokenFile = "S:\token.txt",
     [string]$Iscc = "$env:LOCALAPPDATA\Programs\Inno Setup 6\ISCC.exe",
     [string]$QuillRepo = "S:\QUILL"
@@ -45,6 +46,20 @@ if (-not $FfmpegDir) {
 if (-not $FfmpegDir -or -not (Test-Path (Join-Path $FfmpegDir "ffmpeg.exe"))) {
     throw "ffmpeg.exe not found. Pass -FfmpegDir; recording must ship bundled."
 }
+
+# -- libmpv to bundle ----------------------------------------------------------
+# The mpv playback engine (1.1.0): output-device routing, pause/rewind live
+# radio, Volume Boost, native Sound Enhancements, Ogg/Opus/HLS stations.
+# Bundled under tools\mpv exactly like ffmpeg under tools\ffmpeg (found via
+# QUILL_APP_ROOT, the same pattern QUILL's Offline Edition uses); a release
+# without it silently guts the 1.1.0 headline features, so it is required.
+if (-not $LibmpvDir) {
+    $packDir = Join-Path $env:APPDATA "Quill\engine-packs\mpv"
+    if (Test-Path (Join-Path $packDir "libmpv-2.dll")) { $LibmpvDir = $packDir }
+}
+if (-not $LibmpvDir -or -not (Test-Path (Join-Path $LibmpvDir "libmpv-2.dll"))) {
+    throw "libmpv-2.dll not found. Pass -LibmpvDir; the mpv engine must ship bundled."
+}
 if (-not (Test-Path $Iscc)) {
     $fallback = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
     if (Test-Path $fallback) { $Iscc = $fallback } else { throw "ISCC.exe not found: $Iscc" }
@@ -72,6 +87,15 @@ if (Test-Path (Join-Path $FfmpegDir "ffprobe.exe")) {
 }
 $ffLicense = Join-Path (Split-Path -Parent $FfmpegDir) "LICENSE"
 if (Test-Path $ffLicense) { Copy-Item $ffLicense (Join-Path $toolsDir "FFMPEG-LICENSE.txt") -Force }
+$mpvDir = Join-Path $appDir "tools\mpv"
+New-Item -ItemType Directory -Force $mpvDir | Out-Null
+Copy-Item (Join-Path $LibmpvDir "libmpv-2.dll") $mpvDir -Force
+# GPL compliance: ship mpv's license texts and the source-offer note next
+# to the DLL (the engine pack carries them; QUILL's Offline Edition ships
+# the same set).
+Get-ChildItem $LibmpvDir -File | Where-Object { $_.Extension -eq ".txt" } | ForEach-Object {
+    Copy-Item $_.FullName $mpvDir -Force
+}
 $docsDir = Join-Path $appDir "docs"
 New-Item -ItemType Directory -Force $docsDir | Out-Null
 # .md + .html for every doc (Help > User Guide / Release Notes / Product
