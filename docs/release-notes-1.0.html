@@ -194,10 +194,18 @@ exists. The classic Windows Media engine is still right there:
 Preferences (Ctrl+,) &gt; Playback engine &gt; "Windows Media (classic)"
 is exactly the pre-1.1 behavior, byte for byte. Best of both: whichever
 engine is playing, a station it can't open is quietly retried once on
-the other before you ever hear an error. A practical consequence you'll
-feel immediately: stations broadcasting in Ogg Vorbis, Opus, or HLS --
-formats Windows Media simply cannot decode, common among community and
-independent stations -- now just play.</li>
+the other before you ever hear an error.</li>
+<li><strong>Every stream format, finally.</strong> This is the
+consequence you'll feel immediately: Quill Radio now plays effectively
+every station format in real-world use -- <strong>MP3, AAC and HE-AAC
+(AAC+), Ogg Vorbis, Opus, FLAC streams, and HLS (m3u8)</strong>. Ogg
+Vorbis, Opus, and HLS were simply undecodable before (Windows Media
+cannot play them), and they're everywhere among community, independent,
+and international stations: a whole class of "found it in the directory
+but it won't play" stations just started working. Raw recording keeps
+pace -- each format is captured to its natural file type
+(<code>.ogg</code>, <code>.opus</code>, <code>.aac</code>, and so
+on).</li>
 <li><strong>Send the radio to a second sound card.</strong> The classic
 radio setup, finally: Preferences (Ctrl+,) gained <strong>Radio output
 device</strong>. Route the radio to a USB headset or a second sound card

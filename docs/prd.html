@@ -394,19 +394,20 @@ bundled at <code>{app}\tools\mpv</code>.
 <code>RadioHistory.playback_engine</code> = auto (mpv when present) / wx
 ("Windows Media (classic)", the byte-for-byte pre-1.1 escape hatch) /
 mpv; one silent cross-engine rescue per play attempt in either
-direction, which is also what makes Ogg Vorbis/Opus/HLS stations
-(undecodable by WMP) play. The engine delivers: <strong>Radio output
-device</strong> (Preferences; <code>RadioHistory.output_device</code>;
-screen reader and app sounds stay on the system default; unplugged
-devices remembered, spoken fallback when unusable); <strong>live
-DVR</strong> (a seekable ~45-minute demuxer cache: pause/resume live
-radio, Rewind/Forward 30 Seconds, Back to Live, each announcing how far
-behind live); <strong>Volume Boost</strong> (up to 150% for quiet
-stations; the 0-100 scale, per-station volumes, and mute untouched);
-<strong>engine-native What's Playing fallback</strong> (mpv
-<code>media-title</code> when the ICY side-tap gets nothing or the
-stream is HLS); and <strong>"Buffering..." announcements</strong> on
-mid-stream stalls.</li>
+direction. Combined stream-format coverage is effectively complete: MP3,
+AAC and HE-AAC (AAC+), Ogg Vorbis, Opus, FLAC streams, and HLS (m3u8) --
+Ogg Vorbis/Opus/HLS were undecodable by WMP. The engine delivers:
+<strong>Radio output device</strong> (Preferences;
+<code>RadioHistory.output_device</code>; screen reader and app sounds
+stay on the system default; unplugged devices remembered, spoken
+fallback when unusable); <strong>live DVR</strong> (a seekable
+~45-minute demuxer cache: pause/resume live radio, Rewind/Forward 30
+Seconds, Back to Live, each announcing how far behind live);
+<strong>Volume Boost</strong> (up to 150% for quiet stations; the 0-100
+scale, per-station volumes, and mute untouched); <strong>engine-native
+What's Playing fallback</strong> (mpv <code>media-title</code> when the
+ICY side-tap gets nothing or the stream is HLS); and
+<strong>"Buffering..." announcements</strong> on mid-stream stalls.</li>
 <li><strong>Sound Enhancements</strong> (Playback &gt; Sound
 Enhancements...): a three-band equalizer (Bass/Mid/Treble sliders, -12
 to +12 dB) and a compressor, applied live via an ffmpeg filter graph

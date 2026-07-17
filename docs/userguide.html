@@ -538,7 +538,11 @@ engine (<code>tools\mpv</code> inside the install folder -- license
 texts and source note ship right next to it) with the Windows Media
 Player engine built into Windows as automatic fallback and as the
 "classic" choice in Preferences. Nothing to install, nothing downloads
-at runtime.</li>
+at runtime. Between the two engines, effectively every stream format in
+real-world use plays: <strong>MP3, AAC and HE-AAC (AAC+), Ogg Vorbis,
+Opus, FLAC streams, and HLS (m3u8)</strong> -- and a station one engine
+can't open is quietly retried on the other before you ever hear an
+error.</li>
 <li><strong>Recording</strong>, <strong>Sound Enhancements</strong> on
 the classic engine, and (when "Apply Sound Enhancements to recordings"
 is on) recording's own filtering all use <strong>ffmpeg</strong>, which
@@ -658,7 +662,10 @@ from QUILL's keymap, so nothing here collides with editor shortcuts.</p>
 <li><strong>A station will not play.</strong> Streams move. If the
 station came from the directory, Quill Radio automatically fetches its
 current address and retries once; if it still fails, search for it again
-in Browse Stations, or re-add it as a custom station.</li>
+in Browse Stations, or re-add it as a custom station. (Format problems
+are largely history as of 1.1.0: the two engines together play MP3,
+AAC/HE-AAC, Ogg Vorbis, Opus, FLAC, and HLS, and a stream one engine
+can't open is retried on the other automatically.)</li>
 <li><strong>No sound but the app says playing.</strong> Check Mute
 (Ctrl+M), the per-station volume (Ctrl+Up), and the Windows volume mixer
 entry for Quill Radio.</li>
