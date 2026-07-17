@@ -13,13 +13,18 @@
 from PyInstaller.utils.hooks import collect_all
 
 quill_datas, quill_binaries, quill_hiddenimports = collect_all("quill")
+# PyNaCl (Ed25519 signature verification: signed update manifests, Quillin
+# verification in the shared feature code). Its imports are lazy inside
+# quill.tools.signing, so collect it explicitly rather than trusting the
+# tracer -- the wheel's _sodium extension must land in binaries too.
+nacl_datas, nacl_binaries, nacl_hiddenimports = collect_all("nacl")
 
 a = Analysis(
     ["launcher.py"],
     pathex=[],
-    binaries=quill_binaries,
-    datas=quill_datas,
-    hiddenimports=quill_hiddenimports,
+    binaries=quill_binaries + nacl_binaries,
+    datas=quill_datas + nacl_datas,
+    hiddenimports=quill_hiddenimports + nacl_hiddenimports,
     hookspath=[],
     runtime_hooks=[],
     excludes=[

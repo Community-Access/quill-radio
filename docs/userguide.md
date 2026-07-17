@@ -35,9 +35,9 @@ Tab order: the now-playing line, the favorites tree, then four buttons.
 
 ### Station (Alt+S)
 
-- **Browse Stations...** -- the full station browser: search RadioBrowser's live directory, filter by tag or country, test-play, favorite.
+- **Browse Stations...** -- the full station browser: search RadioBrowser's live directory, filter by tag or country, test-play, favorite. A search shows up to 200 stations at once, most-listened first; when there are still more, a **More Stations** button loads the next page and puts your cursor on the first newly added station. The status line tells you when more can be loaded and suggests adding a tag or country to narrow a very broad search.
 - **Add Custom Station...** -- paste any stream URL and name it yourself.
-- **Find Streams from a Website...** -- give it a website address; it scans that one page for stream links, with a Test button that toggles to Stop Test while a candidate plays.
+- **Find Streams from a Website...** -- give it a website address; it scans that one page for stream links, with a Test button that toggles to Stop Test while a candidate plays. This now also works for many stations whose "Listen Live" button is a modern JavaScript player (Triton Digital / StreamTheWorld, including the whole `player.listenlive.co` network -- for example `player.listenlive.co/34461`). Those players build their stream address in code, so it is not written anywhere in the page for a scanner to read; Quill Radio recognizes the player, reads the station's call letters from the page, and looks the real stream up through the station provider's own public address service -- no browser, no guessing. Both the MP3 and the AAC stream are offered when a station publishes both. If a page is not one of these players, or does not name its station, the scan simply behaves as before.
 - **Manage Favorites...** -- the favorites, made organizable. See "The Favorites Manager" below.
 - **New Folder...** (Ctrl+Shift+E) -- create a folder right where you want it: pick the location (top level or inside any existing folder), then name it. The folder exists immediately, ready for Move to Folder.
 - **Play Last Station** (Ctrl+L) -- resume whatever you last had on, one keystroke, no navigation.
@@ -54,7 +54,7 @@ Tab order: the now-playing line, the favorites tree, then four buttons.
 - A live (disabled) now-playing line at the top, so the menu itself tells you what is on.
 - **Play / Stop** (Ctrl+P) -- one transport item that reads Play when idle and Stop while connecting or playing, exactly like the panel button.
 - **Mute/Unmute** (Ctrl+M), **Volume Up** (Ctrl+Up), **Volume Down** (Ctrl+Down). Each favorite remembers the volume you set while it plays and gets it back the next time it starts -- stations are mastered wildly differently, and you should only have to fix that once per station.
-- **What's Playing?** (Ctrl+T) -- speaks the current track or show title straight from the stream's own metadata.
+- **What's Playing?** (Ctrl+T) -- speaks the current track or show title straight from the stream's own metadata. When a station sends messy broadcast metadata (a string of catalog codes rather than a clean "Artist - Title"), Quill Radio finds the title and artist in it and reads just those. You control the wording in Station > Preferences (Ctrl+,) with a small template: `{title}` and `{artist}` tokens, `[square brackets]` around optional wording that disappears when a field is empty (the default `{title}[ by {artist}]` drops the " by" when there's no artist), and `{raw}` for the stream's exact original text. Leave it blank to restore the default.
 - **Announce Track Titles** (check item) -- when on, title changes are announced as they happen. Off by default.
 - **Sleep Timer...** -- fade out and stop after a set time, restoring your volume.
 - **Wake-Up Timer...** -- the sleep timer's twin: pick a favorite, a time, once or every day, and the station starts playing by itself. Quill Radio must be running (the tray counts).
@@ -114,7 +114,7 @@ Quill Radio reads and writes the same data store as QUILL and QUILL Cast (`%APPD
 
 - **Playback** uses the Windows Media Player engine built into Windows -- nothing to install.
 - **Recording**, **Sound Enhancements**, and (when "Apply Sound Enhancements to recordings" is on) recording's own filtering all use **ffmpeg**, which the installer bundles at `tools\ffmpeg` inside the install folder. Nothing downloads at runtime. Sound Enhancements plays through a small local relay (ffmpeg filters the stream, a loopback-only web server on your own machine hands the filtered audio to the player) -- nothing about it is reachable off your computer.
-- **Station search** talks to the community **RadioBrowser** directory and the free, keyless **SomaFM** directory, blended into one results list; **Find Streams** fetches only the one page you type; **What's Playing** reads metadata from the stream you are already playing. No other network calls exist, and every one of them is inventoried in QUILL's network-egress audit.
+- **Station search** talks to the community **RadioBrowser** directory and the free, keyless **SomaFM** directory, blended into one results list; **Find Streams** fetches only the one page you type (and, if that page is a Triton/StreamTheWorld JavaScript player, one follow-up lookup to the station provider's own public address service to find the real stream); **What's Playing** reads metadata from the stream you are already playing. No other network calls exist, and every one of them is inventoried in QUILL's network-egress audit.
 - The **ACB Media** directory is bundled -- no network needed to browse it.
 
 ## Keyboard reference

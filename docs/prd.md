@@ -17,7 +17,10 @@ Quill Radio is QUILL's internet radio, shipped as its own small Windows app for 
 
 **Listening**
 - Station browser over the RadioBrowser directory (search, tag/country filters, test-play, favorite); bundled ACB Media directory; custom stream URLs; website stream finder with a Test/Stop Test toggle.
+- JavaScript-player resolution in the website stream finder (upstream `core/radio/triton.py`): Triton Digital / StreamTheWorld players (the `player.listenlive.co` network and thousands of broadcast stations) compute their stream URL in JavaScript, so it never appears in the page HTML and a plain-HTML scan finds nothing. Quill Radio detects the player, reads the station callsign from the Triton PWA's own logo asset name, and resolves it to a real playable mount through Triton's JS-free provisioning API (`playerservices.streamtheworld.com`), offering both the MP3 and AAC streams. Gated to pages that actually are Triton players and to a callsign the API validates, so it never surfaces a wrong stream; the response is parsed through the hardened `core/safe_xml` wrapper. One added egress, inventoried in QUILL's network-egress audit (§N-1), reached only from the same explicit Scan button and disabled in Safe Mode.
 - One transport control (Play becomes Stop), mute, volume with per-station memory, single-player rule (starting any stream silences sibling media, radio or podcast, in every app).
+- What's Playing (Ctrl+T) with a clean, configurable announcement (upstream `core/radio/now_playing.py`, #1068): parses the `key="value"` broadcast-automation metadata some stations pack into their ICY StreamTitle (and the plain "Artist - Title" convention) into title/artist fields, and renders them through a user-set token template (`{title}`/`{artist}`/`{raw}` with `[optional]` segments) stored in `RadioHistory.now_playing_template` and edited in Preferences (Ctrl+,). Default `{title}[ by {artist}]`.
+- Paged station search (upstream `radio_browser.search_stations` offset + the Browse Stations dialog, #1064): 200 most-listened-first results per request (was 50) plus a More Stations button that pages the RadioBrowser directory beyond the first page; a finished search states when more exist and suggests narrowing.
 - Recently Played (capped, de-duplicated), Play Last Station, optional resume-on-launch.
 - What's Playing: ICY track titles on demand and optional announce-on-change (off by default).
 - Stream fallback: a directory station whose stream errors is re-fetched by uuid and retried once, self-healing the saved favorite.
@@ -59,7 +62,7 @@ Out of scope by decision: QUILL's editor, AI, speech transcription, braille, and
 
 ## 6. Network requirements
 
-- N-1. Every outbound surface is inventoried in QUILL's network-egress audit: RadioBrowser and SomaFM (search/tags/countries/click-votes/byuuid fallback), the user-typed page for Find Streams, the playing stream itself for ICY titles, and this repository's GitHub releases for the update check. No telemetry of any kind. (Sound Enhancements' local relay, §8, is loopback-only and never reaches the network itself -- it filters the same stream this section already covers.)
+- N-1. Every outbound surface is inventoried in QUILL's network-egress audit: RadioBrowser and SomaFM (search/tags/countries/click-votes/byuuid fallback), the user-typed page for Find Streams (plus, for a Triton/StreamTheWorld player page, one follow-on call to Triton's provisioning API to resolve the JS-computed stream), the playing stream itself for ICY titles, and this repository's GitHub releases for the update check. No telemetry of any kind. (Sound Enhancements' local relay, §8, is loopback-only and never reaches the network itself -- it filters the same stream this section already covers.)
 - N-2. Safe Mode disables the radio's network surfaces along with the feature.
 
 ## 7. Non-goals
