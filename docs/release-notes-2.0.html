@@ -186,6 +186,10 @@ bugs and adding the one piece that was always missing: a recording that
 survives a restart. If you schedule shows, leave long recordings running
 unattended, or have ever come back to find a capture cut short or gone
 entirely, this release is for you.</p>
+<p>It also widens the net for finding stations: <strong>iHeart and
+TuneIn now join the search</strong>, so two of the biggest directories
+on the internet are searchable and playable right inside Browse
+Stations. More on that below.</p>
 <p>As always, everything below also lands in QUILL itself. Quill Radio
 and QUILL share one codebase and one data store, so these fixes arrive
 in both at once -- nothing here is vendored into the Quill Radio
@@ -280,6 +284,90 @@ of leaving a bare FFmpeg writing to your temp folder. And the
 stop-and-wait fallback moved off the UI thread, so closing the window
 never hangs on a slow FFmpeg shutdown.</li>
 </ul>
+<h2 id="more-stations-to-find-iheart-and-tunein-now-in-the-search">More
+stations to find: iHeart and TuneIn now in the search</h2>
+<p>Browse Stations used to search the community RadioBrowser directory
+and the free SomaFM directory. 2.0 adds two of the largest directories
+on the internet -- <strong>iHeart</strong> and <strong>TuneIn</strong>
+-- blended into the same results list, so a search for a call sign, a
+city, or a show now reaches far more of the stations people actually ask
+for. Every result is labeled with where it came from (iHeart, TuneIn,
+RadioBrowser, SomaFM), and you play it the same way you always have.</p>
+<p>Both are keyless and need no account. iHeart is read straight from
+its public station sitemap -- a two-request directory index -- and a
+station's real stream is resolved on demand from its own page the moment
+you play it, never by bulk-fetching thousands of pages. TuneIn goes
+through RadioTime's open OPML directory (the same service TuneIn's own
+web player uses): search returns matching stations and the stream
+address is looked up only for the ones about to play. To keep a single
+search from turning into dozens of network round trips, iHeart and
+TuneIn each resolve a small, capped handful of the most relevant matches
+per search -- enough to add immediately-playable results without slowing
+the list down -- while RadioBrowser keeps paging as before. A
+<strong>Refresh</strong> button re-fetches the iHeart directory index
+(it is cached once per Browse Stations session; TuneIn and RadioBrowser
+are always live).</p>
+<p>With four directories in one list, Browse Stations gained the
+controls to steer it. A <strong>Source</strong> dropdown lets you narrow
+the search to just one directory -- All sources, RadioBrowser, iHeart,
+TuneIn, SomaFM, ACB Media, or Website -- when you already know where a
+station lives. And the old free-text tag and country boxes are now
+proper dropdowns: a <strong>Tag/genre</strong> list and a
+<strong>Country</strong> list, filled in from the directory itself, so
+you pick "jazz" or "United Kingdom" from a list instead of guessing the
+exact spelling, and choosing one runs the search right away.</p>
+<p>TuneIn also feeds <strong>Find Streams from a Website</strong>: paste
+a TuneIn station page and Quill Radio resolves its real playable stream,
+the same on-demand lookup the directory search uses. Find Streams now
+also recognizes an iHeart or TuneIn page directly rather than handing
+back a page address that will not play.</p>
+<p>Like every other network feature, iHeart and TuneIn are off in Safe
+Mode, HTTPS-only, and inventoried in QUILL's network-egress audit. This
+lands in the shared <code>quill</code> package
+(<code>core/radio/iheart.py</code>, <code>core/radio/tunein.py</code>,
+<code>core/radio/directory_search.py</code>), so QUILL and QUILL Cast
+gain the same reach.</p>
+<h2 id="scheduling-recordings-gained-real-editing">Scheduling recordings
+gained real editing</h2>
+<p>The Schedule Recording dialog was capture-and-forget: add an entry,
+and your only other move was to delete it. 2.0 makes the schedule
+something you can actually manage.</p>
+<ul>
+<li><strong>Edit</strong> an existing entry -- change its station, time,
+or duration without deleting and re-adding it.</li>
+<li><strong>Duplicate</strong> an entry -- a fast way to set up the same
+show on another day, or a second time slot for the same station.</li>
+<li><strong>Enable or disable</strong> an entry without losing it --
+turn a weekly recording off for a week and back on, instead of deleting
+and rebuilding it. A disabled entry reads as "(disabled)" in the list
+and simply does not fire.</li>
+<li><strong>Type the time your way</strong> -- "7:30 PM" or "19:30",
+whichever you think in; both are understood.</li>
+<li><strong>Pin an entry to a time zone</strong> -- each schedule entry
+carries its own zone (defaulting to your local time), so a show quoted
+in Eastern records at the right moment wherever you are, and the list
+shows each entry's time with its zone.</li>
+</ul>
+<h2 id="whats-playing-reaches-more-stations">What's Playing reaches more
+stations</h2>
+<p>When a station will not answer the usual title request -- and after
+Quill Radio has already tried the playback engine's own title channel --
+it now takes one more step: it reads the station's own public "now
+playing" status page (the Icecast or SHOUTcast status endpoint the
+stream's own server publishes) and pulls the current title from there.
+It only ever talks to the same server you are already listening to, and
+it is off in Safe Mode. The practical result is a real "Now playing" on
+a batch of stations that used to answer with silence.</p>
+<h2
+id="for-troubleshooting-verbose-logging-and-a-log-folder-you-choose">For
+troubleshooting: verbose logging and a log folder you choose</h2>
+<p>Two additions for when something needs diagnosing. Preferences
+(Ctrl+,) gained a <strong>Verbose logging</strong> checkbox that turns
+on detailed debug logging live, without a restart, and a <strong>Log
+folder</strong> setting so you can point the log somewhere easy to find
+(and hand to a bug report). Recording problems now capture the
+recorder's own error output into that log as well, so a failed capture
+leaves a trail instead of a mystery.</p>
 <h2 id="built-on-the-110-base">Built on the 1.1.0 base</h2>
 <p>2.0 stands on everything 1.1.0 delivered, and none of it changes:</p>
 <ul>

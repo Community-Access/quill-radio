@@ -2,6 +2,8 @@
 
 Quill Radio 2.0 is about one thing done thoroughly: recordings you can trust. Version 1.1.0 rebuilt the sound -- a new playback engine, every stream format, live rewind, richer Sound Enhancements. 2.0 turns that same care on the recorder, closing a reported round of recording bugs and adding the one piece that was always missing: a recording that survives a restart. If you schedule shows, leave long recordings running unattended, or have ever come back to find a capture cut short or gone entirely, this release is for you.
 
+It also widens the net for finding stations: **iHeart and TuneIn now join the search**, so two of the biggest directories on the internet are searchable and playable right inside Browse Stations. More on that below.
+
 As always, everything below also lands in QUILL itself. Quill Radio and QUILL share one codebase and one data store, so these fixes arrive in both at once -- nothing here is vendored into the Quill Radio wrapper.
 
 ## The headline: recordings you can trust
@@ -36,6 +38,36 @@ Four pipeline fixes that together make a long unattended recording far more like
 - **Filenames are never silently overwritten.** The old unconditional overwrite is gone; a filename pattern that would produce the same name twice gets `" (2)"`, `" (3)"` appended instead of clobbering an earlier recording, and continuation parts keep the original start timestamp in their name so they group together.
 - **A drop is classified before any reconnect attempt is spent.** A *fatal* failure -- your disk is full, or the server took the stream down with an HTTP 4xx such as a 404 or 410 -- stops trying, because the stream is gone and reconnecting would only spam continuation files. A *transient* drop (a network hiccup or a 5xx) is retried as before.
 - **A crashed host no longer strands a recording.** On Windows the FFmpeg child is tied to Quill Radio's lifetime through a job object, so a crashed or killed Quill Radio takes it down with it instead of leaving a bare FFmpeg writing to your temp folder. And the stop-and-wait fallback moved off the UI thread, so closing the window never hangs on a slow FFmpeg shutdown.
+
+## More stations to find: iHeart and TuneIn now in the search
+
+Browse Stations used to search the community RadioBrowser directory and the free SomaFM directory. 2.0 adds two of the largest directories on the internet -- **iHeart** and **TuneIn** -- blended into the same results list, so a search for a call sign, a city, or a show now reaches far more of the stations people actually ask for. Every result is labeled with where it came from (iHeart, TuneIn, RadioBrowser, SomaFM), and you play it the same way you always have.
+
+Both are keyless and need no account. iHeart is read straight from its public station sitemap -- a two-request directory index -- and a station's real stream is resolved on demand from its own page the moment you play it, never by bulk-fetching thousands of pages. TuneIn goes through RadioTime's open OPML directory (the same service TuneIn's own web player uses): search returns matching stations and the stream address is looked up only for the ones about to play. To keep a single search from turning into dozens of network round trips, iHeart and TuneIn each resolve a small, capped handful of the most relevant matches per search -- enough to add immediately-playable results without slowing the list down -- while RadioBrowser keeps paging as before. A **Refresh** button re-fetches the iHeart directory index (it is cached once per Browse Stations session; TuneIn and RadioBrowser are always live).
+
+With four directories in one list, Browse Stations gained the controls to steer it. A **Source** dropdown lets you narrow the search to just one directory -- All sources, RadioBrowser, iHeart, TuneIn, SomaFM, ACB Media, or Website -- when you already know where a station lives. And the old free-text tag and country boxes are now proper dropdowns: a **Tag/genre** list and a **Country** list, filled in from the directory itself, so you pick "jazz" or "United Kingdom" from a list instead of guessing the exact spelling, and choosing one runs the search right away.
+
+TuneIn also feeds **Find Streams from a Website**: paste a TuneIn station page and Quill Radio resolves its real playable stream, the same on-demand lookup the directory search uses. Find Streams now also recognizes an iHeart or TuneIn page directly rather than handing back a page address that will not play.
+
+Like every other network feature, iHeart and TuneIn are off in Safe Mode, HTTPS-only, and inventoried in QUILL's network-egress audit. This lands in the shared `quill` package (`core/radio/iheart.py`, `core/radio/tunein.py`, `core/radio/directory_search.py`), so QUILL and QUILL Cast gain the same reach.
+
+## Scheduling recordings gained real editing
+
+The Schedule Recording dialog was capture-and-forget: add an entry, and your only other move was to delete it. 2.0 makes the schedule something you can actually manage.
+
+- **Edit** an existing entry -- change its station, time, or duration without deleting and re-adding it.
+- **Duplicate** an entry -- a fast way to set up the same show on another day, or a second time slot for the same station.
+- **Enable or disable** an entry without losing it -- turn a weekly recording off for a week and back on, instead of deleting and rebuilding it. A disabled entry reads as "(disabled)" in the list and simply does not fire.
+- **Type the time your way** -- "7:30 PM" or "19:30", whichever you think in; both are understood.
+- **Pin an entry to a time zone** -- each schedule entry carries its own zone (defaulting to your local time), so a show quoted in Eastern records at the right moment wherever you are, and the list shows each entry's time with its zone.
+
+## What's Playing reaches more stations
+
+When a station will not answer the usual title request -- and after Quill Radio has already tried the playback engine's own title channel -- it now takes one more step: it reads the station's own public "now playing" status page (the Icecast or SHOUTcast status endpoint the stream's own server publishes) and pulls the current title from there. It only ever talks to the same server you are already listening to, and it is off in Safe Mode. The practical result is a real "Now playing" on a batch of stations that used to answer with silence.
+
+## For troubleshooting: verbose logging and a log folder you choose
+
+Two additions for when something needs diagnosing. Preferences (Ctrl+,) gained a **Verbose logging** checkbox that turns on detailed debug logging live, without a restart, and a **Log folder** setting so you can point the log somewhere easy to find (and hand to a bug report). Recording problems now capture the recorder's own error output into that log as well, so a failed capture leaves a trail instead of a mystery.
 
 ## Built on the 1.1.0 base
 
