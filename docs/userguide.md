@@ -1,6 +1,6 @@
 # Quill Radio User Guide
 
-Version 1.1
+Version 2.0
 
 Quill Radio is internet radio the way a screen reader user would design it: a small window whose favorites tree has focus the instant it opens, menus that say everything they do, spoken feedback for every action, and a tray icon so the music keeps playing while you work. It runs the exact same radio code as QUILL itself and shares its data, so nothing you set up here is ever stranded.
 
@@ -8,8 +8,8 @@ Quill Radio is internet radio the way a screen reader user would design it: a sm
 
 Two flavors, both fully bundled (ffmpeg included, nothing ever downloads):
 
-- **The installer** (`Quill-Radio-Setup-1.0.0.exe`) -- its own folder, Start Menu entry, uninstaller. Your data lives in the shared Quill store in your Windows profile.
-- **The portable zip** (`Quill-Radio-Portable-1.0.0.zip`) -- extract anywhere, even a USB stick, and run `QuillRadio\QuillRadio.exe`. Its `data` folder keeps your favorites, history, and settings inside the app folder, so the whole radio travels with you.
+- **The installer** (`Quill-Radio-Setup-2.0.0.exe`) -- its own folder, Start Menu entry, uninstaller. Your data lives in the shared Quill store in your Windows profile.
+- **The portable zip** (`Quill-Radio-Portable-2.0.0.zip`) -- extract anywhere, even a USB stick, and run `QuillRadio\QuillRadio.exe`. Its `data` folder keeps your favorites, history, and settings inside the app folder, so the whole radio travels with you.
 
 Windows SmartScreen may warn on first run because this release is not code-signed; choose "More info" then "Run anyway". The build is exactly what this repository's source produces.
 
@@ -67,7 +67,7 @@ Tab order: the now-playing line, the favorites tree, then four buttons.
 
 - **Record Now / Stop Recording** -- capture the station you are listening to.
 - **Record Station...** -- record a *different* station for a set number of minutes while you listen to something else (or to nothing). The recorder is its own process; it never needed the player.
-- **Schedule Recording...** -- record a show later, once, daily, or weekly, even from the tray. Pick a favorite from the list and its name and stream fill in for you (both stay editable for one-off streams); the Remove button names the schedule it will delete and dims when none is selected, and the Delete key and a context menu work on the list.
+- **Schedule Recording...** -- record a show later, once, daily, or weekly, even from the tray. Pick a favorite from the list and its name and stream fill in for you (both stay editable for one-off streams); the Remove button names the schedule it will delete and dims when none is selected, and the Delete key and a context menu work on the list. A schedule is due from its start time through the end of its duration, so if Quill Radio reaches a few seconds late it still starts with the remaining minutes, and on launch it catches up anything whose window is still open. (Quill Radio has to be running for a scheduled recording to fire -- the tray icon counts -- so a show whose whole window passed while Quill Radio was closed is simply missed, and the next launch tells you, naming up to three and collapsing the rest to a count.)
 - **Recordings...** -- everything you have recorded, live. See "The Recordings list" below.
 - **Recording Settings...** -- format (MP3, OGG, FLAC, WAV, or **Raw stream** -- see below), bitrate, destination folder, filename pattern, a maximum-length safety cap, the **If the connection drops** section (reconnect on/off, how many attempts, and how many seconds between them), and **Apply Sound Enhancements to recordings** -- off by default, so recordings stay an unfiltered archival copy even with Sound Enhancements on for live listening; turn it on to record the filtered (EQ/compressor) audio instead, for every recording method (Record Now, Record Station, and scheduled recordings alike).
 
@@ -99,13 +99,32 @@ Station > Manage Favorites... is a full organizer, keyboard-first:
 
 ## The Recordings list
 
-Record > Recordings... shows the whole recording life cycle in one place, refreshing live:
+Record > Recordings... shows the whole recording life cycle in one place. The list updates rows in place keyed by file path, so it is a no-op when nothing has changed; when something has, your selection, focus, and scroll position are preserved instead of the list rebuilding under you mid-read:
 
-- The recording being written right now -- status **Recording**, its size growing as you watch.
+- The recording being written right now -- status **Recording**, its size growing as you watch, with a live elapsed time. It is counted from the recorder itself, so a recording still being written to the temp folder is always visible here, never invisible until it lands.
 - Every finished file, newest first -- status **Recorded**, with size and date.
-- Upcoming scheduled recordings -- status **Scheduled**, with their times.
+- Upcoming scheduled recordings -- status **Scheduled**, with their zone-labeled times.
 
-Actions: **Play** (through the app's own player; it reads **Stop** while that recording is playing), **Stop Recording**, **Open in Folder**, **Remove** (Delete key, with confirmation), **Refresh**. If the internet hiccups during a recording, ffmpeg first rides it out; if the connection truly dies, Quill Radio waits and resumes into a numbered part file, announcing each attempt -- tune or disable this in Recording Settings.
+The recording and scheduled counts are accurate: a schedule that is currently firing is not double-counted, and a completed one-time schedule drops out of the scheduled count rather than lingering.
+
+Actions: **Play** (through the app's own player; it reads **Stop** while that recording is playing), **Stop Recording**, **Open in Folder**, **Remove** (Delete key, with confirmation), **Refresh**. The tray tooltip carries "(recording)" while a recording is active.
+
+### If the internet hiccups during a recording
+
+ffmpeg first rides out short gaps itself (the reconnect settings in Recording Settings). If the connection truly dies, Quill Radio waits and resumes into a numbered **part file**, announcing each attempt. Two things keep that tidy:
+
+- A continuation records only the *remaining* time to the original scheduled end, not a fresh full duration -- a 60-minute show that drops at minute 50 records a ~10 minute continuation, not another 60.
+- A drop is classified before any reconnect attempt is spent. A *fatal* failure (your disk is full, or the server took the stream down with an HTTP 4xx such as 404 or 410) stops trying -- the stream is gone, and reconnecting would only spam part files. A *transient* drop (a network hiccup or a 5xx) is retried.
+
+Output filenames are never silently overwritten: a pattern that produces the same name twice gets `" (2)"`, `" (3)"` appended instead of clobbering the earlier file, and part files keep the original start timestamp in their name so they group together. And on Windows, the FFmpeg child is tied to Quill Radio's lifetime through a job object, so a crashed or killed Quill Radio takes it down rather than stranding a bare recording writing to your temp folder.
+
+### If a recording was in progress when Quill Radio quit or crashed
+
+A recording used to be lost the moment Quill Radio quit or crashed. It now remembers an in-progress recording and offers to pick it back up. On the next launch it first tidies the temp folder (any finished orphan file is moved to your recordings folder; a file still being written is left untouched), then, if a recording was in progress and is still within a 10-minute grace window, asks once in an accessible dialog:
+
+> A recording of WQXR was in progress until 9:00 AM. Resume it for the remaining 12 minute(s)?
+
+**Resume** (Enter) restarts the recording for the remaining minutes only. **Skip** (Escape) leaves it as it is. A **Don't ask me again** checkbox remembers your choice -- always resume, or never ask -- changeable later in Preferences. Nothing happens when nothing was in progress, and a corrupt marker is discarded rather than driving a bogus resume.
 
 ## Hardware media keys
 

@@ -8,7 +8,7 @@
 ; installed copy must keep using the shared %APPDATA%\Quill store.
 
 #define AppName "Quill Radio"
-#define AppVersion "1.1.0"
+#define AppVersion "2.0.0"
 #define AppPublisher "Community Access"
 #define AppURL "https://github.com/Community-Access/quill-radio"
 #define AppExeName "QuillRadio.exe"
@@ -21,7 +21,7 @@ AppPublisher={#AppPublisher}
 AppPublisherURL={#AppURL}
 AppSupportURL={#AppURL}
 AppUpdatesURL={#AppURL}
-VersionInfoVersion=1.1.0.0
+VersionInfoVersion=2.0.0.0
 VersionInfoCompany={#AppPublisher}
 VersionInfoDescription={#AppName} accessible internet radio
 DefaultDirName={autopf}\{#AppName}

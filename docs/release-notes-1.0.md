@@ -2,6 +2,8 @@
 
 The radio, on its own -- and finished. Quill Radio takes the internet radio QUILL users already know, gives it a window, a menu bar, a tray icon, and its own icon, and then goes further than the embedded radio ever has. Everything below also landed in QUILL itself: the two share one codebase and one data store, so features arrive everywhere at once.
 
+The recordings-reliability overhaul and resume-across-restart that once sat here as "unreleased" shipped in Quill Radio 2.0 -- see `release-notes-2.0.md` for that story.
+
 ## What's new in 1.1.0
 
 - **A new heart: the mpv playback engine.** Quill Radio 1.1.0 ships a second audio engine -- mpv, the same engine trusted by media players everywhere -- and uses it automatically. You don't have to know or care, but it's the reason almost everything else on this list exists. The classic Windows Media engine is still right there: Preferences (Ctrl+,) > Playback engine > "Windows Media (classic)" is exactly the pre-1.1 behavior, byte for byte. Best of both: whichever engine is playing, a station it can't open is quietly retried once on the other before you ever hear an error.

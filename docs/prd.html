@@ -178,7 +178,7 @@
 <body>
 <h1 id="quill-radio----product-requirements">Quill Radio -- Product
 Requirements</h1>
-<p>Version 1.1</p>
+<p>Version 2.0</p>
 <h2 id="1-product-statement">1. Product statement</h2>
 <p>Quill Radio is QUILL's internet radio, shipped as its own small
 Windows app for people who want the radio on without loading a full
@@ -281,8 +281,11 @@ top level.</li>
 <li>Record now; Record Station (a different station than the one
 playing, for N minutes); scheduled recordings (once/daily/weekly).</li>
 <li>Recordings list: live status (Recording with growing size / Recorded
-/ Scheduled), Play, Stop Recording, Open in Folder, Remove, 2-second
-auto-refresh.</li>
+/ Scheduled), Play, Stop Recording, Open in Folder, Remove. Refresh is
+an in-place diff keyed by file path (no-op when unchanged;
+selection/focus/scroll preserved), not a rebuild; the active row shows a
+live elapsed time and scheduled rows show their zone-labeled times; the
+tray tooltip carries "(recording)".</li>
 <li>Auto-reconnect: ffmpeg HTTP reconnect flags plus process-level retry
 into numbered part files; enabled/attempts/spacing configurable; user
 stops and duration-cap finishes never retry.</li>
@@ -306,6 +309,41 @@ flac-&gt;<code>.flac</code>, ...), falling back to Matroska audio
 copy container; a missing/failed probe degrades to <code>.mka</code>
 rather than blocking the recording, and the resolved extension is reused
 across auto-reconnect continuation files.</li>
+<li>Recording reliability (upstream <code>quill/core/radio/*</code>,
+2.0.0; R1-R4): a reported round of recording bugs closed in four phases,
+delivered in the 2.0.0 release. (R1) the Recordings list is an in-place
+diff keyed by file path -- a screen reader is no longer yanked to the
+top mid-read; the active recording is counted from the recorder itself
+(a temp-folder recording is no longer invisible), a firing schedule is
+no longer double-counted, completed one-time entries drop out of the
+scheduled count, and the active row shows a live elapsed time. (R2) the
+scheduler uses a next-due-timestamp window model (an entry is due from
+<code>start</code> through <code>start + duration</code>, so a late
+arrival starts with the remaining minutes and launch catch-up is free);
+<code>last_fired</code> is stamped by entry id only on a successful
+start, <code>once</code> entries auto-disable after firing, a
+same-minute conflict defers via <code>on_busy</code>, and the scheduler
+thread is lock-guarded and can no longer die silently. (R3, new feature)
+resume across restart: an <code>ActiveRecordingMarker</code> is written
+at start and cleared on a clean stop (a crash leaves it); on launch,
+<code>reconcile_temp_strays</code> moves finished temp orphans to the
+destination and leaves a still-writing file untouched, then per
+<code>RadioHistory.recording_resume_choice</code>
+(<code>ask</code>|<code>always</code>|<code>never</code>, default
+<code>ask</code>) Quill Radio offers to resume for the remaining minutes
+within a 10-minute grace via an accessible dialog
+(Resume/Skip/Don't-ask-again; a corrupt marker is discarded). (R4)
+pipeline hardening: a reconnect records only the remaining time to
+<code>_scheduled_end</code> (not a fresh full duration);
+<code>uniquify()</code> replaces the unconditional <code>-y</code>
+overwrite and continuation parts keep the original start timestamp; a
+drop is classified fatal (disk full / HTTP 4xx) vs transient
+(5xx/network) before any reconnect attempt is spent; and on Windows
+ffmpeg runs in a job object with
+<code>JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE</code> so a crashed host takes
+the child down, with the stop wait moved off the UI thread. Everything
+lands in the shared <code>quill</code> package; nothing is vendored into
+the wrapper.</li>
 </ul>
 <p><strong>Timers</strong></p>
 <ul>
@@ -385,6 +423,17 @@ Enhancements (§8) is a small, purpose-built three-band EQ and
 compressor, not a general effects rack.</p>
 <h2 id="8-since-10">8. Since 1.0</h2>
 <ul>
+<li><strong>Recordings reliability overhaul (2.0.0, upstream
+<code>quill/core/radio/*</code>; R1-R4).</strong> The headline of 2.0.0:
+a reported round of recording bugs closed and the one missing piece
+added -- a recording that survives a restart. Resume across restart with
+an ask-on-launch dialog and a 10-minute grace window; window-based
+scheduling with launch catch-up; a flicker-free, place-keeping
+Recordings list with honest counts and a live elapsed time; and pipeline
+hardening against dropped connections, dead streams, and a crashed host.
+Detailed as delivered scope in §3 (Recording). Everything lands in the
+shared <code>quill</code> package; nothing is vendored into the
+wrapper.</li>
 <li><strong>The mpv playback engine (1.1.0, upstream
 <code>quill/ui/radio/mpv_radio_engine.py</code> +
 <code>player_controller.py</code>, #1076).</strong> A second, preferred
