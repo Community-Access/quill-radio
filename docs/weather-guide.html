@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.10" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>weather-guide</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+</head>
+<body>
+<h1 id="quill-radio-weather----user-guide">Quill Radio Weather -- User
+Guide</h1>
+<p>Quill Radio includes a <strong>Weather</strong> menu that brings
+official U.S. weather to you as clear, screen-reader-first text: current
+conditions, the forecast, and -- most importantly -- active watches,
+warnings, and advisories for the places you care about.</p>
+<p>It uses the free <strong>National Weather Service</strong> API
+(api.weather.gov). There is no account, no sign-up, and no API key.
+Nothing is sent anywhere except your request for weather at a location
+you choose.</p>
+<h2 id="a-safety-note-first">A safety note first</h2>
+<p>Quill Weather is an <strong>additional</strong> accessible weather
+tool. Delivery can be delayed or interrupted by network, device, or
+provider problems. Do not rely on it as your only source of emergency
+information. Keep a NOAA Weather Radio, Wireless Emergency Alerts, and
+local emergency instructions as your primary safety channels.</p>
+<h2 id="adding-your-first-location">Adding your first location</h2>
+<ol type="1">
+<li>Open the <strong>Weather</strong> menu and choose <strong>Add
+Location...</strong> (or open <strong>Weather Now...</strong> and press
+the <strong>Add Location</strong> button).</li>
+<li>Type one of:
+<ul>
+<li>a 5-digit <strong>ZIP code</strong> (for example,
+<code>85701</code>),</li>
+<li>a <strong>city and state</strong> (for example,
+<code>Tucson, AZ</code>), or</li>
+<li><strong>coordinates</strong> (for example,
+<code>32.2, -110.9</code>).</li>
+</ul></li>
+<li>Optionally give it a friendly <strong>name</strong> such as
+<code>Home</code> or <code>Mom's</code>.</li>
+<li>Press <strong>Add</strong>. Quill looks the place up and saves it.
+The first location you add becomes your primary location.</li>
+</ol>
+<p>You can add as many locations as you like and switch between them in
+Weather Now with the <strong>Location</strong> chooser.</p>
+<h2 id="weather-now">Weather Now</h2>
+<p><strong>Weather menu &gt; Weather Now...</strong> (or
+<strong>Ctrl+Shift+W</strong>) opens the Weather Center. It reads top to
+bottom in priority order:</p>
+<ol type="1">
+<li><strong>Active Alerts</strong> -- a list of any watches, warnings,
+and advisories, most severe first. Arrow through them; the full official
+text, including the <strong>instructions</strong>, appears in the box
+just below. If there are none, the list says so.</li>
+<li><strong>Current conditions</strong> -- the latest observation
+(temperature, sky, wind, humidity) from the nearest reporting
+station.</li>
+<li><strong>Forecast</strong> -- the period-by-period forecast ("This
+Afternoon", "Tonight", and so on). Arrow through the list; each period's
+detailed text appears below it.</li>
+<li>A <strong>status line</strong> naming the National Weather Service
+office and the observation station, so you always know where the data
+came from.</li>
+</ol>
+<p>Press <strong>Refresh</strong> at any time to pull the latest.
+<strong>Close</strong> leaves any radio you are playing untouched.</p>
+<h2 id="quick-weather">Quick Weather</h2>
+<p><strong>Weather menu &gt; Quick Weather</strong> (or
+<strong>Ctrl+Shift+Q</strong>) announces a one-line summary of your
+primary location without opening a window -- for example:</p>
+<blockquote>
+<p>Tucson, AZ. 96 degrees F and mostly clear. Wind WNW 5 mph. One active
+alert; highest is Excessive Heat Warning.</p>
+</blockquote>
+<p>You choose what that line includes in Settings.</p>
+<h2 id="active-alerts">Active Alerts</h2>
+<p><strong>Weather menu &gt; Active Alerts...</strong> opens Weather Now
+with focus already on the alerts list, so you can review warnings with
+the fewest keystrokes.</p>
+<h2 id="settings">Settings</h2>
+<p><strong>Weather menu &gt; Settings...</strong> controls:</p>
+<ul>
+<li><strong>Units</strong> -- temperature in Fahrenheit or Celsius; wind
+in mph, km/h, knots, or m/s.</li>
+<li><strong>Forecast periods to show</strong> -- how many periods
+Weather Now lists.</li>
+<li><strong>Alert severity to show</strong> -- show everything, or only
+Moderate and above, Severe and above, and so on -- plus a list of
+specific <strong>event names to hide</strong> (one per line).</li>
+<li><strong>Refresh interval</strong> -- how often Weather Now refreshes
+(never faster than the NWS-recommended minimum).</li>
+<li><strong>Quick Weather line</strong> -- turn feels-like temperature,
+wind, humidity, the active-alert count, and data age on or off.</li>
+</ul>
+<h2 id="whats-coming-later">What's coming later</h2>
+<p>This release shows weather as <strong>text</strong>. Later phases of
+Quill Weather add spoken weather with its own voices and interruption
+rules, background alert monitoring that keeps watch while the window is
+closed, and a NOAA Weather Radio stream explorer. See
+<code>QUILL-Weather-PRD.md</code> for the full roadmap.</p>
+</body>
+</html>
