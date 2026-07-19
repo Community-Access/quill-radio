@@ -174,6 +174,117 @@ Quill Radio reads and writes the same data store as QUILL and QUILL Cast (`%APPD
 - **Station search** talks to four keyless, account-free directories, blended into one results list: the community **RadioBrowser** directory, the free **SomaFM** directory, **iHeart** (read from its public station sitemap, `www.iheart.com`, with each chosen station's real stream resolved on demand from its own page), and **TuneIn** (through RadioTime's open OPML directory, `opml.radiotime.com` -- the same service TuneIn's own web player uses). **Find Streams** fetches only the one page you type (following its "Listen Live" link one level and, if it's a Triton/StreamTheWorld player or an iHeart/TuneIn page, one lookup to that provider's own public address service); **stream recovery** does the same lookups against a failing station's own website only when a stream won't play (and only if you leave the setting on); **What's Playing** reads metadata from the stream you are already playing, and as a last resort reads the current title from that same stream server's own public status page (its Icecast or SHOUTcast now-playing endpoint -- the same host, never a third party). All network features are off in Safe Mode. No other network calls exist, and every one of them is inventoried in QUILL's network-egress audit.
 - The **ACB Media** directory is bundled -- no network needed to browse it.
 
+## Weather
+
+Quill Radio includes a **Weather** menu that brings official U.S. weather to
+you as clear, screen-reader-first text: current conditions, the forecast, an
+extended daily outlook, and -- most importantly -- active watches, warnings,
+and advisories for the places you care about.
+
+Everything comes from free, no-account, no-key sources: the **National Weather
+Service** (api.weather.gov) for observations, the forecast, and alerts;
+**Open-Meteo** for the extended daily outlook and the air-quality index; and
+**OpenStreetMap** for searching locations. Nothing is sent anywhere except your
+request for weather at a place you choose.
+
+### A safety note first
+
+Quill Weather is an **additional** accessible weather tool. Delivery can be
+delayed or interrupted by network, device, or provider problems. Do not rely on
+it as your only source of emergency information. Keep a NOAA Weather Radio,
+Wireless Emergency Alerts, and local emergency instructions as your primary
+safety channels.
+
+### Adding a location
+
+1. Open the **Weather** menu and choose **Add Location...** (or open **Weather
+   Now...** and press the **Add Location** button).
+2. Type a **ZIP code**, a **city and state** (`Tucson, AZ`), a **county name**,
+   or an **address**, then press **Search**. (You can also type exact
+   **coordinates** like `32.2, -110.9`.)
+3. A **Results** list appears. Because a search can match more than one place --
+   there are Springfields in Illinois, Missouri, and more -- you **arrow to the
+   right one and press Add Selected**. Optionally give it a friendly **name**
+   like `Home` or `Mom's` first.
+4. The first location you add becomes your primary location. Add as many as you
+   like and switch between them with the **Location** chooser in Weather Now.
+
+**Removing a location:** in Weather Now, select it in the Location chooser and
+press **Remove Location** (or the **Delete** key).
+
+### Weather Now
+
+**Weather menu > Weather Now...** (or **Ctrl+Shift+W**) opens the Weather
+Center. It reads top to bottom in priority order:
+
+1. **Active Alerts** -- a list of any watches, warnings, and advisories, most
+   severe first. Arrow through them; the full official text, including the
+   **instructions**, appears in the read-only box just below (so you can read
+   and copy it). When there are no alerts, that box is hidden, so you don't stop
+   on an empty field.
+2. **Current conditions** -- a complete, warm paragraph from the nearest
+   station: temperature, feels-like, sky, humidity, dew point, wind and gusts,
+   cloud cover, barometric pressure, visibility, chance of precipitation,
+   sunrise, sunset, the ultraviolet index, and air quality. Every value is
+   written out for speech, and the observation time is shown in the location's
+   own time zone. You choose which of these details appear in Settings.
+3. **Forecast** -- the National Weather Service period forecast ("This
+   Afternoon", "Tonight", ...). Arrow the list; each period's full detailed
+   text appears below, led by its day and temperature so it stands alone.
+4. **Daily outlook (extended)** -- an at-a-glance list reaching about 10 days
+   out (up to 16), each day a friendly line: "Monday, July 20: Clear. High 98,
+   low 75 degrees. Sunrise 5:42 AM, sunset 7:38 PM." Arrow the list to read each
+   day in the detail box below.
+5. A **status line** naming the National Weather Service office and the
+   observation station, so you always know where the data came from.
+
+Press **Refresh** at any time to pull the latest. **Close** leaves any radio
+you are playing untouched.
+
+### Quick Weather
+
+**Weather menu > Quick Weather** (or **Ctrl+Shift+Q**) speaks a one-line summary
+of your primary location without opening a window -- for example:
+
+> Here is the weather for Tucson, Arizona. It is 96 degrees Fahrenheit and mostly
+> clear. It feels like 101 degrees. The wind is blowing from the west-northwest
+> at 5 miles per hour. There is one active alert. The most urgent is an Excessive
+> Heat Warning.
+
+You choose what that line includes in Settings.
+
+### Active Alerts
+
+**Weather menu > Active Alerts...** opens Weather Now with focus already on the
+alerts list, so you can review warnings with the fewest keystrokes.
+
+### Settings
+
+**Weather menu > Settings...** controls:
+
+- **Units** -- temperature in Fahrenheit or Celsius; wind in miles per hour,
+  kilometers per hour, knots, or meters per second.
+- **Forecast periods to show** and **Extended daily outlook (days)** -- how much
+  of the forecast and outlook Weather Now lists (0 days turns the outlook off).
+- **Current-conditions details to include** -- a checkbox for each of feels-like,
+  humidity, dew point, wind and gusts, cloud cover, pressure, visibility, chance
+  of precipitation, sunrise and sunset, the ultraviolet index, and air quality.
+  Temperature and the sky condition always show.
+- **Alert severity to show** -- everything, or only Moderate and above, Severe
+  and above, and so on -- plus a list of specific **event names to hide** (one
+  per line).
+- **Refresh interval** -- how often Weather Now refreshes (never faster than the
+  NWS-recommended minimum).
+- **Quick Weather line** -- turn feels-like temperature, wind, humidity, the
+  active-alert count, and data age on or off.
+
+### What's coming later
+
+This release shows weather as **text**. Later phases of Quill Weather add spoken
+weather with its own voices and interruption rules, background alert monitoring
+that keeps watch while the window is closed, and a NOAA Weather Radio stream
+explorer. See the Product Requirements document (Help > Product Requirements) for the full roadmap.
+
 ## Keyboard reference
 
 | Action | Key |
