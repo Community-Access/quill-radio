@@ -194,6 +194,116 @@ Stations. More on that below.</p>
 and QUILL share one codebase and one data store, so these fixes arrive
 in both at once -- nothing here is vendored into the Quill Radio
 wrapper.</p>
+<h2 id="update-210">Update 2.1.0</h2>
+<p>One-click updating, a new way to browse stations, and a round of
+fixes from live feedback, folded into this same release:</p>
+<ul>
+<li><strong>Browse a source without searching -- and several new
+sources.</strong> You asked (thanks, Kelly) to be able to pick a source
+like SomaFM and just see its stations, without typing a search first.
+Now you can: the Browse Stations <strong>Category</strong> list lets you
+pick a source and the stations appear on their own. Alongside your
+Favorites you now get <strong>Popular Stations</strong>,
+<strong>SomaFM</strong>, <strong>ACB Media</strong>, <strong>NFB
+Radio</strong>, <strong>TuneIn</strong>, <strong>Music Genres</strong>,
+and the <strong>Xiph Directory</strong> -- each described below.
+<ul>
+<li><strong>Popular Stations</strong> shows the most-listened stations
+on the internet right now (from the community RadioBrowser directory) --
+a great "what's good?" starting point with nothing to type.</li>
+<li><strong>SomaFM</strong> lists SomaFM's whole channel lineup at once,
+so you can arrow through every channel instead of guessing a name.</li>
+<li><strong>NFB Radio</strong> is the National Federation of the Blind
+Radio Network (NFBRN), a speech-and-talk stream, bundled right alongside
+ACB Media so it's always one selection away.</li>
+<li><strong>TuneIn</strong> lets you browse TuneIn's own directory tree
+the way TuneIn does: pick <strong>TuneIn</strong> and you get its
+top-level folders -- <strong>Music, Talk, Sports, Local Radio, By
+Location, By Language</strong>, and more. Press <strong>Enter</strong>
+on a folder to open it, use the <strong>"Up one level"</strong> row to
+go back, and press Enter on a station to play it right there. No search
+required -- just wander in.</li>
+<li><strong>Music Genres</strong> is a big community catalog of music
+stations sorted by genre -- jazz, classical, 80s, country, ambient, and
+dozens more. Pick "Music Genres", choose a genre from the list that
+appears, and its stations load; the <strong>Refresh</strong> button
+re-pulls the newest genre list and stations from the internet whenever
+you like. This catalog is fetched live, on demand, from the public
+<strong>m3u-radio-music-playlists</strong> collection maintained by
+<strong>junguler</strong> (<a
+href="https://github.com/junguler/m3u-radio-music-playlists">https://github.com/junguler/m3u-radio-music-playlists</a>)
+-- with our thanks. Nothing is bundled or copied into Quill Radio; the
+lists are read on the spot, the same way RadioBrowser, SomaFM, and
+iHeart already are.</li>
+<li><strong>Xiph Directory</strong> browses the long-running, keyless
+<strong>Icecast "yellow pages"</strong> at <strong>dir.xiph.org</strong>
+by genre. Pick "Xiph Directory", choose a genre, and its stations load
+-- again fetched live on demand and refreshable with the same
+<strong>Refresh</strong> button. It is read the same on-the-spot way as
+every other directory.</li>
+</ul></li>
+<li><strong>SomaFM search ignores spacing and punctuation too.</strong>
+Looking for a SomaFM channel no longer needs its exact spelling:
+"GrooveSalad", "groove-salad", or "salad groove" all find "Groove
+Salad", where before only an exact run of letters matched.</li>
+<li><strong>Update in one click -- Quill Radio installs it and restarts
+itself.</strong> When an update is available, choose Download, then
+<strong>Install and restart now</strong>. Quill Radio applies the update
+for you -- extracting the new portable files over your current folder,
+or running the installer silently -- and relaunches automatically,
+keeping every favorite, recording, and setting exactly as it was. No
+more closing the app, hunting for the zip, unzipping it, and swapping
+folders by hand. This is shared across every Quill app, so QUILL, QUILL
+Cast, and Audio Studio update the same easy way.</li>
+<li><strong>Quill Radio no longer opens a second copy of
+itself.</strong> If Quill Radio was already running -- even minimized to
+the system tray -- launching it again used to start a whole second
+instance. Now the copy already running simply comes to the front, and
+the second launch bows out. (#1152)</li>
+<li><strong>The Record button tells you when you are recording.</strong>
+Once a recording begins, the Record button on the main window changes to
+<strong>Stop Recording</strong>, and changes back to
+<strong>Record</strong> when it stops -- so it is obvious at a glance
+(and to a screen reader) that a capture is running. (Recording has no
+pause, so this is a Record/Stop toggle.)</li>
+<li><strong>Volume changes are quiet again with a screen
+reader.</strong> Holding Ctrl+Up or Ctrl+Down on a station you have
+saved used to speak the station's name -- and sometimes a track title --
+on <em>every</em> step, so "turn it up three notches" became a wall of
+chatter. That was the app re-saving the station's remembered volume by
+rebuilding the whole favorites list underneath you. It now saves the new
+level quietly, so you hear just "Radio volume 60", "Radio volume 70".
+(#1154)</li>
+<li><strong>The Country list in Browse Stations stays put while you
+arrow through it.</strong> Moving to the Country dropdown and pressing
+Down used to fire a search that immediately threw your focus into the
+results list -- so you could never actually arrow down the list of
+countries. A search now jumps to the results only when you ask for one
+(the Search button, or pressing Enter in a search box); arrowing through
+Country or Tag just narrows the list and leaves your focus alone.</li>
+<li><strong>The Raw stream recording format no longer shows a
+bitrate.</strong> A raw stream is saved exactly as the station sends it,
+with no re-encoding, so a "Quality (bitrate)" setting does nothing for
+it -- it was just a confusing extra control. Recording Settings now
+hides the bitrate control for the Raw stream format (and for the
+lossless FLAC and WAV formats) and shows it only for MP3 and OGG, where
+it actually applies. (#1155)</li>
+<li><strong>Station search finds more stations by their branding and
+call sign.</strong> A station listed under a short name -- "103.1
+Austin" for "103.1 Austin's 80s Station" -- used to be unfindable if you
+searched with the dot, and its station id did nothing. iHeart search now
+ignores punctuation and matches a station's name, its page address, and
+its numeric id, so "103.1 Austin", "1031 Austin", and "8403" all land on
+it. (#1156)</li>
+<li><strong>"Impossible to exit after recording" -- confirmed
+fixed.</strong> A report of Quill Radio becoming completely unresponsive
+after a recording, with no way to exit (#1153), was the Alt+F4/Exit
+freeze that 2.0.1 already fixed: closing while a confirmation prompt is
+up no longer stacks a second one, and every shutdown step on the way out
+runs without blocking. This release adds a regression test so that exit
+path can never silently break again. If you ever meet an unresponsive
+exit, please send the exact steps.</li>
+</ul>
 <h2 id="update-202">Update 2.0.2</h2>
 <p>Adds concurrent recording, live Sound Enhancements preview, OptiLab
 broadcast polish, fixes the 2.0.1 channel mode, and adds two favorites
