@@ -6,6 +6,14 @@ It also widens the net for finding stations: **iHeart and TuneIn now join the se
 
 As always, everything below also lands in QUILL itself. Quill Radio and QUILL share one codebase and one data store, so these fixes arrive in both at once -- nothing here is vendored into the Quill Radio wrapper.
 
+## Update 2.0.2
+
+Fixes the 2.0.1 channel mode and adds two favorites features people asked for:
+
+- **Channel mode Left/Right now plays in one ear only.** In 2.0.1, choosing "Left only" or "Right only" accidentally played the audio in *both* ears. It now sends the whole stereo mix -- nothing lost -- to just the one ear you chose and silences the other, so you really can keep the radio in one ear while your screen reader uses the other. Mono and Stereo are unchanged.
+- **Sort your favorites: Ascending, Descending, or Unsorted.** Preferences (Ctrl+,) gained a **Favorites sort order** that orders your folders and stations by name (Ascending A to Z, or Descending Z to A) and re-sorts the moment you add one. **Unsorted** keeps the hand-arranged order you build with Move Up/Down -- and that order is never thrown away, so you can flip back to it any time. Any folder can carry its own sort from its context menu, overriding the default just for that folder's stations.
+- **Import stations from an M3U/M3U8 playlist.** Station > **Import Stations from Playlist...** reads a playlist file into a folder you pick -- an existing one, or a brand-new path you type at any depth like `News/Local` -- and, when some of the stations are already favorites, asks whether to skip those or import everything. Station names come from the playlist's `#EXTINF` lines; a bare URL is named after its host.
+
 ## Update 2.0.1
 
 A fast follow-up from the first round of live feedback, folded into this same release:

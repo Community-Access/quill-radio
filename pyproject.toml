@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "quill-radio"
-version = "2.0.1"
+version = "2.0.2"
 description = "Quill Radio -- accessible, screen-reader-first internet radio as a standalone app"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -20,7 +20,7 @@ classifiers = [
 ]
 # The whole app lives in the quill package (quill.apps.radio); this
 # project is the thin product wrapper: entry point, docs, installer.
-dependencies = ["quill[ui] @ git+https://github.com/Community-Access/quill.git@95ea9772e616c6ea80f2d5d72d811c6d02742c00"]
+dependencies = ["quill[ui] @ git+https://github.com/Community-Access/quill.git@3849ae95f753ba9f0bde402dc8b07cee01b63917"]
 
 [project.gui-scripts]
 quill-radio = "quill_radio:main"

@@ -78,6 +78,10 @@ macOS/Linux standalone builds (upstream QUILL covers macOS; the tray pattern doe
 
 ## 8. Since 1.0
 
+- **2.0.2 (upstream `quill/core/radio/*`, `quill/apps/radio.py`, `quill/ui/radio/*`).**
+  - *Channel mode Left/Right one-ear fix.* 2.0.1's `pan=stereo|c0=c0|c1=c0` duplicated a single source channel to both outputs; corrected to send the whole stereo field to one output and silence the other (`pan=stereo|c0=0.5*c0+0.5*c1|c1=0*c0`, and the mirror for right) in `core/audio_enhance.py`.
+  - *Favorites sort order.* `RadioHistory.favorites_sort` (az/za/manual, default az) + per-folder `folder_sort_orders`; non-mutating `RadioFavoritesStore.favorites_in_display_order` / `folders_in_display_order` so the manual order survives. Applied to the main tree, the Favorites Manager (Move buttons disabled for sorted folders), and the Station-menu submenu; re-sorts on add. Preferences choice for the default; a folder context-menu override.
+  - *M3U/M3U8 station import.* Pure `core/radio/playlist_import.parse_m3u` + `split_new_and_duplicates`; Station > Import Stations from Playlist... with folder targeting/creation at any depth and a skip-vs-import-all duplicate prompt.
 - **2.0.1 fast-follow (upstream `quill/core/radio/*`, `quill/ui/radio/*`).** From the first round of live feedback:
   - *Recording reconnect classification narrowed.* `_FATAL_STDERR_RE` (`core/radio/recording.py`) now matches only genuinely-terminal outcomes (disk full; HTTP 404/410/451); a transient 403 (rotating CDN token), 408/409, 5xx, or bare EOF reconnects within the attempt budget. The stderr tail is cleared on a reconnect/progress signal (`_RECOVERY_STDERR_RE`) so an error ffmpeg recovered from can't poison a later drop's verdict -- fixing "recording stops after ~1 minute" reports.
   - *Recording-started announcement.* Record Now / Record Station announce "Recording started: <station>" (`main_frame_radio.radio_record_toggle` / `open_record_station_dialog`).

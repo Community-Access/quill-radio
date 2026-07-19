@@ -2,6 +2,14 @@
 
 All notable changes to Quill Radio are documented here. See `docs/release-notes-2.0.md` for the fuller narrative version of the latest release.
 
+## 2.0.2 -- 2026-07-18
+
+Fixes the 2.0.1 channel mode and adds two requested favorites features.
+
+- **Channel mode Left/Right now plays in one ear only.** In 2.0.1, "Left only" and "Right only" unintentionally played the audio in *both* ears. They now send the whole stereo mix (nothing lost) to just the chosen output channel and silence the other, so you truly hear the radio in one ear while your screen reader (or anything else) uses the other. Mono and Stereo are unchanged.
+- **Sort your favorites: Ascending, Descending, or Unsorted.** A new "Favorites sort order" in Preferences (Ctrl+,) orders the folders and stations by name -- Ascending (A to Z) or Descending (Z to A) -- and re-sorts automatically whenever you add one; Unsorted keeps your hand-arranged Move Up/Down order (which is never lost, so you can switch back any time). Any folder can override the default for its own stations from its context menu (Ascending / Descending / Unsorted / follow the default). The Favorites Manager disables Move Up/Down for a folder that is sorted, since hand placement is moot there.
+- **Import stations from an M3U/M3U8 playlist.** Station > Import Stations from Playlist... reads a playlist file, lets you choose an existing folder or type a brand-new folder path at any depth (e.g. `News/Local`), and -- if any of the stations are already in your favorites -- asks whether to skip the duplicates or import everything. Extended-M3U names (`#EXTINF`) are honored; a bare URL is named after its host.
+
 ## 2.0.1 -- 2026-07-18
 
 A fast follow-up to 2.0.0 from the first round of live feedback: a recording no longer stops on a momentary hiccup, it is now obvious when recording has begun, and three requested features land -- reviewing/copying What's Playing, a channel mode that can send the radio to one ear, and volume control while a recording plays back. All in the shared `quill` package, so QUILL gets them too.
