@@ -8,7 +8,7 @@
 ; installed copy must keep using the shared %APPDATA%\Quill store.
 
 #define AppName "Quill Radio"
-#define AppVersion "2.0.0"
+#define AppVersion "2.0.1"
 #define AppPublisher "Community Access"
 #define AppURL "https://github.com/Community-Access/quill-radio"
 #define AppExeName "QuillRadio.exe"

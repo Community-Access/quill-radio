@@ -2,6 +2,16 @@
 
 All notable changes to Quill Radio are documented here. See `docs/release-notes-2.0.md` for the fuller narrative version of the latest release.
 
+## 2.0.1 -- 2026-07-18
+
+A fast follow-up to 2.0.0 from the first round of live feedback: a recording no longer stops on a momentary hiccup, it is now obvious when recording has begun, and three requested features land -- reviewing/copying What's Playing, a channel mode that can send the radio to one ear, and volume control while a recording plays back. All in the shared `quill` package, so QUILL gets them too.
+
+- **A recording no longer stops after a minute on a transient hiccup.** With auto-reconnect on, a brief `403 Forbidden` (an expiring/rotating CDN token) or other momentary 4xx used to be treated as fatal, so the recording ended instead of reconnecting -- and a transient error ffmpeg had already recovered from could poison a later, unrelated drop into "fatal" too. Only genuinely-terminal outcomes (disk full, HTTP 404/410/451) now stop a recording; everything else reconnects within the existing attempt budget, and the recent-stderr tail is cleared whenever ffmpeg shows it reconnected, so a recovered-from error can't strand a later drop.
+- **It is now obvious when recording has begun.** Record Now and Record Station announce "Recording started: <station>" (not the label-like "Recording <station>"), so pressing the command gives an unmistakable spoken confirmation.
+- **Review and copy What's Playing.** A new "What's Playing - Review and Copy..." command (Media menu / Command Palette) opens a small accessible dialog showing the current title and artist in a read-only, selectable field you can arrow through character by character to catch spellings -- with a Copy button to paste it into a lyrics or store search. A separate "Copy What's Playing" command copies it straight to the clipboard. (#1134)
+- **Channel mode: Stereo, Mono, Left only, or Right only.** Sound Enhancements' "Combine channels into mono" checkbox is now a Channel mode choice. Left/Right send just that one channel to both ears, so you can play the radio in one ear while your screen reader (or anything else) uses the other. Settable as the shared default and, like the EQ, as a per-station override that is remembered for that station.
+- **Turn a recording down while it plays back.** Ctrl+Up / Ctrl+Down now adjust playback volume from inside the Recordings dialog, the same way they do for live radio (the modal previously hid the Playback menu's volume shortcuts).
+
 ## 2.0.0 -- 2026-07-18
 
 A major recordings-reliability overhaul: a recording in progress now survives a restart, scheduled recordings fire reliably throughout their window, the Recordings list stops flickering and losing your place, and the recording pipeline hardens against dropped connections, dead streams, and a crashed host. It also adds two big new station-directory sources -- iHeart and TuneIn -- to the search. These land in the shared `quill` package Quill Radio runs on, so QUILL gets them at the same time.

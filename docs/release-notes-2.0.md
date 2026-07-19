@@ -6,6 +6,16 @@ It also widens the net for finding stations: **iHeart and TuneIn now join the se
 
 As always, everything below also lands in QUILL itself. Quill Radio and QUILL share one codebase and one data store, so these fixes arrive in both at once -- nothing here is vendored into the Quill Radio wrapper.
 
+## Update 2.0.1
+
+A fast follow-up from the first round of live feedback, folded into this same release:
+
+- **A recording no longer stops after a minute on a transient hiccup.** With "continue recording while re-establishing a connection" on, a momentary `403 Forbidden` (an expiring or rotating stream token) or other brief 4xx used to be treated as a permanent failure, so the recording ended instead of reconnecting. Now only genuinely-terminal outcomes -- a full disk, or an HTTP 404/410/451 that means the stream is truly gone -- stop a recording; a transient drop reconnects as it should, and an error ffmpeg already recovered from can no longer strand a later, unrelated drop.
+- **It is now obvious when recording has begun.** Pressing Record Now (or scheduling Record Station) announces "Recording started: <station>" -- a clear spoken confirmation, not the old label-like "Recording <station>".
+- **Review and copy What's Playing.** A new **What's Playing - Review and Copy...** command opens a small accessible dialog with the current title and artist in a read-only, selectable field you can arrow through character by character to catch the spelling -- with a Copy button to paste it into a lyrics or store search. A separate **Copy What's Playing** command copies it straight to the clipboard.
+- **Channel mode: Stereo, Mono, Left only, or Right only.** The old "Combine channels into mono" checkbox in Sound Enhancements is now a Channel mode choice. Left or Right sends just that channel to both ears, so you can listen to the radio in one ear while your screen reader uses the other. It works as your shared default and, like the equalizer, as a per-station setting that's remembered for that station.
+- **Turn a recording down while it plays back.** Ctrl+Up and Ctrl+Down now change the volume from inside the Recordings window, the same as they do for live radio.
+
 ## The headline: recordings you can trust
 
 ### A recording in progress now survives a restart -- and Quill Radio asks before resuming
