@@ -177,7 +177,7 @@
 </head>
 <body>
 <h1 id="quill-radio-user-guide">Quill Radio User Guide</h1>
-<p>Version 2.0</p>
+<p>Version 2.1.1</p>
 <p>Quill Radio is internet radio the way a screen reader user would
 design it: a small window whose favorites tree has focus the instant it
 opens, menus that say everything they do, spoken feedback for every
@@ -189,11 +189,11 @@ nothing you set up here is ever stranded.</p>
 downloads):</p>
 <ul>
 <li><strong>The installer</strong>
-(<code>Quill-Radio-Setup-2.0.0.exe</code>) -- its own folder, Start Menu
+(<code>Quill-Radio-Setup-2.1.1.exe</code>) -- its own folder, Start Menu
 entry, uninstaller. Your data lives in the shared Quill store in your
 Windows profile.</li>
 <li><strong>The portable zip</strong>
-(<code>Quill-Radio-Portable-2.0.0.zip</code>) -- extract anywhere, even
+(<code>Quill-Radio-Portable-2.1.1.zip</code>) -- extract anywhere, even
 a USB stick, and run <code>QuillRadio\QuillRadio.exe</code>. Its
 <code>data</code> folder keeps your favorites, history, and settings
 inside the app folder, so the whole radio travels with you.</li>
@@ -207,11 +207,13 @@ what this repository's source produces.</p>
 your <strong>Favorite stations</strong> tree.</p>
 <ul>
 <li>No favorites yet? Press Alt+S for the Station menu, then
-<strong>Browse Stations...</strong> to search thousands of stations by
-name, genre, country, or language, listen before you commit, and add the
-keepers to your favorites. The <strong>ACB Media</strong> submenu is
-also right there -- the whole ACB stream directory, playable without any
-setup.</li>
+<strong>Browse Stations...</strong> to wander a tree of every source --
+popular stations, NOAA Weather Radio, radio reading services, whole
+directories -- or <strong>Search Stations...</strong> to search
+thousands of stations by name, genre, country, or language. Either way,
+listen before you commit, and add the keepers to your favorites. The
+<strong>ACB Media</strong> submenu is also right there -- the whole ACB
+stream directory, playable without any setup.</li>
 <li>With favorites: arrow to a station and press <strong>Enter</strong>.
 That is the whole loop.</li>
 <li>Want the radio on the moment the app opens? Check <strong>Station
@@ -245,18 +247,54 @@ Stations...</strong></li>
 <h2 id="menus">Menus</h2>
 <h3 id="station-alts">Station (Alt+S)</h3>
 <ul>
-<li><strong>Browse Stations...</strong> -- the full station browser:
+<li><strong>Browse Stations...</strong> -- a search-free window for
+wandering: one tree whose top-level branches are the sources.
+<strong>Favorites</strong> sits first (your own folders and streams),
+then <strong>Popular Stations</strong>, <strong>Weather / NOAA</strong>,
+<strong>ACB Media</strong>, <strong>NFB Radio</strong>, <strong>Radio
+Reading Services</strong>, <strong>SomaFM</strong>,
+<strong>TuneIn</strong> (its real folder tree), <strong>Community M3U
+(Music Genres)</strong>, and the <strong>Xiph / Icecast
+Directory</strong>. Expand a branch and its stations load on the spot;
+<strong>Enter</strong> plays the highlighted station, and
+<strong>Shift+F10</strong> (or right-click) opens Play/Stop, Add/Remove
+Favorite, Copy stream link, Open website, and Refresh. Two branches
+deserve their own words:
+<ul>
+<li><strong>Weather / NOAA</strong> is the real NOAA Weather Radio
+directory, state by state. Open the branch and you get the states (each
+with its transmitter count); open a state and you get its actual
+transmitters, named with call sign, frequency, and place -- "KHB36
+162.550 MHz Manassas" -- and Enter plays the best available internet
+re-stream. The complete directory (1,035 transmitters) is bundled inside
+the app, so this branch works even offline. See "Your local NOAA Weather
+Radio" in the Weather chapter for the one-keypress local version.</li>
+<li><strong>Radio Reading Services</strong> lists the audio information
+services that read newspapers, magazines, and local print aloud for
+people who are blind or print-disabled -- WRBH 88.3 Reading Radio, Sun
+Sounds of Arizona, CRIS Radio, the Connecticut Radio Information System,
+the KPBS and WKAR reading services, ACB Media 1-5, the NFB Radio
+Network, Voice Corps, and more. Twenty vetted services are bundled, so
+the branch is never empty; play, favorite, record, and schedule them
+like any other station.</li>
+</ul></li>
+<li><strong>Search Stations...</strong> -- the full station search:
 search across four directories at once -- <strong>RadioBrowser</strong>,
 <strong>SomaFM</strong>, <strong>iHeart</strong>, and
 <strong>TuneIn</strong> -- blended into one results list, test-play,
-favorite. Every result is labeled with the directory it came from ("via
-iHeart", "via TuneIn"). RadioBrowser shows up to 200 stations at once,
-most-listened first; when there are still more, a <strong>More
-Stations</strong> button loads the next page and puts your cursor on the
-first newly added station. iHeart and TuneIn add a small set of their
-most relevant, immediately-playable matches to each search (each
-iHeart/TuneIn result's real stream is looked up on demand, so they are
-capped per search to keep one search from becoming dozens of network
+favorite. A search that looks like weather-radio geography -- a 6-digit
+<strong>SAME code</strong>, a <strong>call sign</strong> like
+<code>KHB36</code>, or a <strong>"County, ST"</strong> or state name --
+also brings back exact NOAA Weather Radio transmitters from the
+authoritative directory, and reading services match by name, tag, or
+state right alongside. Every result is labeled with the directory it
+came from ("via iHeart", "via TuneIn"). RadioBrowser shows up to 200
+stations at once, most-listened first; when there are still more, a
+<strong>More Stations</strong> button loads the next page and puts your
+cursor on the first newly added station. iHeart and TuneIn add a small
+set of their most relevant, immediately-playable matches to each search
+(each iHeart/TuneIn result's real stream is looked up on demand, so they
+are capped per search to keep one search from becoming dozens of network
 requests).
 <ul>
 <li><strong>Source</strong> -- a dropdown to narrow the search to one
@@ -274,6 +312,11 @@ the very latest iHeart listing.</li>
 adding a tag or country to narrow a very broad search. Search is
 disabled in Safe Mode.</li>
 </ul></li>
+<li><strong>Update Radio Reading Services...</strong> -- refresh the
+Radio Reading Services list on demand from the community RadioBrowser
+directory, off the UI thread, announcing how many services it found. The
+bundled list stays as the fallback, and the command is off in Safe
+Mode.</li>
 <li><strong>Add Custom Station...</strong> -- paste any stream URL and
 name it yourself.</li>
 <li><strong>When a station won't play, Quill Radio tries to fix it for
@@ -804,8 +847,22 @@ SHOUTcast now-playing endpoint -- the same host, never a third party).
 All network features are off in Safe Mode. No other network calls exist,
 and every one of them is inventoried in QUILL's network-egress
 audit.</li>
+<li><strong>NOAA Weather Radio</strong> browsing, search, and the
+local-transmitter lookup use the keyless <strong>WeatherIndex</strong>
+directory (api.wxindex.org) when online, with the complete directory
+also bundled inside the app as a permanent offline fallback;
+<strong>Radio Reading Services</strong> refreshes from the community
+<strong>RadioBrowser</strong> directory the station search already uses,
+with its own bundled list as the fallback. The <strong>Weather</strong>
+menu's text weather talks to the <strong>National Weather
+Service</strong> (api.weather.gov), <strong>Open-Meteo</strong>
+(extended outlook, air quality), and <strong>OpenStreetMap</strong>
+(location search) -- all free, keyless, and account-free; see the
+Weather chapter.</li>
 <li>The <strong>ACB Media</strong> directory is bundled -- no network
-needed to browse it.</li>
+needed to browse it, and the bundled <strong>Radio Reading
+Services</strong> and <strong>NOAA Weather Radio</strong> directories
+browse offline the same way.</li>
 </ul>
 <h2 id="weather">Weather</h2>
 <p>Quill Radio includes a <strong>Weather</strong> menu that brings
@@ -916,11 +973,39 @@ specific <strong>event names to hide</strong> (one per line).</li>
 <li><strong>Quick Weather line</strong> -- turn feels-like temperature,
 wind, humidity, the active-alert count, and data age on or off.</li>
 </ul>
+<h3 id="your-local-noaa-weather-radio">Your local NOAA Weather
+Radio</h3>
+<p>NOAA Weather Radio is the National Weather Service's own broadcast
+voice -- continuous forecasts, conditions, and warnings from real VHF
+transmitters. Quill Radio carries the authoritative directory of those
+transmitters and their internet re-streams:</p>
+<ul>
+<li><strong>Weather menu &gt; Listen to your Local NOAA Weather
+Radio</strong> -- one keypress plays the transmitter covering your saved
+Weather location: your county's transmitter first, or the nearest one
+whose coverage includes you. If you have not set a Weather location yet,
+it tells you how instead of failing silently. Once playing, it is a
+normal station -- favorite it, record it, schedule it.</li>
+<li><strong>Weather menu &gt; Update NOAA Weather Radio
+Directory</strong> -- pull the newest directory on demand. It fetches
+off the UI thread, announces the result, and on failure leaves your
+existing data untouched. The complete directory ships inside the app
+(1,035 transmitters across every state and territory), so browsing and
+the local lookup work even fully offline; an update simply layers
+fresher data on top, and the bundled copy always remains as the floor.
+Off in Safe Mode.</li>
+<li><strong>Browse Stations &gt; Weather / NOAA</strong> -- the same
+directory as a browsable state-by-state tree; see the Station menu
+chapter.</li>
+</ul>
+<p>The audio stream is a companion to the text weather above, not a
+replacement for a dedicated NOAA Weather Radio receiver with alert
+tones.</p>
 <h3 id="whats-coming-later">What's coming later</h3>
-<p>This release shows weather as <strong>text</strong>. Later phases of
-Quill Weather add spoken weather with its own voices and interruption
-rules, background alert monitoring that keeps watch while the window is
-closed, and a NOAA Weather Radio stream explorer. See the Product
+<p>This release shows weather as <strong>text</strong> and streams NOAA
+Weather Radio audio. Later phases of Quill Weather add spoken weather
+with its own voices and interruption rules, and background alert
+monitoring that keeps watch while the window is closed. See the Product
 Requirements document (Help &gt; Product Requirements) for the full
 roadmap.</p>
 <h2 id="keyboard-reference">Keyboard reference</h2>

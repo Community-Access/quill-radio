@@ -1,6 +1,6 @@
 # Quill Radio User Guide
 
-Version 2.0
+Version 2.1.1
 
 Quill Radio is internet radio the way a screen reader user would design it: a small window whose favorites tree has focus the instant it opens, menus that say everything they do, spoken feedback for every action, and a tray icon so the music keeps playing while you work. It runs the exact same radio code as QUILL itself and shares its data, so nothing you set up here is ever stranded.
 
@@ -8,8 +8,8 @@ Quill Radio is internet radio the way a screen reader user would design it: a sm
 
 Two flavors, both fully bundled (ffmpeg included, nothing ever downloads):
 
-- **The installer** (`Quill-Radio-Setup-2.0.0.exe`) -- its own folder, Start Menu entry, uninstaller. Your data lives in the shared Quill store in your Windows profile.
-- **The portable zip** (`Quill-Radio-Portable-2.0.0.zip`) -- extract anywhere, even a USB stick, and run `QuillRadio\QuillRadio.exe`. Its `data` folder keeps your favorites, history, and settings inside the app folder, so the whole radio travels with you.
+- **The installer** (`Quill-Radio-Setup-2.1.1.exe`) -- its own folder, Start Menu entry, uninstaller. Your data lives in the shared Quill store in your Windows profile.
+- **The portable zip** (`Quill-Radio-Portable-2.1.1.zip`) -- extract anywhere, even a USB stick, and run `QuillRadio\QuillRadio.exe`. Its `data` folder keeps your favorites, history, and settings inside the app folder, so the whole radio travels with you.
 
 Windows SmartScreen may warn on first run because this release is not code-signed; choose "More info" then "Run anyway". The build is exactly what this repository's source produces.
 
@@ -17,7 +17,7 @@ Windows SmartScreen may warn on first run because this release is not code-signe
 
 Launch Quill Radio from the Start Menu (or the portable folder's `QuillRadio.exe`). The window opens with keyboard focus on your **Favorite stations** tree.
 
-- No favorites yet? Press Alt+S for the Station menu, then **Browse Stations...** to search thousands of stations by name, genre, country, or language, listen before you commit, and add the keepers to your favorites. The **ACB Media** submenu is also right there -- the whole ACB stream directory, playable without any setup.
+- No favorites yet? Press Alt+S for the Station menu, then **Browse Stations...** to wander a tree of every source -- popular stations, NOAA Weather Radio, radio reading services, whole directories -- or **Search Stations...** to search thousands of stations by name, genre, country, or language. Either way, listen before you commit, and add the keepers to your favorites. The **ACB Media** submenu is also right there -- the whole ACB stream directory, playable without any setup.
 - With favorites: arrow to a station and press **Enter**. That is the whole loop.
 - Want the radio on the moment the app opens? Check **Station > Resume Last Station on Launch** once, and Quill Radio becomes an appliance: launch it, and your station is already playing.
 
@@ -35,11 +35,15 @@ Tab order: the now-playing line, the favorites tree, then four buttons.
 
 ### Station (Alt+S)
 
-- **Browse Stations...** -- the full station browser: search across four directories at once -- **RadioBrowser**, **SomaFM**, **iHeart**, and **TuneIn** -- blended into one results list, test-play, favorite. Every result is labeled with the directory it came from ("via iHeart", "via TuneIn"). RadioBrowser shows up to 200 stations at once, most-listened first; when there are still more, a **More Stations** button loads the next page and puts your cursor on the first newly added station. iHeart and TuneIn add a small set of their most relevant, immediately-playable matches to each search (each iHeart/TuneIn result's real stream is looked up on demand, so they are capped per search to keep one search from becoming dozens of network requests).
+- **Browse Stations...** -- a search-free window for wandering: one tree whose top-level branches are the sources. **Favorites** sits first (your own folders and streams), then **Popular Stations**, **Weather / NOAA**, **ACB Media**, **NFB Radio**, **Radio Reading Services**, **SomaFM**, **TuneIn** (its real folder tree), **Community M3U (Music Genres)**, and the **Xiph / Icecast Directory**. Expand a branch and its stations load on the spot; **Enter** plays the highlighted station, and **Shift+F10** (or right-click) opens Play/Stop, Add/Remove Favorite, Copy stream link, Open website, and Refresh. Two branches deserve their own words:
+  - **Weather / NOAA** is the real NOAA Weather Radio directory, state by state. Open the branch and you get the states (each with its transmitter count); open a state and you get its actual transmitters, named with call sign, frequency, and place -- "KHB36 162.550 MHz Manassas" -- and Enter plays the best available internet re-stream. The complete directory (1,035 transmitters) is bundled inside the app, so this branch works even offline. See "Your local NOAA Weather Radio" in the Weather chapter for the one-keypress local version.
+  - **Radio Reading Services** lists the audio information services that read newspapers, magazines, and local print aloud for people who are blind or print-disabled -- WRBH 88.3 Reading Radio, Sun Sounds of Arizona, CRIS Radio, the Connecticut Radio Information System, the KPBS and WKAR reading services, ACB Media 1-5, the NFB Radio Network, Voice Corps, and more. Twenty vetted services are bundled, so the branch is never empty; play, favorite, record, and schedule them like any other station.
+- **Search Stations...** -- the full station search: search across four directories at once -- **RadioBrowser**, **SomaFM**, **iHeart**, and **TuneIn** -- blended into one results list, test-play, favorite. A search that looks like weather-radio geography -- a 6-digit **SAME code**, a **call sign** like `KHB36`, or a **"County, ST"** or state name -- also brings back exact NOAA Weather Radio transmitters from the authoritative directory, and reading services match by name, tag, or state right alongside. Every result is labeled with the directory it came from ("via iHeart", "via TuneIn"). RadioBrowser shows up to 200 stations at once, most-listened first; when there are still more, a **More Stations** button loads the next page and puts your cursor on the first newly added station. iHeart and TuneIn add a small set of their most relevant, immediately-playable matches to each search (each iHeart/TuneIn result's real stream is looked up on demand, so they are capped per search to keep one search from becoming dozens of network requests).
   - **Source** -- a dropdown to narrow the search to one directory (All sources, RadioBrowser, iHeart, TuneIn, SomaFM, ACB Media, or Website) when you already know where a station lives.
   - **Tag/genre** and **Country** -- these are now proper dropdown lists, filled in from the directory itself, so you pick "jazz" or "United Kingdom" from a list instead of typing the exact spelling; choosing one runs the search right away.
   - **Refresh** -- re-fetches the iHeart station directory. iHeart's directory index is cached once per Browse Stations session (TuneIn and RadioBrowser are always live), so use Refresh if you want the very latest iHeart listing.
   - The status line tells you when more can be loaded and suggests adding a tag or country to narrow a very broad search. Search is disabled in Safe Mode.
+- **Update Radio Reading Services...** -- refresh the Radio Reading Services list on demand from the community RadioBrowser directory, off the UI thread, announcing how many services it found. The bundled list stays as the fallback, and the command is off in Safe Mode.
 - **Add Custom Station...** -- paste any stream URL and name it yourself.
 - **When a station won't play, Quill Radio tries to fix it for you.** Some stations are listed in the directory but their stream address is dead -- often because the real stream is behind a player on the station's website. Instead of just failing, Quill Radio works down a short ladder: it re-resolves the address (for StreamTheWorld-style players that moved servers), refreshes the address from the directory, and -- if the setting is on -- scans the station's own website, following a "Listen Live"/"Play"/"Tune In" link into the player and recognizing Triton players there. If it finds one clear stream it plays it and remembers it for that favorite; if it finds several it tells you the count and you can open Find Streams to choose. The website step is the "Recover failed streams from the station's website" checkbox in Station > Preferences (Ctrl+,), on by default and off in Safe Mode. It only tries once per station per session.
 - **Find Streams from a Website...** -- give it a website address; it scans that one page for stream links, with a Test button that toggles to Stop Test while a candidate plays. This now also works for many stations whose "Listen Live" button is a modern JavaScript player (Triton Digital / StreamTheWorld, including the whole `player.listenlive.co` network -- for example `player.listenlive.co/34461`). Those players build their stream address in code, so it is not written anywhere in the page for a scanner to read; Quill Radio recognizes the player, reads the station's call letters from the page, and looks the real stream up through the station provider's own public address service -- no browser, no guessing. Both the MP3 and the AAC stream are offered when a station publishes both. It also recognizes an **iHeart** or **TuneIn** station page pasted directly and resolves its real playable stream through that directory, instead of handing back a page address that will not play. If a page is not one of these players or directories, or does not name its station, the scan simply behaves as before.
@@ -172,7 +176,8 @@ Quill Radio reads and writes the same data store as QUILL and QUILL Cast (`%APPD
 - **Playback** uses the bundled **mpv** engine (`tools\mpv` inside the install folder -- license texts and source note ship right next to it) with the Windows Media Player engine built into Windows as automatic fallback and as the "classic" choice in Preferences. Nothing to install, nothing downloads at runtime. Between the two engines, effectively every stream format in real-world use plays: **MP3, AAC and HE-AAC (AAC+), Ogg Vorbis, Opus, FLAC streams, and HLS (m3u8)** -- and a station one engine can't open is quietly retried on the other before you ever hear an error.
 - **Recording**, **Sound Enhancements** on the classic engine, and (when "Apply Sound Enhancements to recordings" is on) recording's own filtering all use **ffmpeg**, which the installer bundles at `tools\ffmpeg` inside the install folder. Nothing downloads at runtime. On the classic engine, Sound Enhancements plays through a small local relay (ffmpeg filters the stream, a loopback-only web server on your own machine hands the filtered audio to the player) -- nothing about it is reachable off your computer; on the mpv engine the same filters run inside the player itself, no relay at all.
 - **Station search** talks to four keyless, account-free directories, blended into one results list: the community **RadioBrowser** directory, the free **SomaFM** directory, **iHeart** (read from its public station sitemap, `www.iheart.com`, with each chosen station's real stream resolved on demand from its own page), and **TuneIn** (through RadioTime's open OPML directory, `opml.radiotime.com` -- the same service TuneIn's own web player uses). **Find Streams** fetches only the one page you type (following its "Listen Live" link one level and, if it's a Triton/StreamTheWorld player or an iHeart/TuneIn page, one lookup to that provider's own public address service); **stream recovery** does the same lookups against a failing station's own website only when a stream won't play (and only if you leave the setting on); **What's Playing** reads metadata from the stream you are already playing, and as a last resort reads the current title from that same stream server's own public status page (its Icecast or SHOUTcast now-playing endpoint -- the same host, never a third party). All network features are off in Safe Mode. No other network calls exist, and every one of them is inventoried in QUILL's network-egress audit.
-- The **ACB Media** directory is bundled -- no network needed to browse it.
+- **NOAA Weather Radio** browsing, search, and the local-transmitter lookup use the keyless **WeatherIndex** directory (api.wxindex.org) when online, with the complete directory also bundled inside the app as a permanent offline fallback; **Radio Reading Services** refreshes from the community **RadioBrowser** directory the station search already uses, with its own bundled list as the fallback. The **Weather** menu's text weather talks to the **National Weather Service** (api.weather.gov), **Open-Meteo** (extended outlook, air quality), and **OpenStreetMap** (location search) -- all free, keyless, and account-free; see the Weather chapter.
+- The **ACB Media** directory is bundled -- no network needed to browse it, and the bundled **Radio Reading Services** and **NOAA Weather Radio** directories browse offline the same way.
 
 ## Weather
 
@@ -278,12 +283,38 @@ alerts list, so you can review warnings with the fewest keystrokes.
 - **Quick Weather line** -- turn feels-like temperature, wind, humidity, the
   active-alert count, and data age on or off.
 
+### Your local NOAA Weather Radio
+
+NOAA Weather Radio is the National Weather Service's own broadcast voice --
+continuous forecasts, conditions, and warnings from real VHF transmitters.
+Quill Radio carries the authoritative directory of those transmitters and
+their internet re-streams:
+
+- **Weather menu > Listen to your Local NOAA Weather Radio** -- one keypress
+  plays the transmitter covering your saved Weather location: your county's
+  transmitter first, or the nearest one whose coverage includes you. If you
+  have not set a Weather location yet, it tells you how instead of failing
+  silently. Once playing, it is a normal station -- favorite it, record it,
+  schedule it.
+- **Weather menu > Update NOAA Weather Radio Directory** -- pull the newest
+  directory on demand. It fetches off the UI thread, announces the result,
+  and on failure leaves your existing data untouched. The complete directory
+  ships inside the app (1,035 transmitters across every state and territory),
+  so browsing and the local lookup work even fully offline; an update simply
+  layers fresher data on top, and the bundled copy always remains as the
+  floor. Off in Safe Mode.
+- **Browse Stations > Weather / NOAA** -- the same directory as a browsable
+  state-by-state tree; see the Station menu chapter.
+
+The audio stream is a companion to the text weather above, not a replacement
+for a dedicated NOAA Weather Radio receiver with alert tones.
+
 ### What's coming later
 
-This release shows weather as **text**. Later phases of Quill Weather add spoken
-weather with its own voices and interruption rules, background alert monitoring
-that keeps watch while the window is closed, and a NOAA Weather Radio stream
-explorer. See the Product Requirements document (Help > Product Requirements) for the full roadmap.
+This release shows weather as **text** and streams NOAA Weather Radio audio.
+Later phases of Quill Weather add spoken weather with its own voices and
+interruption rules, and background alert monitoring that keeps watch while the
+window is closed. See the Product Requirements document (Help > Product Requirements) for the full roadmap.
 
 ## Keyboard reference
 

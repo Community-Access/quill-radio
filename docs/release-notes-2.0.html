@@ -194,6 +194,58 @@ Stations. More on that below.</p>
 and QUILL share one codebase and one data store, so these fixes arrive
 in both at once -- nothing here is vendored into the Quill Radio
 wrapper.</p>
+<h2 id="update-211">Update 2.1.1</h2>
+<p>Quill Radio 2.1.1 is about weather radio done properly, and about a
+kind of station that matters enormously to this community and has never
+been easy to find: the radio reading service.</p>
+<ul>
+<li><strong>NOAA Weather Radio, from an authoritative
+directory.</strong> The <strong>Weather / NOAA</strong> branch in Browse
+Stations no longer guesses at stations by searching for a name; it is
+powered by the <strong>WeatherIndex</strong> directory of actual NWR
+transmitters. Open it and you get the states; open a state and you get
+its real transmitters, each named with its call sign and frequency --
+"KHB36 162.550 MHz Manassas" -- and Enter plays the best available
+internet re-stream. Favorite them, record them, schedule them like any
+other station.</li>
+<li><strong>Search speaks weather-radio.</strong> Type a <strong>SAME
+code</strong> (the 6-digit county code your weather-alert radio uses), a
+<strong>call sign</strong>, or a <strong>"County, ST"</strong> into
+station search and the authoritative directory answers with exact
+transmitters, blended right into the normal results.</li>
+<li><strong>Your local transmitter, one keypress.</strong>
+<strong>Weather menu &gt; Listen to your Local NOAA Weather
+Radio</strong> uses the Weather location you already saved -- its county
+first, then the nearest covering transmitter by coordinates -- and just
+plays it. No location set? It tells you how to add one.</li>
+<li><strong>It works offline, and it outlives the API.</strong> Every
+NOAA feature stands on three tiers: the live directory, a cache of the
+last successful pull, and a <strong>complete bundled snapshot -- 1,035
+transmitters across every state and territory</strong> -- inside the app
+itself. A machine with no internet still browses, searches, and finds
+your local transmitter. <strong>Weather menu &gt; Update NOAA Weather
+Radio Directory</strong> pulls the newest data whenever you ask; the
+bundled snapshot is never overwritten, so there is always a floor.</li>
+<li><strong>Radio Reading Services -- the human newspaper.</strong> For
+decades, radio reading services have had volunteers read newspapers,
+magazines, and grocery ads aloud over closed-circuit radio for people
+who are blind or print-disabled -- and finding their internet streams
+has always been word-of-mouth. A new <strong>Radio Reading
+Services</strong> branch in Browse Stations gathers them: WRBH 88.3
+Reading Radio in New Orleans, Sun Sounds of Arizona, CRIS Radio and the
+Connecticut Radio Information System, the KPBS and WKAR reading
+services, ACB Media 1-5, the NFB Radio Network, Voice Corps, and more.
+<strong>20 vetted services are bundled</strong> so the branch is never
+empty, even offline; they show up in station <strong>Search</strong> by
+name, tag, or state; and <strong>Station &gt; Update Radio Reading
+Services</strong> refreshes the list on demand from the community
+RadioBrowser directory. Play them, favorite them, record your evening
+paper.</li>
+</ul>
+<p>Both directories follow the same rules as every other source: live
+pulls are off in Safe Mode, every network call is in the egress audit,
+and a bundled snapshot keeps the feature honest when the network is not
+there.</p>
 <h2 id="update-210">Update 2.1.0</h2>
 <p>Quill Radio 2.1.0 adds a top-level <strong>Weather</strong> menu, a
 whole new way to <strong>browse stations</strong>, <strong>one-click
