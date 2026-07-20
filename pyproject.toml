@@ -20,7 +20,7 @@ classifiers = [
 ]
 # The whole app lives in the quill package (quill.apps.radio); this
 # project is the thin product wrapper: entry point, docs, installer.
-dependencies = ["quill[ui] @ git+https://github.com/Community-Access/quill.git@0555ddf1df9ba5ad413c30d1cbc5f754a07b57dd"]
+dependencies = ["quill[ui] @ git+https://github.com/Community-Access/quill.git@daed557fd2d603a01e24524983cbc9c0de42f0ae"]
 
 [project.gui-scripts]
 quill-radio = "quill_radio:main"
