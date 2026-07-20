@@ -2,6 +2,14 @@
 
 All notable changes to Quill Radio are documented here. See `docs/release-notes-2.0.md` for the fuller narrative version of the latest release.
 
+## 2.1.2 -- 2026-07-20
+
+A fast-follow fixing three reported issues, two of them from 2.1.1. All in the shared `quill` package, so QUILL gets them too.
+
+- **"Install and restart" works again (#1183).** One-click updating failed with "Could not install the update automatically: total uncompressed size exceeds 536870912 bytes (possible decompression bomb)" and left you to update by hand. The update installer shares a decompression-bomb guard sized for documents (512 MB), but a full Quill Radio bundle -- Python, ffmpeg, and the mpv engine -- unpacks to more than that, so the guard refused the genuine update. The self-update now allows a full app-sized download (it only ever runs on Quill's own verified release, and still rejects a truly abnormal archive), so **Install and restart** applies the update and relaunches as intended.
+- **Your favorites keep the order you put them in (#1168, #1178).** After updating from an older version, a carefully hand-sorted favorites list could rearrange itself into A-Z on the first launch. The Favorites sort-order setting (added in 2.0.2) was defaulting an older, orderless save to Ascending. Quill Radio now treats a pre-2.0.2 favorites file as **Unsorted**, so your manual order is preserved across the upgrade. (If a previous update already re-sorted you, your original order is still intact underneath -- choose **Unsorted** in Preferences to bring it back.)
+- **A Speech Hub crash is fixed and locked out.** Opening the Speech Hub's Dictation (Offline) tab on 0.9.0 beta 2 could crash with a "missing required arguments" error; it was fixed in beta 3, and a test now guards it so it cannot return. (Shared `quill` fix; affects the embedded QUILL app.)
+
 ## 2.1.1 -- 2026-07-19
 
 NOAA Weather Radio becomes a real, authoritative directory instead of a name search, your local transmitter is one keypress away, and a new Radio Reading Services category brings the audio information services for blind and print-disabled listeners into Browse and Search. Both ship a bundled snapshot, so both work completely offline. All in the shared `quill` package, so QUILL gets them too.

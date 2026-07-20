@@ -6,6 +6,14 @@ It also widens the net for finding stations: **iHeart and TuneIn now join the se
 
 As always, everything below also lands in QUILL itself. Quill Radio and QUILL share one codebase and one data store, so these fixes arrive in both at once -- nothing here is vendored into the Quill Radio wrapper.
 
+## Update 2.1.2
+
+Quill Radio 2.1.2 is a quick fix-up for three things you reported -- two of them from 2.1.1 itself. Thank you for the fast, specific feedback; it is exactly what makes these turnarounds possible.
+
+- **One-click updating works again.** If you chose **Install and restart** on 2.1.1, it could fail with a "decompression bomb" error and send you off to update by hand. The update installer carries a safety guard against absurdly large archives, sized for documents -- but a whole Quill Radio (Python, ffmpeg, and the mpv engine, all bundled) legitimately unpacks past that limit, so the guard was turning away the real update. It now allows a full app-sized download while still refusing a genuinely abnormal one, so Install and restart applies the update and relaunches, keeping your favorites, recordings, and settings.
+- **Favorites keep the order you gave them.** A few of you updated and found a lovingly hand-sorted list snapped into A-Z on the next launch -- understandably frustrating after sorting thirty-plus stations by hand. The sort-order setting introduced in 2.0.2 was reading an older, orderless favorites file as "Ascending." Quill Radio now reads a pre-2.0.2 file as **Unsorted**, so your order carries across the upgrade untouched. And if an earlier update already rearranged you, the original order is still there underneath: choose **Unsorted** in Preferences and it comes right back.
+- **A shared Speech Hub crash is fixed and regression-locked.** Opening Dictation (Offline) in the Speech Hub could crash on an older build; it was already fixed, and it now has a test standing guard so it cannot come back.
+
 ## Update 2.1.1
 
 Quill Radio 2.1.1 is about weather radio done properly, and about a kind of station that matters enormously to this community and has never been easy to find: the radio reading service.

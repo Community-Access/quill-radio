@@ -458,12 +458,27 @@ all behave exactly as before; the boost is applied on top. Needs the mpv
 playback engine (the default -- see Preferences below).</li>
 <li><strong>Rewind 30 Seconds</strong> (Ctrl+Shift+Left),
 <strong>Forward 30 Seconds</strong> (Ctrl+Shift+Right), <strong>Back to
-Live</strong> (Ctrl+Shift+L) -- live radio you can move around in. Quill
-Radio keeps a rolling buffer of the stream (roughly 45 minutes at
-typical bitrates): pause with Play/Stop and resume where you left off,
-jump back to catch a missed sentence, then work your way forward or leap
-straight back to live. Every move announces how far behind live you are.
-Needs the mpv playback engine.</li>
+Live</strong> (Ctrl+Shift+L) -- live radio you can move around in. On
+the mpv playback engine (the default), Quill Radio keeps a rolling
+buffer of the stream (roughly 45 minutes at typical bitrates): jump back
+to catch a missed sentence, work your way forward, then leap straight
+back to live. Every move announces how far behind live you are. Needs
+the mpv playback engine.
+<ul>
+<li><strong>A note on pausing.</strong> Whether Play/Stop <em>holds your
+place</em> or <em>rejoins live</em> depends on the engine. On the
+<strong>mpv</strong> engine, pausing keeps your position in the rolling
+buffer, so Play resumes exactly where you stopped. On the
+<strong>Windows Media (classic)</strong> engine there is no buffer, so
+pausing a live stream and pressing Play again reconnects at the current
+live moment -- it looks like the stream simply refreshed. If you press
+Play/Stop expecting to resume where you left off and instead hear live
+audio, open <strong>Station &gt; Preferences (Ctrl+,)</strong> and set
+<strong>Playback engine</strong> to <strong>Automatic</strong> (which
+uses mpv); the buffer, Rewind/Forward, and Back to Live all require that
+engine. (A live stream also only rewinds as far back as the buffer has
+actually filled since you started listening.)</li>
+</ul></li>
 <li><strong>What's Playing?</strong> (Ctrl+T) -- speaks the current
 track or show title straight from the stream's own metadata. When a
 station sends messy broadcast metadata (a string of catalog codes rather
