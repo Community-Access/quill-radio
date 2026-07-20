@@ -5,3 +5,6 @@ build/
 payload/
 *.zip
 .venv/
+
+# Build logs
+*.log
