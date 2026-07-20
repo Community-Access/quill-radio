@@ -130,7 +130,7 @@ Compress-Archive -Path $appDir -DestinationPath $zipPath
 Remove-Item $dataDir -Recurse -Force
 
 # -- installer ----------------------------------------------------------------
-& $Iscc (Join-Path $repoRoot "installer\quill-radio.iss") "/O$(Join-Path $repoRoot 'dist')"
+& $Iscc "/dAppVersion=$version" (Join-Path $repoRoot "installer\quill-radio.iss") "/O$(Join-Path $repoRoot 'dist')"
 if ($LASTEXITCODE -ne 0) { throw "ISCC failed with exit code $LASTEXITCODE" }
 
 Write-Host ""

@@ -8,7 +8,12 @@
 ; installed copy must keep using the shared %APPDATA%\Quill store.
 
 #define AppName "Quill Radio"
-#define AppVersion "2.1.0"
+; Version is single-sourced from build_release.ps1, which passes
+; /dAppVersion=<version> to ISCC. The literal below is only the fallback for a
+; manual ISCC run and must be kept in step with build_release.ps1's $version.
+#ifndef AppVersion
+  #define AppVersion "2.1.1"
+#endif
 #define AppPublisher "Community Access"
 #define AppURL "https://github.com/Community-Access/quill-radio"
 #define AppExeName "QuillRadio.exe"
