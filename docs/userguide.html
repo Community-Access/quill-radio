@@ -277,6 +277,12 @@ the KPBS and WKAR reading services, ACB Media 1-5, the NFB Radio
 Network, Voice Corps, and more. Twenty vetted services are bundled, so
 the branch is never empty; play, favorite, record, and schedule them
 like any other station.</li>
+<li><strong>iHeart</strong> opens into <strong>genres</strong> (Country,
+Pop, News/Talk, Sports, and the rest), and each genre into an
+<strong>A-Z</strong> sub-directory of its stations -- so you expand a
+genre, expand a letter, and press Enter to play. Each level loads only
+when you open it. (Browsing uses iHeart's own genre directory; a
+station's stream is ready to play with no extra step.)</li>
 </ul></li>
 <li><strong>Search Stations...</strong> -- the full station search:
 search across four directories at once -- <strong>RadioBrowser</strong>,
@@ -299,7 +305,11 @@ requests).
 <ul>
 <li><strong>Source</strong> -- a dropdown to narrow the search to one
 directory (All sources, RadioBrowser, iHeart, TuneIn, SomaFM, ACB Media,
-or Website) when you already know where a station lives.</li>
+or Website) when you already know where a station lives. When the same
+station is carried by more than one directory (a SomaFM channel
+RadioBrowser also lists, say), it appears under each of those
+directories' filters, not just the one whose copy you happened to
+play.</li>
 <li><strong>Tag/genre</strong> and <strong>Country</strong> -- these are
 now proper dropdown lists, filled in from the directory itself, so you
 pick "jazz" or "United Kingdom" from a list instead of typing the exact
@@ -829,9 +839,11 @@ itself, no relay at all.</li>
 <li><strong>Station search</strong> talks to four keyless, account-free
 directories, blended into one results list: the community
 <strong>RadioBrowser</strong> directory, the free
-<strong>SomaFM</strong> directory, <strong>iHeart</strong> (read from
+<strong>SomaFM</strong> directory, <strong>iHeart</strong> (search reads
 its public station sitemap, <code>www.iheart.com</code>, with each
-chosen station's real stream resolved on demand from its own page), and
+chosen station's real stream resolved on demand from its own page;
+browsing iHeart by genre reads its free, keyless content directory,
+<code>us.api.iheart.com</code>, which already includes the stream), and
 <strong>TuneIn</strong> (through RadioTime's open OPML directory,
 <code>opml.radiotime.com</code> -- the same service TuneIn's own web
 player uses). <strong>Find Streams</strong> fetches only the one page

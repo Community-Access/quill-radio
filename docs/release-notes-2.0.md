@@ -18,6 +18,11 @@ Quill Radio 2.1.1 is about weather radio done properly, and about a kind of stat
 
 Both directories follow the same rules as every other source: live pulls are off in Safe Mode, every network call is in the egress audit, and a bundled snapshot keeps the feature honest when the network is not there.
 
+Two more from live feedback:
+
+- **iHeart, now something you can browse.** iHeart was searchable but you could not wander it. The Browse Stations tree gains an **iHeart** branch that opens into **genres**, and each genre into an **A-Z** sub-directory, all loading lazily as you open them -- so you can flip to Country, then to the letter K, then play, without typing a thing. (The XML sitemap iHeart search uses carries no genre, so browse quietly uses iHeart's free, keyless content API instead; each station arrives with its stream already attached, so a genre opens in a single request.)
+- **The Source filter stops hiding SomaFM stations.** A SomaFM channel that RadioBrowser also lists was folded into one search result, and picking **SomaFM** in the Source dropdown could then hide it. Search now remembers every directory a merged station came from, so "Groove Salad" answers to the SomaFM, RadioBrowser, and TuneIn filters alike, while the result row still names the directory it played from.
+
 ## Update 2.1.0
 
 Quill Radio 2.1.0 adds a top-level **Weather** menu, a whole new way to **browse stations**, **one-click updating**, and a round of fixes from live feedback -- all in the shared `quill` package, so QUILL gets them too.

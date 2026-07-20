@@ -246,6 +246,25 @@ paper.</li>
 pulls are off in Safe Mode, every network call is in the egress audit,
 and a bundled snapshot keeps the feature honest when the network is not
 there.</p>
+<p>Two more from live feedback:</p>
+<ul>
+<li><strong>iHeart, now something you can browse.</strong> iHeart was
+searchable but you could not wander it. The Browse Stations tree gains
+an <strong>iHeart</strong> branch that opens into
+<strong>genres</strong>, and each genre into an <strong>A-Z</strong>
+sub-directory, all loading lazily as you open them -- so you can flip to
+Country, then to the letter K, then play, without typing a thing. (The
+XML sitemap iHeart search uses carries no genre, so browse quietly uses
+iHeart's free, keyless content API instead; each station arrives with
+its stream already attached, so a genre opens in a single request.)</li>
+<li><strong>The Source filter stops hiding SomaFM stations.</strong> A
+SomaFM channel that RadioBrowser also lists was folded into one search
+result, and picking <strong>SomaFM</strong> in the Source dropdown could
+then hide it. Search now remembers every directory a merged station came
+from, so "Groove Salad" answers to the SomaFM, RadioBrowser, and TuneIn
+filters alike, while the result row still names the directory it played
+from.</li>
+</ul>
 <h2 id="update-210">Update 2.1.0</h2>
 <p>Quill Radio 2.1.0 adds a top-level <strong>Weather</strong> menu, a
 whole new way to <strong>browse stations</strong>, <strong>one-click

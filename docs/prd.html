@@ -634,6 +634,27 @@ print-disabled listeners. 20 vetted services ship as a bundled snapshot
 <strong>Update Radio Reading Services</strong> refreshes live from
 RadioBrowser through a cache -&gt; live -&gt; snapshot resolver
 mirroring wxindex (Safe-Mode-guarded). Detailed in §18.6-18.7.</li>
+<li><em>iHeart in Browse.</em> iHeart, previously search-only (upstream
+§8, 2.0.0), gains a Browse Stations branch: genre folders, each an A-Z
+sub-directory, all lazy (<code>ui/radio/browse_tree_dialog.py</code>).
+The XML sitemap the search path uses carries no genre, so browse reads
+iHeart's free, keyless JSON content API (<code>us.api.iheart.com</code>:
+<code>/content/genre</code>,
+<code>/content/liveStations?genreId=</code>), where each row embeds its
+own stream -- one GET per genre, no per-station page fetch. New core:
+<code>iheart.parse_genres</code>/<code>parse_genre_stations</code>/<code>fetch_genres</code>/<code>fetch_genre_stations</code>,
+routed through the existing reviewed <code>iheart._fetch</code> egress
+site (rationale expanded to cover the content API).
+Safe-Mode-guarded.</li>
+<li><em>Unified-search Source filter de-dup fix.</em> A station carried
+by more than one directory (e.g. a SomaFM channel RadioBrowser also
+lists) was de-duplicated to a single result, so the Source facet could
+hide it under the wrong directory.
+<code>directory_search.merge_and_rank</code> now records every absorbed
+duplicate's source on a transient, identity-neutral
+<code>RadioStation.alt_sources</code>, and the facet matches the full
+set via <code>directory_search.station_source_labels</code>; the result
+row still badges the winning source.</li>
 </ul></li>
 <li><strong>2.0.2 (upstream <code>quill/core/radio/*</code>,
 <code>quill/apps/radio.py</code>,
