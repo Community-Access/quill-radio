@@ -20,8 +20,8 @@ rest of the QuillVille family.
 ## Why this repository still exists
 
 Quill Radio 2.x checks this repository's [Releases](../../releases) for updates.
-**Quill Radio 3.0.2 is the last release published here**, so every 2.x copy is
-offered it. (3.0.0 was withdrawn the day after it shipped; 3.0.2 is the current release.) From 3.0 on, Check for Updates looks in the QUILL repository by
+**Quill Radio 3.0.3 is the last release published here**, so every 2.x copy is
+offered it. (3.0.0 was withdrawn the day after it shipped; 3.0.3 is the current release.) From 3.0 on, Check for Updates looks in the QUILL repository by
 itself.
 
 This repository will be **retired on 2026-10-26**, 30 days after Quill Radio 3.0
@@ -30,9 +30,9 @@ issues or changes. Its releases stay downloadable.
 
 Updating from 2.x:
 
-- **Installed copy:** choose **Update** when Quill Radio offers 3.0.2. It installs
+- **Installed copy:** choose **Update** when Quill Radio offers 3.0.3. It installs
   over your current copy and keeps your favorites and settings.
-- **Portable copy:** unzip 3.0.2 and start it. It finds your 2.x favorites on this
+- **Portable copy:** unzip 3.0.3 and start it. It finds your 2.x favorites on this
   computer and asks whether to copy them in; press Enter for Yes. Your old copy is
   only read, never changed.
 
